@@ -1,0 +1,98 @@
+spring:
+  profiles:
+    active: local
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 10MB
+      file-size-threshold: 0
+  web:
+    resources:
+      chain:
+        compressed: true
+  jpa:
+    properties:
+      hibernate:
+        default_batch_fetch_size: 1000
+    open-in-view: false
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    driver-class-name: com.amazonaws.secretsmanager.sql.AWSSecretsManagerMySQLDriver
+server:
+  compression:
+    enabled: true
+  http2:
+    enabled: true
+  servlet:
+    session:
+      cookie:
+        name: JSESSIONID
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+springdoc:
+  api-docs:
+    enabled: false
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+  override-with-generic-response: false
+decorator:
+  datasource:
+    p6spy:
+      logging: slf4j
+      multiline: true
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:h2:mem:mydb;MODE=MySQL;DATABASE_TO_LOWER=TRUE;
+    username: sa
+    driver-class-name: org.h2.Driver
+    hikari:
+      maximum-pool-size: 3
+      minimum-idle: 2
+server:
+  port: 8080
+springdoc:
+  api-docs:
+    enabled: true
+  paths-to-match:
+    - /api/v1/**
+sentry:
+  logging:
+    enabled: false
+environment:
+  app:
+    test: test
+---
+spring:
+  config:
+    activate:
+      on-profile: sandbox
+  datasource:
+    url:
+    username:
+    password:
+    hikari:
+      maximum-pool-size: 3
+      minimum-idle: 2
+server:
+  port: 8000
+springdoc:
+  api-docs:
+    enabled: true
+  paths-to-match:
+    - /api/v1/**
+sentry:
+  dsn: https://7bb0a4fc0ddc4803998ee772401e3cfc@o368486.ingest.sentry.io/5197118
+  environment: sandbox
+  server-name:
+  traces-sample-rate: 1.0
+environment:
+  app:
+    test: test
