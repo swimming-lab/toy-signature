@@ -32,6 +32,7 @@ server:
       charset: UTF-8
       enabled: true
       force: true
+    context-path: /api
 springdoc:
   api-docs:
     enabled: false
@@ -69,30 +70,35 @@ sentry:
 environment:
   app:
     test: test
+jwt:
+  auth:
+    token:
+      sign-key: signKey012345678901234567890123456789
+      valid-time: 3000000
 ---
 spring:
   config:
     activate:
-      on-profile: sandbox
+      on-profile: prod
   datasource:
     url:
     username:
     password:
     hikari:
-      maximum-pool-size: 3
-      minimum-idle: 2
+      maximum-pool-size: 30
+      minimum-idle: 10
 server:
   port: 8000
-springdoc:
-  api-docs:
-    enabled: true
-  paths-to-match:
-    - /api/v1/**
 sentry:
   dsn: https://7bb0a4fc0ddc4803998ee772401e3cfc@o368486.ingest.sentry.io/5197118
-  environment: sandbox
+  environment: prod
   server-name:
   traces-sample-rate: 1.0
 environment:
   app:
     test: test
+jwt:
+  auth:
+    token:
+      sign-key: signKey012345678901234567890123456789
+      valid-time: 3000000
