@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.*;
 
@@ -25,6 +26,7 @@ public class UserDto {
 
     @Getter
     @AllArgsConstructor
+    @NoArgsConstructor
     @Builder
     @JsonTypeName("user")
     @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
@@ -45,6 +47,7 @@ public class UserDto {
 
     @Getter
     @AllArgsConstructor
+    @NoArgsConstructor
     @Builder
     @JsonTypeName("user")
     @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
