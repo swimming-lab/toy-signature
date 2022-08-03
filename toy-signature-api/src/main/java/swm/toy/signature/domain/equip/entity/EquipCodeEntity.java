@@ -1,5 +1,6 @@
 package swm.toy.signature.domain.equip.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,9 +17,16 @@ import javax.persistence.Table;
 @Table(name = "equip_code")
 public class EquipCodeEntity extends BaseEntity {
     @Column(nullable = false)
-    private Integer equipCd;            //'보유장비코드'
+    private String equipCode;
     @Column(nullable = false)
-    private String equipModel;         //'보유장비모델'
+    private String equipModel;
     @Column(nullable = false)
-    private String equipNm;            //'장비명'
+    private String equipName;
+
+    @Builder
+    public EquipCodeEntity(String equipCode, String equipModel, String equipName) {
+        this.equipCode = equipCode;
+        this.equipModel = equipModel;
+        this.equipName = equipName;
+    }
 }

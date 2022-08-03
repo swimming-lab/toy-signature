@@ -16,29 +16,29 @@ import javax.persistence.*;
 @Table(name = "equips")
 public class EquipEntity extends BaseEntity {
     @Column(nullable = false)
-    private Integer equipCd;            //'보유장비코드'
+    private Integer equipCode;
     @Column(nullable = false)
-    private String equipModel;         //'보유장비모델'
+    private String equipModel;
     @Column(nullable = false)
-    private String equipNm;            //'장비명'
+    private String equipName;
     @Column(nullable = false)
-    private Integer seq;                //'순번'
+    private Integer seq;
     @Column(nullable = false)
-    private String licensePlate;       //'차량번호'
+    private String licensePlate;
     @Column(nullable = false)
-    private String insuranceYn;        //'보험가입여부'
+    private String insuranceYn;
     @Column(nullable = false)
-    private String routineYn;          //'정기검사여부'
+    private String routineYn;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private UserEntity author;
 
     @Builder
-    public EquipEntity(Integer equipCd, String equipModel, String equipNm, Integer seq, String licensePlate, String insuranceYn, String routineYn, UserEntity author) {
-        this.equipCd = equipCd;
+    public EquipEntity(Integer equipCode, String equipModel, String equipName, Integer seq, String licensePlate, String insuranceYn, String routineYn, UserEntity author) {
+        this.equipCode = equipCode;
         this.equipModel = equipModel;
-        this.equipNm = equipNm;
+        this.equipName = equipName;
         this.seq = seq;
         this.licensePlate = licensePlate;
         this.insuranceYn = insuranceYn;

@@ -3,20 +3,20 @@ package swm.toy.signature.domain.equip.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @Builder
-public class EquipDto {
-    private Integer equipCode;
-    private String equipModel;
-    private String equipName;
-    private Integer seq;
-    private String licensePlate;
-    private String insuranceYn;
-    private String routineYn;
+public class EquipCodeDto {
+    @NotNull
+    private String code;
+    @NotNull
+    private String model;
+    @NotNull
+    private String name;
     private Author author;
 
     @Getter
@@ -35,7 +35,7 @@ public class EquipDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SingleEquip<T> {
+    public static class SingleEquipCode<T> {
         private T equip;
     }
 
@@ -43,8 +43,8 @@ public class EquipDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class MultipleEquip {
-        private List<EquipDto> equips;
+    public static class MultipleEquipCode {
+        private List<EquipCodeDto> equips;
     }
 
     @Getter
