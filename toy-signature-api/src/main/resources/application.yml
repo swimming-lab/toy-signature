@@ -15,8 +15,9 @@ spring:
     properties:
       hibernate:
         default_batch_fetch_size: 1000
-    open-in-view: false
+        open-in-view: false
     database-platform: org.hibernate.dialect.MySQL8Dialect
+    defer-datasource-initialization: true
   datasource:
     driver-class-name: com.amazonaws.secretsmanager.sql.AWSSecretsManagerMySQLDriver
 server:
@@ -25,13 +26,13 @@ server:
   #http2:
   #  enabled: true
   servlet:
-    session:
-      cookie:
-        name: JSESSIONID
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true
+    #session:
+    #  cookie:
+    #    name: JSESSIONID
+    #encoding:
+    #  charset: UTF-8
+    #  enabled: true
+    #  force: true
     context-path: /api
 springdoc:
   api-docs:
@@ -68,9 +69,9 @@ springdoc:
     enabled: true
   #paths-to-match:
   #  - /api/v1/**
-sentry:
-  logging:
-    enabled: false
+#sentry:
+#  logging:
+#    enabled: false
 environment:
   app:
     test: test
@@ -93,11 +94,11 @@ spring:
       minimum-idle: 10
 server:
   port: 8000
-sentry:
-  dsn: https://7bb0a4fc0ddc4803998ee772401e3cfc@o368486.ingest.sentry.io/5197118
-  environment: prod
-  server-name:
-  traces-sample-rate: 1.0
+#sentry:
+#  dsn: https://7bb0a4fc0ddc4803998ee772401e3cfc@o368486.ingest.sentry.io/5197118
+#  environment: prod
+#  server-name:
+#  traces-sample-rate: 1.0
 environment:
   app:
     test: test

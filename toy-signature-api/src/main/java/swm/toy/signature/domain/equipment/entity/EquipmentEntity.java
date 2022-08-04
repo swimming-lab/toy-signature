@@ -1,4 +1,4 @@
-package swm.toy.signature.domain.equip.entity;
+package swm.toy.signature.domain.equipment.entity;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -13,14 +13,8 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "equips")
-public class EquipEntity extends BaseEntity {
-    @Column(nullable = false)
-    private Integer equipCode;
-    @Column(nullable = false)
-    private String equipModel;
-    @Column(nullable = false)
-    private String equipName;
+@Table(name = "equipment")
+public class EquipmentEntity extends BaseEntity {
     @Column(nullable = false)
     private Integer seq;
     @Column(nullable = false)
@@ -35,10 +29,7 @@ public class EquipEntity extends BaseEntity {
     private UserEntity author;
 
     @Builder
-    public EquipEntity(Integer equipCode, String equipModel, String equipName, Integer seq, String licensePlate, String insuranceYn, String routineYn, UserEntity author) {
-        this.equipCode = equipCode;
-        this.equipModel = equipModel;
-        this.equipName = equipName;
+    public EquipmentEntity(Integer seq, String licensePlate, String insuranceYn, String routineYn, UserEntity author) {
         this.seq = seq;
         this.licensePlate = licensePlate;
         this.insuranceYn = insuranceYn;

@@ -24,7 +24,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	// implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
 	// lombok
 	compileOnly 'org.projectlombok:lombok'
@@ -38,7 +38,7 @@ dependencies {
 			'io.jsonwebtoken:jjwt-jackson:0.11.5' // or 'io.jsonwebtoken:jjwt-gson:0.11.5' for gson
 
 	// JSONParser, JSONObject설정
-	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+	//implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 
 	// h2
 	runtimeOnly 'com.h2database:h2'
