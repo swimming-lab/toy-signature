@@ -1,4 +1,4 @@
-package swm.toy.signature.domain.equipment.dto;
+package swm.toy.signature.domain.equip.dto;
 
 import lombok.*;
 
@@ -10,16 +10,17 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EquipmentCateDto {
-    @NotNull
-    private String name;
+public class EquipBrandDto {
+    private Long id;
+
+    private String brandName;
 
     @Getter
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Single<T> {
-        private T equipmentCate;
+        private T equipBrand;
     }
 
     @Getter
@@ -27,15 +28,17 @@ public class EquipmentCateDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Multiple {
-        private List<EquipmentCateDto> equipmentCateDtos;
+        private List<EquipBrandDto> equipBrands;
     }
 
     @Getter
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Update {
+    public static class Update<T> {
+        @NotNull
         private Long id;
-        private String name;
+        @NotNull
+        private String brandName;
     }
 }

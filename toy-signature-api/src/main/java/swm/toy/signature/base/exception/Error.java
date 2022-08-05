@@ -15,7 +15,9 @@ public enum Error {
     ARTICLE_NOT_FOUND("article not found", HttpStatus.NOT_FOUND),
     FAVORITE_NOT_FOUND("favorite not found", HttpStatus.NOT_FOUND),
     COMMENT_NOT_FOUND("comment not found", HttpStatus.NOT_FOUND),
-    EQUIPMENT_CATE_NOT_FOUND("equipment cate not found", HttpStatus.NOT_FOUND),
+    EQUIP_NOT_FOUND("equip not found", HttpStatus.NOT_FOUND),
+    EQUIP_TYPE_NOT_FOUND("equip type not found", HttpStatus.NOT_FOUND),
+    EQUIP_BRAND_NOT_FOUND("equip brand not found", HttpStatus.NOT_FOUND),
     ;
 
     private final String message;
