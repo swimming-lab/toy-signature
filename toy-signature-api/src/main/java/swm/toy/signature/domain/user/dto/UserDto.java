@@ -17,12 +17,11 @@ import javax.validation.constraints.*;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
 public class UserDto {
     private String email;
+
     private String token;
 
     @JsonProperty("username")
     private String name;
-    private String bio;
-    private String image;
 
     @Getter
     @AllArgsConstructor
@@ -70,8 +69,6 @@ public class UserDto {
         private Long id;
         private String email;
         private String name;
-        private String bio;
-        private String image;
         private String password;
     }
 
@@ -82,7 +79,5 @@ public class UserDto {
         private Long id;
         private String email;
         private String name;
-        private String bio;
-        private String image;
     }
 }

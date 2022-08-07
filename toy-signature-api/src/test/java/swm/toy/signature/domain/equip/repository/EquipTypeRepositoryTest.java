@@ -40,4 +40,13 @@ class EquipTypeRepositoryTest {
 
         assertTrue(equipBrand.isPresent());
     }
+
+    @Test
+    void whenTypeExist_thenEquipTypeEntityFound() {
+        String type = savedEquipType.getType();
+
+        Optional<EquipTypeEntity> maybeEquipEntity = equipTypeRepository.findByType(type);
+
+        assertTrue(maybeEquipEntity.isPresent());
+    }
 }

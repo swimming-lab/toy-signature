@@ -26,7 +26,8 @@ public class EquipTypeServiceImpl implements EquipTypeService {
                 .heavy(equipType.getHeavy())
                 .build();
 
-        return convertEntityToDto(equipTypeRepository.save(entity));
+        equipTypeRepository.save(entity);
+        return convertEntityToDto(entity);
     }
 
     @Transactional
@@ -41,7 +42,8 @@ public class EquipTypeServiceImpl implements EquipTypeService {
             entity.setHeavy(equipType.getHeavy());
         }
 
-        return convertEntityToDto(equipTypeRepository.save(entity));
+        equipTypeRepository.save(entity);
+        return convertEntityToDto(entity);
     }
 
     @Transactional(readOnly = true)

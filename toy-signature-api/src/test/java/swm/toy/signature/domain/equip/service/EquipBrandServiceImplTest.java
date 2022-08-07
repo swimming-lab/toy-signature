@@ -10,13 +10,15 @@ import swm.toy.signature.domain.equip.entity.EquipBrandEntity;
 import swm.toy.signature.domain.equip.repository.EquipBrandRepository;
 import swm.toy.signature.domain.user.dto.UserDto;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class EquipBrandServiceTest {
+class EquipBrandServiceImplTest {
     EquipBrandServiceImpl equipBrandService;
 
     @Mock
@@ -35,8 +37,6 @@ class EquipBrandServiceTest {
                 .id(1L)
                 .email("email@email.com")
                 .name("testUser")
-                .bio("bio")
-                .image("photo-path")
                 .build();
 
         equipBrand = EquipBrandDto.builder()
@@ -58,16 +58,18 @@ class EquipBrandServiceTest {
     }
 
     @Test
-    void whenUpdateEquipBrandWithNewBrandName_thenReturnUpdatedSingleEqiupBrandWithUpdatedBrandNamew() {
-//        EquipBrandDto.Update update = EquipBrandDto.Update.builder().brandName("혼다").build();
-//
-//        when(equipBrandRepository.findById(eq(1L))).thenReturn(Optional.ofNullable(expectedEquipBrand));
-//
-//        EquipBrandDto actual = equipBrandService.updateEquipBrand(update, authUser);
-//        System.out.println(actual);
-//
-//        assertThat(actual).isNotNull();
-//        assertThat(expectedEquipBrand.getBrandName()).isEqualTo(actual.getBrandName());
-//        assertEquals(update.getBrandName(), actual.getBrandName());
+    void whenUpdateEquipBrandDto_thenReturnUpdatedEquipBrand() {
+        EquipBrandDto.Update update = EquipBrandDto.Update.builder()
+                .id(1L)
+                .brandName("혼다")
+                .build();
+
+        when(equipBrandRepository.findById(eq(update.getId()))).thenReturn(Optional.of(expectedEquipBrand));
+
+        EquipBrandDto actual = equipBrandService.updateEquipBrand(update, authUser);
+        System.out.println(actual);
+
+        assertNotNull(actual.getBrandName());
+        assertEquals(update.getBrandName(), actual.getBrandName());
     }
 }

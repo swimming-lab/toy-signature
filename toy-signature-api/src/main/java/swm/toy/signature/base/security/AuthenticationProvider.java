@@ -23,8 +23,6 @@ public class AuthenticationProvider {
                 .id(userEntity.getId())
                 .name(userEntity.getName())
                 .email(userEntity.getEmail())
-                .bio(userEntity.getBio())
-                .image(userEntity.getImage())
                 .build();
         return new UsernamePasswordAuthenticationToken(authenticatedUser, "", userDetail.getAuthorities());
     }

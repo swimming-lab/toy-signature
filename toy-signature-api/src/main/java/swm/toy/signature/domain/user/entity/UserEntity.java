@@ -28,19 +28,13 @@ public class UserEntity extends BaseEntity implements UserDetails {
     private String email;
     @Column(nullable = false)
     private String password;
-    @Column
-    private String bio;
-    @Column
-    private String image;
 
     @Builder
-    public UserEntity(Long id, String name, String email, String password, String bio, String image) {
+    public UserEntity(Long id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.bio = bio;
-        this.image = image;
     }
 
     @Override

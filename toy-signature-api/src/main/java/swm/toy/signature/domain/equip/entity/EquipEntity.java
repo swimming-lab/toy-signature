@@ -14,6 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "equip")
+@NamedEntityGraph(name = "fetch-author-equipType-equipBrand", attributeNodes = {@NamedAttributeNode("author"), @NamedAttributeNode("equipType"), @NamedAttributeNode("equipBrand")})
 public class EquipEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

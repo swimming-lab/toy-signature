@@ -33,8 +33,6 @@ public class EquipServiceImpl implements EquipService {
         UserEntity author = UserEntity.builder()
                 .id(authUser.getId())
                 .name(authUser.getName())
-                .bio(authUser.getBio())
-                .image(authUser.getImage())
                 .build();
 
         EquipTypeEntity equipType = equipTypeRepository.findById(equip.getEquipType().getId())
@@ -52,7 +50,8 @@ public class EquipServiceImpl implements EquipService {
                 .author(author)
                 .build();
 
-        return convertEntityToDto(equipRepository.save(entity));
+        equipRepository.save(entity);
+        return convertEntityToDto(entity);
     }
 
     @Transactional
@@ -90,7 +89,8 @@ public class EquipServiceImpl implements EquipService {
             entity.setEquipBrand(equipBrandEntity);
         }
 
-        return convertEntityToDto(equipRepository.save(entity));
+        equipRepository.save(entity);
+        return convertEntityToDto(entity);
     }
 
     @Transactional(readOnly = true)

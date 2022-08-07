@@ -25,7 +25,8 @@ public class EquipBrandServiceImpl implements EquipBrandService {
                 .brandName(equipBrand.getBrandName())
                 .build();
 
-        return convertEntityToDto(equipBrandRepository.save(entity));
+        equipBrandRepository.save(entity);
+        return convertEntityToDto(entity);
     }
 
     @Transactional
@@ -37,7 +38,8 @@ public class EquipBrandServiceImpl implements EquipBrandService {
             entity.setBrandName(equipBrand.getBrandName());
         }
 
-        return convertEntityToDto(equipBrandRepository.save(entity));
+        equipBrandRepository.save(entity);
+        return convertEntityToDto(entity);
     }
 
     @Transactional(readOnly = true)
