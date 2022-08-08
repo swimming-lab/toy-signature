@@ -1,6 +1,8 @@
 package swm.toy.signature.domain.equip.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import swm.toy.signature.base.exception.AppException;
@@ -11,6 +13,7 @@ import swm.toy.signature.domain.equip.dto.EquipTypeDto;
 import swm.toy.signature.domain.equip.entity.EquipBrandEntity;
 import swm.toy.signature.domain.equip.entity.EquipEntity;
 import swm.toy.signature.domain.equip.entity.EquipTypeEntity;
+import swm.toy.signature.domain.equip.model.EquipQueryParam;
 import swm.toy.signature.domain.equip.repository.EquipBrandRepository;
 import swm.toy.signature.domain.equip.repository.EquipRepository;
 import swm.toy.signature.domain.equip.repository.EquipTypeRepository;
@@ -95,8 +98,13 @@ public class EquipServiceImpl implements EquipService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<EquipDto> getEquips() {
-        return equipRepository.findAll().stream().map(entity -> {
+    public List<EquipDto> getEquips(EquipQueryParam equipQueryParam, UserDto.Auth authUser) {
+        Pageable pageable = null;
+        if (equipQueryParam.getOffset() != null) {
+            pageable = PageRequest.of(equipQueryParam.getOffset(), equipQueryParam.getLimit());
+        }
+
+        return equipRepository.findByAutherIdOrderBySequenceAsc(authUser.getId(), pageable).stream().map(entity -> {
             return convertEntityToDto(entity);
         }).collect(Collectors.toList());
     }
@@ -114,6 +122,11 @@ public class EquipServiceImpl implements EquipService {
                         .build())
                 .equipBrand(EquipBrandDto.builder()
                         .brandName(entity.getEquipBrand().getBrandName())
+                        .build())
+                .author(EquipDto.Author.builder()
+                        .id(entity.getAuthor().getId())
+                        .email(entity.getAuthor().getEmail())
+                        .name(entity.getAuthor().getName())
                         .build())
                 .build();
     }

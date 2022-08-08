@@ -31,6 +31,18 @@ public class EquipDto {
     @NotNull
     private EquipBrandDto equipBrand;
 
+    private Author author;
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Author {
+        private Long id;
+        private String email;
+        private String name;
+    }
+
     @Getter
     @Builder
     @NoArgsConstructor

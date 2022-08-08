@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import swm.toy.signature.domain.equip.dto.EquipDto;
+import swm.toy.signature.domain.equip.model.EquipQueryParam;
 import swm.toy.signature.domain.equip.service.EquipService;
 import swm.toy.signature.domain.user.dto.UserDto;
 
@@ -16,8 +17,8 @@ public class EquipController {
     private final EquipService equipService;
 
     @GetMapping()
-    public EquipDto.Multiple getEquip() {
-        return new EquipDto.Multiple(equipService.getEquips());
+    public EquipDto.Multiple getEquip(@ModelAttribute @Valid EquipQueryParam equipQueryParam, @AuthenticationPrincipal UserDto.Auth authUser) {
+        return new EquipDto.Multiple(equipService.getEquips(equipQueryParam, authUser));
     }
 
     @PostMapping
