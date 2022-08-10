@@ -130,7 +130,7 @@ class EquipServiceImplTest {
     void whenQueryEquip_thenReturnEquips() {
         EquipQueryParam query = new EquipQueryParam();
 
-        when(equipRepository.findByAutherIdOrderBySequenceAsc(eq(1L), any())).thenReturn(List.of(expectedEquip));
+        when(equipRepository.findByAuthorIdOrderBySequenceAsc(eq(1L), any())).thenReturn(List.of(expectedEquip));
 
         List<EquipDto> actual = equipService.getEquips(query, authUser);
 

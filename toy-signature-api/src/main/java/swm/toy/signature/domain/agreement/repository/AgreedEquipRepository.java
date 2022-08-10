@@ -13,5 +13,5 @@ import java.util.List;
 public interface AgreedEquipRepository extends JpaRepository<AgreedEquipEntity, Long> {
     @EntityGraph(attributePaths = {"agreement"}, type = EntityGraph.EntityGraphType.FETCH)
     @Query("SELECT ae FROM AgreedEquipEntity ae LEFT JOIN ae.agreement a WHERE a.author.id = :id ORDER BY a.createdAt DESC")
-    List<AgreementEntity> findByAuthorIdOrderByCreatedAtDesc(@Param("id") Long id, Pageable pageable);
+    List<AgreedEquipEntity> findByAuthorIdOrderByCreatedAtDesc(@Param("id") Long id, Pageable pageable);
 }

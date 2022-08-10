@@ -1,15 +1,14 @@
 package swm.toy.signature.domain.agreement.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import swm.toy.signature.base.entity.BaseEntity;
 import swm.toy.signature.domain.user.entity.UserEntity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -74,10 +73,10 @@ public class AgreementEntity extends BaseEntity {
     private AgreementTypeEntity agreementType;
 
     @OneToMany(mappedBy = "agreement", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<AgreedEquipEntity> agreedEquips;
+    private Set<AgreedEquipEntity> agreedEquips = new HashSet<>();
 
     @Builder
-    public AgreementEntity(LocalDateTime startDate, LocalDateTime endDate, Long lessorId, String lessorName, String lessorTelNo, String lessorAddr, Long lesseeId, String lesseeName, String lesseeTelNo, String lesseeAddr, String status, Long amount, Long overAmount, String etc, UserEntity author, AgreementTypeEntity agreementType, List<AgreedEquipEntity> agreedEquips) {
+    public AgreementEntity(LocalDateTime startDate, LocalDateTime endDate, Long lessorId, String lessorName, String lessorTelNo, String lessorAddr, Long lesseeId, String lesseeName, String lesseeTelNo, String lesseeAddr, String status, Long amount, Long overAmount, String etc, UserEntity author, AgreementTypeEntity agreementType) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.lessorId = lessorId;
@@ -94,6 +93,9 @@ public class AgreementEntity extends BaseEntity {
         this.etc = etc;
         this.author = author;
         this.agreementType = agreementType;
-        this.agreedEquips = agreedEquips;
+    }
+
+    public void addAgreedEquips(AgreedEquipEntity agreedEquipEntity) {
+        this.agreedEquips.add(agreedEquipEntity);
     }
 }

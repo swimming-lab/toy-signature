@@ -12,5 +12,5 @@ import java.util.List;
 public interface EquipRepository extends JpaRepository<EquipEntity, Long> {
     @EntityGraph("fetch-author-equipType-equipBrand")
     @Query("SELECT e FROM EquipEntity e WHERE e.author.id = :id ORDER BY e.sequence ASC")
-    List<EquipEntity> findByAutherIdOrderBySequenceAsc(@Param("id") Long id, Pageable pageable);
+    List<EquipEntity> findByAuthorIdOrderBySequenceAsc(@Param("id") Long id, Pageable pageable);
 }

@@ -92,7 +92,7 @@ class EquipRepositoryTest {
 
         equipRepository.saveAll(List.of(equip2, equip3));
 
-        List<EquipEntity> actual = equipRepository.findByAutherIdOrderBySequenceAsc(user1.getId(), PageRequest.of(0, 3));
+        List<EquipEntity> actual = equipRepository.findByAuthorIdOrderBySequenceAsc(user1.getId(), PageRequest.of(0, 3));
 
         assertEquals(3, actual.size());
         assertEquals(actual.get(0).getSequence(), 1);

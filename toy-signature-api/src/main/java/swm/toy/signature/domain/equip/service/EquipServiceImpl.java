@@ -104,7 +104,7 @@ public class EquipServiceImpl implements EquipService {
             pageable = PageRequest.of(equipQueryParam.getOffset(), equipQueryParam.getLimit());
         }
 
-        return equipRepository.findByAutherIdOrderBySequenceAsc(authUser.getId(), pageable).stream().map(entity -> {
+        return equipRepository.findByAuthorIdOrderBySequenceAsc(authUser.getId(), pageable).stream().map(entity -> {
             return convertEntityToDto(entity);
         }).collect(Collectors.toList());
     }

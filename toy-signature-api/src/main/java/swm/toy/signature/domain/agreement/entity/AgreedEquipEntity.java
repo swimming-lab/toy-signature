@@ -1,9 +1,7 @@
 package swm.toy.signature.domain.agreement.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.Cascade;
 import swm.toy.signature.domain.equip.entity.EquipEntity;
 
 import javax.persistence.*;
@@ -37,11 +35,12 @@ public class AgreedEquipEntity {
     @Column(nullable = false)
     private String type;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(nullable = false)
     private EquipEntity equip;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinColumn(nullable = false)
     private AgreementEntity agreement;
 

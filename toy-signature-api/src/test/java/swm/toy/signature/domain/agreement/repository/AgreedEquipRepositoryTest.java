@@ -3,6 +3,7 @@ package swm.toy.signature.domain.agreement.repository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.PageRequest;
 import swm.toy.signature.domain.agreement.entity.AgreedEquipEntity;
 import swm.toy.signature.domain.agreement.entity.AgreementEntity;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DataJpaTest
 class AgreedEquipRepositoryTest {
     @Autowired
     AgreementRepository agreementRepository;
@@ -44,6 +46,8 @@ class AgreedEquipRepositoryTest {
     private AgreementEntity agreement2;
     private AgreementEntity agreement3;
     private AgreedEquipEntity agreedEquip1;
+    private AgreedEquipEntity agreedEquip2;
+    private AgreedEquipEntity agreedEquip3;
     private EquipBrandEntity equipBrandEntity;
     private EquipTypeEntity equipTypeEntity;
     private EquipEntity equipEntity;
@@ -106,6 +110,7 @@ class AgreedEquipRepositoryTest {
                 .author(user1)
                 .agreementType(agreementType)
                 .build();
+        agreement1 = agreementRepository.save(agreement1);
 
         agreedEquip1 = AgreedEquipEntity.builder()
                 .licensePlate(equipEntity.getLicensePlate())
@@ -117,8 +122,8 @@ class AgreedEquipRepositoryTest {
                 .agreement(agreement1)
                 .equip(equipEntity)
                 .build();
-
-        agreement1 = agreementRepository.save(agreement1);
+        agreement1.addAgreedEquips(agreedEquip1);
+        agreedEquip1 = agreedEquipRepository.save(agreedEquip1);
     }
 
     @Test
@@ -163,14 +168,37 @@ class AgreedEquipRepositoryTest {
 
         agreementRepository.saveAll(List.of(agreement2, agreement3));
 
-        // TODO page 해결
-        // firstResult/maxResults specified with collection fetch; applying in memory!
-        List<AgreementEntity> actual = agreedEquipRepository.findByAuthorIdOrderByCreatedAtDesc(user1.getId(), PageRequest.of(0, 3));
+        agreedEquip2 = AgreedEquipEntity.builder()
+                .licensePlate(equipEntity.getLicensePlate())
+                .insuranceYn(equipEntity.getInsuranceYn())
+                .routineYn(equipEntity.getRoutineYn())
+                .type(equipTypeEntity.getType())
+                .heavy(equipTypeEntity.getHeavy())
+                .brand(equipBrandEntity.getBrandName())
+                .agreement(agreement2)
+                .equip(equipEntity)
+                .build();
+        agreedEquip2 = agreedEquipRepository.save(agreedEquip2);
 
+        agreedEquip3 = AgreedEquipEntity.builder()
+                .licensePlate(equipEntity.getLicensePlate())
+                .insuranceYn(equipEntity.getInsuranceYn())
+                .routineYn(equipEntity.getRoutineYn())
+                .type(equipTypeEntity.getType())
+                .heavy(equipTypeEntity.getHeavy())
+                .brand(equipBrandEntity.getBrandName())
+                .agreement(agreement3)
+                .equip(equipEntity)
+                .build();
+        agreedEquipRepository.saveAll(List.of(agreedEquip2, agreedEquip3));
+
+        // TODO N+1, Pagination 해결
+        // firstResult/maxResults specified with collection fetch; applying in memory!
+        List<AgreedEquipEntity> actual = agreedEquipRepository.findByAuthorIdOrderByCreatedAtDesc(user1.getId(), PageRequest.of(0, 3));
+        actual.stream().forEach(a -> System.out.println(a.getAgreement()));
         assertEquals(3, actual.size());
         assertEquals(actual.get(0).getId(), 1L);
         assertEquals(actual.get(1).getId(), 2L);
         assertEquals(actual.get(2).getId(), 3L);
     }
-
 }

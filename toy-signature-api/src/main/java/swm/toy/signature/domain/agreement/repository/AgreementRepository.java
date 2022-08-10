@@ -11,6 +11,7 @@ import swm.toy.signature.domain.equip.entity.EquipEntity;
 import java.util.List;
 
 public interface AgreementRepository extends JpaRepository<AgreementEntity, Long> {
+    // Pagination 문제 발생함 > OneToMany 관계 때문
     @EntityGraph("fetch-author-agreementType-agreedEquip")
     @Query("SELECT a FROM AgreementEntity a WHERE a.author.id = :id ORDER BY a.createdAt DESC")
     List<AgreementEntity> findByAuthorIdOrderByCreatedAtDesc(@Param("id") Long id, Pageable pageable);
