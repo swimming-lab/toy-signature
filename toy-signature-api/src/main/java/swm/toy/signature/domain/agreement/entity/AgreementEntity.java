@@ -16,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "agreement")
+@NamedEntityGraph(name = "fetch-author-agreementType-agreedEquip", attributeNodes = {@NamedAttributeNode("author"), @NamedAttributeNode("agreementType"), @NamedAttributeNode("agreedEquips")})
 public class AgreementEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
