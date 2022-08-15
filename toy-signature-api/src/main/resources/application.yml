@@ -7,43 +7,25 @@ spring:
       max-file-size: 20MB
       max-request-size: 10MB
       file-size-threshold: 0
-  #web:
-  #  resources:
-  #    chain:
-  #      compressed: true
   jpa:
     properties:
       hibernate:
         default_batch_fetch_size: 100
         open-in-view: false
-    database-platform: org.hibernate.dialect.MySQL8Dialect
     defer-datasource-initialization: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 server:
-  #compression:
-  #  enabled: true
-  #http2:
-  #  enabled: true
   servlet:
-    #session:
-    #  cookie:
-    #    name: JSESSIONID
-    #encoding:
-    #  charset: UTF-8
-    #  enabled: true
-    #  force: true
     context-path: /api
 springdoc:
   api-docs:
-    #enabled: false
+    enabled: true
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
   override-with-generic-response: false
-#decorator:
-#  datasource:
-#    p6spy:
-#      logging: slf4j
-#      multiline: true
 ---
 spring:
   config:
@@ -67,6 +49,18 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+  redis:
+    host: localhost
+    port: 6379
+server:
+  port: 8080
+environment:
+  app:
+    test: test
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
 logging:
   level:
     org:
@@ -74,24 +68,6 @@ logging:
         type:
           descriptor:
             sql: trace
-server:
-  port: 8080
-springdoc:
-  api-docs:
-    enabled: true
-  #paths-to-match:
-  #  - /api/v1/**
-#sentry:
-#  logging:
-#    enabled: false
-environment:
-  app:
-    test: test
-jwt:
-  auth:
-    token:
-      sign-key: signKey012345678901234567890123456789
-      valid-time: 30000000
 ---
 spring:
   config:
@@ -104,19 +80,9 @@ spring:
     hikari:
       maximum-pool-size: 30
       minimum-idle: 10
-    driver-class-name: com.amazonaws.secretsmanager.sql.AWSSecretsManagerMySQLDriver
+    #driver-class-name: com.amazonaws.secretsmanager.sql.AWSSecretsManagerMySQLDriver
 server:
   port: 8000
-#sentry:
-#  dsn: https://7bb0a4fc0ddc4803998ee772401e3cfc@o368486.ingest.sentry.io/5197118
-#  environment: prod
-#  server-name:
-#  traces-sample-rate: 1.0
 environment:
   app:
     test: test
-jwt:
-  auth:
-    token:
-      sign-key: signKey012345678901234567890123456789
-      valid-time: 3000000
