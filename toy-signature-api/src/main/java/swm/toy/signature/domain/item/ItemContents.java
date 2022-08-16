@@ -1,8 +1,9 @@
 package swm.toy.signature.domain.item;
 
-import javax.persistence.*;
 import swm.toy.signature.domain.item.brand.ItemBrand;
 import swm.toy.signature.domain.item.type.ItemType;
+
+import javax.persistence.*;
 
 @Embeddable
 public class ItemContents {
@@ -20,11 +21,11 @@ public class ItemContents {
     private String routineYn;
 
     @JoinColumn(name = "type_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private ItemType itemType;
 
     @JoinColumn(name = "brand_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private ItemBrand itemBrand;
 
     public ItemContents(

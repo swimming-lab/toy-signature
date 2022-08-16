@@ -1,12 +1,13 @@
 package swm.toy.signature.application.item;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import lombok.Value;
 import swm.toy.signature.application.user.ProfileModel.ProfileModelNested;
 import swm.toy.signature.domain.item.Item;
 import swm.toy.signature.domain.item.brand.ItemBrand;
 import swm.toy.signature.domain.item.type.ItemType;
+
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 @Value
 class ItemModel {
@@ -21,8 +22,8 @@ class ItemModel {
     static class ItemModelNested {
         String licensePlate;
         Integer sequence;
-        String insurance;
-        String routine;
+        String insuranceYn;
+        String routineYn;
         ItemType itemType;
         ItemBrand itemBrand;
         ZonedDateTime createdAt;
