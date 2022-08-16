@@ -1,13 +1,11 @@
 package swm.toy.signature.infrastructure.jwt;
 
-
-import org.junit.jupiter.api.Test;
-
-import java.util.Random;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static swm.toy.signature.infrastructure.jwt.Base64URL.base64URLFromString;
 import static swm.toy.signature.infrastructure.jwt.Base64URL.stringFromBase64URL;
+
+import java.util.Random;
+import org.junit.jupiter.api.Test;
 
 class Base64URLTest {
 

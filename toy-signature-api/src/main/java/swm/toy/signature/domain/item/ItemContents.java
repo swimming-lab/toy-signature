@@ -1,9 +1,8 @@
 package swm.toy.signature.domain.item;
 
+import javax.persistence.*;
 import swm.toy.signature.domain.item.brand.ItemBrand;
 import swm.toy.signature.domain.item.type.ItemType;
-
-import javax.persistence.*;
 
 @Embeddable
 public class ItemContents {
@@ -29,10 +28,7 @@ public class ItemContents {
     private ItemBrand itemBrand;
 
     public ItemContents(
-            String licensePlate,
-            Integer sequence,
-            String insuranceYn,
-            String routineYn) {
+            String licensePlate, Integer sequence, String insuranceYn, String routineYn) {
         this.licensePlate = licensePlate;
         this.sequence = sequence;
         this.insuranceYn = insuranceYn;

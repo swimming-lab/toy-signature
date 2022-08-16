@@ -1,9 +1,8 @@
 package swm.toy.signature.domain.item.type;
 
+import javax.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import swm.toy.signature.domain.common.BaseEntity;
-
-import javax.persistence.*;
 
 @Table(name = "item_type")
 @EntityListeners(AuditingEntityListener.class)

@@ -37,8 +37,7 @@ public class ItemService {
     @Transactional
     public Item createItem(long authorId, ItemCreateRequest request) {
         ItemContents contents = request.getItemContents();
-        // TODO Error JPA Method
-        itemRepository.findFirstByContentsLicensePlate(contents).stream()
+        itemRepository.findFirstByContentsLicensePlate(contents.getLicensePlate()).stream()
                 .findAny()
                 .ifPresent(
                         entity -> {

@@ -1,13 +1,12 @@
 package swm.toy.signature.domain.user;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static swm.toy.signature.domain.user.UserUpdateRequest.builder;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static swm.toy.signature.domain.user.UserUpdateRequest.builder;
 
 @ExtendWith(MockitoExtension.class)
 class UserUpdateRequestTest {

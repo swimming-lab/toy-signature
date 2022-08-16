@@ -1,5 +1,9 @@
 package swm.toy.signature.application.user;
 
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.WRAPPER_OBJECT;
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
+import static java.util.Optional.ofNullable;
+
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.AllArgsConstructor;
@@ -9,10 +13,6 @@ import swm.toy.signature.domain.user.Email;
 import swm.toy.signature.domain.user.Image;
 import swm.toy.signature.domain.user.UserName;
 import swm.toy.signature.domain.user.UserUpdateRequest;
-
-import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.WRAPPER_OBJECT;
-import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
-import static java.util.Optional.ofNullable;
 
 @Getter
 @AllArgsConstructor
