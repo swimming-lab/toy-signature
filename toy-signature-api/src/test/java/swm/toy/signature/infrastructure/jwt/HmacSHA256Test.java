@@ -1,10 +1,11 @@
-package swm.toy.signature.jwt;
+package swm.toy.signature.infrastructure.jwt;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import org.junit.jupiter.api.Test;
 
 import java.nio.charset.StandardCharsets;
-import org.junit.jupiter.api.Test;
-import swm.toy.signature.infrastructure.jwt.HmacSHA256;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class HmacSHA256Test {
 

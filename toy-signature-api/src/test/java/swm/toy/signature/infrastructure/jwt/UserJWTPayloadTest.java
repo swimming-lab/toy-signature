@@ -1,16 +1,16 @@
-package swm.toy.signature.jwt;
-
-import static java.lang.String.format;
-import static java.time.Instant.*;
-import static org.mockito.Mockito.when;
-import static swm.toy.baseframework.domain.user.UserTestUtils.userWithIdAndEmail;
+package swm.toy.signature.infrastructure.jwt;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import swm.toy.baseframework.domain.user.User;
-import swm.toy.signature.infrastructure.jwt.UserJWTPayload;
+import swm.toy.signature.domain.user.User;
+
+import static java.lang.String.format;
+import static java.time.Instant.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
+import static swm.toy.signature.domain.user.UserTestUtils.userWithIdAndEmail;
 
 @ExtendWith(MockitoExtension.class)
 class UserJWTPayloadTest {
@@ -46,6 +46,6 @@ class UserJWTPayloadTest {
                 .hasToString(
                         format(
                                 "{\"sub\":%d,\"name\":\"%s\",\"auth\":\"%s\",\"iat\":%d}",
-                                2L, "user@email.com", "USER", MAX.getEpochSecond()));
+                                2L, "user@email.com", "ROLE_USER", MAX.getEpochSecond()));
     }
 }

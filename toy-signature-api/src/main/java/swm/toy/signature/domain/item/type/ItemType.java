@@ -1,16 +1,17 @@
 package swm.toy.signature.domain.item.type;
 
-import javax.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import swm.toy.signature.domain.common.BaseEntity;
+
+import javax.persistence.*;
 
 @Table(name = "item_type")
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 public class ItemType extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "equip_type_id")
     private Long id;
 
     @Column(nullable = false)

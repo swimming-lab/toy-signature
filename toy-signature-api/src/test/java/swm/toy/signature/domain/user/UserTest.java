@@ -1,15 +1,14 @@
-package swm.toy.signature.user;
-
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+package swm.toy.signature.domain.user;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import swm.toy.signature.domain.user.Password;
-import swm.toy.signature.domain.user.UserName;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class UserTest {

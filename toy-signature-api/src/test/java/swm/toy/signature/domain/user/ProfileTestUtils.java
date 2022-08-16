@@ -1,6 +1,4 @@
-package swm.toy.signature.user;
-
-import swm.toy.signature.domain.user.UserName;
+package swm.toy.signature.domain.user;
 
 public class ProfileTestUtils {
 

@@ -1,4 +1,4 @@
-package swm.toy.signature.user;
+package swm.toy.signature.domain.user;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,9 +6,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import swm.toy.signature.domain.user.Password;
-import swm.toy.signature.domain.user.UserName;
-import swm.toy.signature.domain.user.UserRepository;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @EnableJpaAuditing

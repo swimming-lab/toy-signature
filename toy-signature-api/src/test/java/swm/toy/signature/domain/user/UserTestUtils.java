@@ -1,9 +1,6 @@
-package swm.toy.signature.user;
+package swm.toy.signature.domain.user;
 
 import org.springframework.test.util.ReflectionTestUtils;
-import swm.toy.signature.domain.user.Authority;
-import swm.toy.signature.domain.user.Password;
-import swm.toy.signature.domain.user.UserName;
 
 public class UserTestUtils {
 

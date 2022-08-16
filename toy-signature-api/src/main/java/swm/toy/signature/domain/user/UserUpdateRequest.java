@@ -1,8 +1,8 @@
 package swm.toy.signature.domain.user;
 
-import static java.util.Optional.ofNullable;
-
 import java.util.Optional;
+
+import static java.util.Optional.ofNullable;
 
 public class UserUpdateRequest {
 

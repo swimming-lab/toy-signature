@@ -1,23 +1,24 @@
-package swm.toy.signature.user;
+package swm.toy.signature.domain.user;
 
-import static java.util.Optional.empty;
-import static java.util.Optional.of;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.*;
-
-import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import swm.toy.baseframework.infrastructure.exception.AppException;
-import swm.toy.baseframework.infrastructure.exception.ErrorCode;
-import swm.toy.signature.domain.user.*;
+import swm.toy.signature.infrastructure.exception.AppException;
+import swm.toy.signature.infrastructure.exception.ErrorCode;
+
+import java.util.NoSuchElementException;
+
+import static java.util.Optional.empty;
+import static java.util.Optional.of;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {

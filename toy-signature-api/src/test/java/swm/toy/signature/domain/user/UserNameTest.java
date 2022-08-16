@@ -1,7 +1,8 @@
-package swm.toy.signature.user;
+package swm.toy.signature.domain.user;
 
 import org.junit.jupiter.api.Test;
-import swm.toy.signature.domain.user.UserName;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class UserNameTest {
 

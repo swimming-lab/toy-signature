@@ -1,6 +1,5 @@
 package swm.toy.signature.application.item;
 
-import javax.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +7,8 @@ import swm.toy.signature.domain.item.ItemService;
 import swm.toy.signature.domain.jwt.JWTSerializer;
 import swm.toy.signature.domain.user.UserService;
 import swm.toy.signature.infrastructure.jwt.UserJWTPayload;
+
+import javax.validation.Valid;
 
 @RestController
 public class ItemRestController {
@@ -27,7 +28,7 @@ public class ItemRestController {
     public ItemModel postItem(
             @AuthenticationPrincipal UserJWTPayload jwtPayload,
             @Valid @RequestBody ItemPostRequestDTO dto) {
-        var itemCreated = itemService.createItem(jwtPayload.getUserId(), dto.toItemContents());
+        var itemCreated = itemService.createItem(jwtPayload.getUserId(), dto.toItemCreateRequest());
         return ItemModel.fromItem(itemCreated);
     }
 
@@ -55,13 +56,13 @@ public class ItemRestController {
         return ItemModel.fromItem(itemUpdated);
     }
 
-    //    @GetMapping("/type")
-    //    public EquipBrandDto.Multiple getEquipType() {
-    //        return new EquipBrandDto.Multiple(equipBrandService.getEquipBrand());
-    //    }
-    //
-    //    @GetMapping("/brand")
-    //    public EquipTypeDto.Multiple getEquipType() {
-    //        return new EquipTypeDto.Multiple(equipTypeService.getEquipType());
-    //    }
+//    @GetMapping("/item/type")
+//    public EquipBrandDto.Multiple getItemType() {
+//        return new EquipBrandDto.Multiple(itemService.get());
+//    }
+//
+//    @GetMapping("/item/brand")
+//    public EquipTypeDto.Multiple getEquipType() {
+//        return new EquipTypeDto.Multiple(itemService.getEquipType());
+//    }
 }

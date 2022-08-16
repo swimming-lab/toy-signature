@@ -1,12 +1,7 @@
 package swm.toy.signature.application.user;
 
-import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.WRAPPER_OBJECT;
-import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
-import static java.util.Optional.ofNullable;
-
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +10,10 @@ import swm.toy.signature.domain.user.Image;
 import swm.toy.signature.domain.user.UserName;
 import swm.toy.signature.domain.user.UserUpdateRequest;
 
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.WRAPPER_OBJECT;
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
+import static java.util.Optional.ofNullable;
+
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,11 +21,10 @@ import swm.toy.signature.domain.user.UserUpdateRequest;
 @JsonTypeInfo(include = WRAPPER_OBJECT, use = NAME)
 class UserPutRequestDTO {
 
-    @NotNull Long id;
-    String email;
-    String username;
-    String password;
-    String image;
+    private String email;
+    private String username;
+    private String password;
+    private String image;
 
     UserUpdateRequest toUpdateRequest() {
         return UserUpdateRequest.builder()

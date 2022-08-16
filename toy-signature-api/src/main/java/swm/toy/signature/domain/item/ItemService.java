@@ -1,9 +1,5 @@
 package swm.toy.signature.domain.item;
 
-import static org.springframework.data.util.Optionals.mapIfAllPresent;
-
-import java.util.NoSuchElementException;
-import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,6 +9,11 @@ import swm.toy.signature.domain.item.type.ItemTypeRepository;
 import swm.toy.signature.domain.user.UserFindService;
 import swm.toy.signature.infrastructure.exception.AppException;
 import swm.toy.signature.infrastructure.exception.ErrorCode;
+
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+import static org.springframework.data.util.Optionals.mapIfAllPresent;
 
 @Service
 public class ItemService {
@@ -34,8 +35,10 @@ public class ItemService {
     }
 
     @Transactional
-    public Item createItem(long authorId, ItemContents contents) {
-        itemRepository.findFirstByLicensePlate(contents.getLicensePlate()).stream()
+    public Item createItem(long authorId, ItemCreateRequest request) {
+        ItemContents contents = request.getItemContents();
+        // TODO Error JPA Method
+        itemRepository.findFirstByContentsLicensePlate(contents).stream()
                 .findAny()
                 .ifPresent(
                         entity -> {
@@ -44,13 +47,13 @@ public class ItemService {
 
         final var itemType =
                 itemTypeRepository
-                        .findById(contents.getItemType().getId())
+                        .findById(request.getItemTypeId())
                         .orElseThrow(NoSuchElementException::new);
         contents.setItemType(itemType);
 
         final var itemBrand =
                 itemBrandRepository
-                        .findById(contents.getItemBrand().getId())
+                        .findById(request.getItemBrandId())
                         .orElseThrow(NoSuchElementException::new);
         contents.setItemBrand(itemBrand);
 

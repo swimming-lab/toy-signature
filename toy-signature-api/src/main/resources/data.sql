@@ -18,16 +18,16 @@ VALUES (101, 'ROLE_ADMIN');
 INSERT INTO USER_AUTHORITY (user_id, authority_name)
 VALUES (102, 'ROLE_USER');
 
-INSERT INTO EQUIP_TYPE (type, heavy) VALUES ('굴삭기', '1톤');
-INSERT INTO EQUIP_TYPE (type, heavy) VALUES ('굴삭기', '1.5톤');
-INSERT INTO EQUIP_TYPE (type, heavy) VALUES ('굴삭기', '2톤');
-INSERT INTO EQUIP_TYPE (type, heavy) VALUES ('덤프트럭', '1톤');
-INSERT INTO EQUIP_TYPE (type, heavy) VALUES ('덤프트럭', '1.5톤');
-INSERT INTO EQUIP_TYPE (type, heavy) VALUES ('덤프트럭', '2톤');
-INSERT INTO EQUIP_TYPE (type, heavy) VALUES ('지게차', '1톤');
-INSERT INTO EQUIP_TYPE (type, heavy) VALUES ('지게차', '1.5톤');
-INSERT INTO EQUIP_TYPE (type, heavy) VALUES ('지게차', '2톤');
+INSERT INTO ITEM_TYPE (type, heavy) VALUES ('굴삭기', '1톤');
+INSERT INTO ITEM_TYPE (type, heavy) VALUES ('굴삭기', '1.5톤');
+INSERT INTO ITEM_TYPE (type, heavy) VALUES ('굴삭기', '2톤');
+INSERT INTO ITEM_TYPE (type, heavy) VALUES ('덤프트럭', '1톤');
+INSERT INTO ITEM_TYPE (type, heavy) VALUES ('덤프트럭', '1.5톤');
+INSERT INTO ITEM_TYPE (type, heavy) VALUES ('덤프트럭', '2톤');
+INSERT INTO ITEM_TYPE (type, heavy) VALUES ('지게차', '1톤');
+INSERT INTO ITEM_TYPE (type, heavy) VALUES ('지게차', '1.5톤');
+INSERT INTO ITEM_TYPE (type, heavy) VALUES ('지게차', '2톤');
 
-INSERT INTO EQUIP_BRAND (brand_name) VALUES ('토요타');
-INSERT INTO EQUIP_BRAND (brand_name) VALUES ('현대');
-INSERT INTO EQUIP_BRAND (brand_name) VALUES ('벤츠');
+INSERT INTO ITEM_BRAND (brand_name) VALUES ('토요타');
+INSERT INTO ITEM_BRAND (brand_name) VALUES ('현대');
+INSERT INTO ITEM_BRAND (brand_name) VALUES ('벤츠');
