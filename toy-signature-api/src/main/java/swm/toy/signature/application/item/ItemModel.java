@@ -1,13 +1,12 @@
 package swm.toy.signature.application.item;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import lombok.Value;
 import swm.toy.signature.application.user.ProfileModel.ProfileModelNested;
 import swm.toy.signature.domain.item.Item;
 import swm.toy.signature.domain.item.brand.ItemBrand;
 import swm.toy.signature.domain.item.type.ItemType;
-
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 
 @Value
 class ItemModel {
@@ -37,8 +36,8 @@ class ItemModel {
                     contents.getSequence(),
                     contents.getInsuranceYn(),
                     contents.getRoutineYn(),
-                    contents.getItemType(),
-                    contents.getItemBrand(),
+                    item.getItemType(),
+                    item.getItemBrand(),
                     item.getCreatedAt().atZone(ZoneId.of("Asia/Seoul")),
                     item.getUpdatedAt().atZone(ZoneId.of("Asia/Seoul")),
                     ProfileModelNested.fromProfile(item.getAuthor().getProfile()));

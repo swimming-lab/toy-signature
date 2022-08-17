@@ -11,8 +11,8 @@ class WebMvcConfiguration {
     PageableHandlerMethodArgumentResolverCustomizer
             pageableHandlerMethodArgumentResolverCustomizer() {
         return pageableResolver -> {
-            pageableResolver.setSizeParameterName("limit");
-            pageableResolver.setPageParameterName("offset");
+            pageableResolver.setSizeParameterName("size");
+            pageableResolver.setPageParameterName("page");
         };
     }
 }

@@ -1,9 +1,7 @@
 package swm.toy.signature.domain.item;
 
-import swm.toy.signature.domain.item.brand.ItemBrand;
-import swm.toy.signature.domain.item.type.ItemType;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
 @Embeddable
 public class ItemContents {
@@ -20,13 +18,13 @@ public class ItemContents {
     @Column(nullable = false)
     private String routineYn;
 
-    @JoinColumn(name = "type_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(fetch = FetchType.EAGER)
-    private ItemType itemType;
-
-    @JoinColumn(name = "brand_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(fetch = FetchType.EAGER)
-    private ItemBrand itemBrand;
+    //    @JoinColumn(name = "type_id", referencedColumnName = "id", nullable = false)
+    //    @ManyToOne(fetch = FetchType.LAZY)
+    //    private ItemType itemType;
+    //
+    //    @JoinColumn(name = "brand_id", referencedColumnName = "id", nullable = false)
+    //    @ManyToOne(fetch = FetchType.LAZY)
+    //    private ItemBrand itemBrand;
 
     public ItemContents(
             String licensePlate, Integer sequence, String insuranceYn, String routineYn) {
@@ -54,13 +52,13 @@ public class ItemContents {
         return routineYn;
     }
 
-    public ItemType getItemType() {
-        return itemType;
-    }
-
-    public ItemBrand getItemBrand() {
-        return itemBrand;
-    }
+    //    public ItemType getItemType() {
+    //        return itemType;
+    //    }
+    //
+    //    public ItemBrand getItemBrand() {
+    //        return itemBrand;
+    //    }
 
     void updateItemContentsIfPresent(ItemUpdateRequest updateRequest) {
         updateRequest
@@ -75,19 +73,19 @@ public class ItemContents {
         updateRequest
                 .getRoutineYnToUpdate()
                 .ifPresent(routineYnToUpdate -> routineYn = routineYnToUpdate);
-        updateRequest
-                .getItemTypeToUpdate()
-                .ifPresent(itemTypeToUpdate -> itemType = itemTypeToUpdate);
-        updateRequest
-                .getItemBrandToUpdate()
-                .ifPresent(itemBrandToUpdate -> itemBrand = itemBrandToUpdate);
+        //        updateRequest
+        //                .getItemTypeToUpdate()
+        //                .ifPresent(itemTypeToUpdate -> itemType = itemTypeToUpdate);
+        //        updateRequest
+        //                .getItemBrandToUpdate()
+        //                .ifPresent(itemBrandToUpdate -> itemBrand = itemBrandToUpdate);
     }
 
-    public void setItemType(ItemType itemType) {
-        this.itemType = itemType;
-    }
-
-    public void setItemBrand(ItemBrand itemBrand) {
-        this.itemBrand = itemBrand;
-    }
+    //    public void setItemType(ItemType itemType) {
+    //        this.itemType = itemType;
+    //    }
+    //
+    //    public void setItemBrand(ItemBrand itemBrand) {
+    //        this.itemBrand = itemBrand;
+    //    }
 }

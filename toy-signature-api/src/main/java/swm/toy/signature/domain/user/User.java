@@ -9,6 +9,8 @@ import swm.toy.signature.domain.common.BaseEntity;
 import swm.toy.signature.domain.item.Item;
 import swm.toy.signature.domain.item.ItemContents;
 import swm.toy.signature.domain.item.ItemUpdateRequest;
+import swm.toy.signature.domain.item.brand.ItemBrand;
+import swm.toy.signature.domain.item.type.ItemType;
 
 @Table(name = "users")
 @Entity
@@ -59,8 +61,8 @@ public class User extends BaseEntity {
 
     protected User() {}
 
-    public Item createItem(ItemContents contents) {
-        return new Item(this, contents);
+    public Item createItem(ItemContents contents, ItemType itemType, ItemBrand itemBrand) {
+        return new Item(this, contents, itemType, itemBrand);
     }
 
     public Item updateItem(Item item, ItemUpdateRequest request) {

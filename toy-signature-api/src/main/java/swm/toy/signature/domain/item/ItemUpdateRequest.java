@@ -12,8 +12,11 @@ public class ItemUpdateRequest {
     private final Integer sequenceToUpdate;
     private final String insuranceYnToUpdate;
     private final String routineYnToUpdate;
-    private final ItemType itemTypeToUpdate;
-    private final ItemBrand itemBrandToUpdate;
+    private final Long itemTypeIdToUpdate;
+    private final Long itemBrandIdToUpdate;
+
+    private ItemType itemTypeToUpdate;
+    private ItemBrand itemBrandToUpdate;
 
     public static ItemUpdateRequestBuilder builder() {
         return new ItemUpdateRequestBuilder();
@@ -25,8 +28,8 @@ public class ItemUpdateRequest {
                 builder.sequenceToUpdate,
                 builder.insuranceYnToUpdate,
                 builder.routineYnToUpdate,
-                builder.itemTypeToUpdate,
-                builder().itemBrandToUpdate);
+                builder.itemTypeIdToUpdate,
+                builder().itemBrandIdToUpdate);
     }
 
     private ItemUpdateRequest(
@@ -34,14 +37,30 @@ public class ItemUpdateRequest {
             Integer sequenceToUpdate,
             String insuranceYnToUpdate,
             String routineYnToUpdate,
-            ItemType itemTypeToUpdate,
-            ItemBrand itemBrandToUpdate) {
+            Long itemTypeIdToUpdate,
+            Long itemBrandIdToUpdate) {
         this.licensePlateToUpdate = licensePlateToUpdate;
         this.sequenceToUpdate = sequenceToUpdate;
         this.insuranceYnToUpdate = insuranceYnToUpdate;
         this.routineYnToUpdate = routineYnToUpdate;
+        this.itemTypeIdToUpdate = itemTypeIdToUpdate;
+        this.itemBrandIdToUpdate = itemBrandIdToUpdate;
+    }
+
+    public void setItemTypeToUpdate(ItemType itemTypeToUpdate) {
         this.itemTypeToUpdate = itemTypeToUpdate;
+    }
+
+    public void setItemBrandToUpdate(ItemBrand itemBrandToUpdate) {
         this.itemBrandToUpdate = itemBrandToUpdate;
+    }
+
+    public Optional<ItemType> getItemTypeToUpdate() {
+        return ofNullable(itemTypeToUpdate);
+    }
+
+    public Optional<ItemBrand> getItemBrandToUpdate() {
+        return ofNullable(itemBrandToUpdate);
     }
 
     Optional<String> getLicensePlateToUpdate() {
@@ -60,12 +79,12 @@ public class ItemUpdateRequest {
         return ofNullable(routineYnToUpdate);
     }
 
-    Optional<ItemType> getItemTypeToUpdate() {
-        return ofNullable(itemTypeToUpdate);
+    Optional<Long> getItemTypeIdToUpdate() {
+        return ofNullable(itemTypeIdToUpdate);
     }
 
-    Optional<ItemBrand> getItemBrandToUpdate() {
-        return ofNullable(itemBrandToUpdate);
+    Optional<Long> getItemBrandIdToUpdate() {
+        return ofNullable(itemBrandIdToUpdate);
     }
 
     public static class ItemUpdateRequestBuilder {
@@ -73,8 +92,8 @@ public class ItemUpdateRequest {
         private Integer sequenceToUpdate;
         private String insuranceYnToUpdate;
         private String routineYnToUpdate;
-        private ItemType itemTypeToUpdate;
-        private ItemBrand itemBrandToUpdate;
+        private Long itemTypeIdToUpdate;
+        private Long itemBrandIdToUpdate;
 
         public ItemUpdateRequestBuilder licensePlateToUpdate(String licensePlateToUpdate) {
             this.licensePlateToUpdate = licensePlateToUpdate;
@@ -96,13 +115,13 @@ public class ItemUpdateRequest {
             return this;
         }
 
-        public ItemUpdateRequestBuilder itemTypeToUpdate(ItemType itemTypeToUpdate) {
-            this.itemTypeToUpdate = itemTypeToUpdate;
+        public ItemUpdateRequestBuilder itemTypeIdToUpdate(Long itemTypeIdToUpdate) {
+            this.itemTypeIdToUpdate = itemTypeIdToUpdate;
             return this;
         }
 
-        public ItemUpdateRequestBuilder itemBrandToUpdate(ItemBrand itemBrandToUpdate) {
-            this.itemBrandToUpdate = itemBrandToUpdate;
+        public ItemUpdateRequestBuilder itemBrandIdToUpdate(Long itemBrandIdToUpdate) {
+            this.itemBrandIdToUpdate = itemBrandIdToUpdate;
             return this;
         }
 
