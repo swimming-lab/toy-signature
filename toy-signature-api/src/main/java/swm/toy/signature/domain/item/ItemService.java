@@ -1,9 +1,5 @@
 package swm.toy.signature.domain.item;
 
-import static org.springframework.data.util.Optionals.mapIfAllPresent;
-
-import java.util.NoSuchElementException;
-import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,6 +9,11 @@ import swm.toy.signature.domain.item.type.ItemTypeRepository;
 import swm.toy.signature.domain.user.UserFindService;
 import swm.toy.signature.infrastructure.exception.AppException;
 import swm.toy.signature.infrastructure.exception.ErrorCode;
+
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+import static org.springframework.data.util.Optionals.mapIfAllPresent;
 
 @Service
 public class ItemService {
@@ -61,7 +62,7 @@ public class ItemService {
     }
 
     @Transactional
-    public Item updateItem(long userId, long itemId, ItemUpdateRequest request) {
+    public Item updateItem(long userId, ItemUpdateRequest request) {
         request.getItemTypeIdToUpdate()
                 .ifPresent(
                         id -> {
@@ -77,7 +78,7 @@ public class ItemService {
 
         return mapIfAllPresent(
                         userFindService.findById(userId),
-                        getItemById(itemId),
+                        getItemById(request.getItemId()),
                         (user, item) -> user.updateItem(item, request))
                 .orElseThrow(NoSuchElementException::new);
     }

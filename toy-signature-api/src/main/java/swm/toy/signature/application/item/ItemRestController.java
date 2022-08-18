@@ -1,6 +1,5 @@
 package swm.toy.signature.application.item;
 
-import javax.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -10,6 +9,8 @@ import swm.toy.signature.domain.item.ItemService;
 import swm.toy.signature.domain.jwt.JWTSerializer;
 import swm.toy.signature.domain.user.UserService;
 import swm.toy.signature.infrastructure.jwt.UserJWTPayload;
+
+import javax.validation.Valid;
 
 @RestController
 public class ItemRestController {
@@ -59,7 +60,7 @@ public class ItemRestController {
             @AuthenticationPrincipal UserJWTPayload jwtPayload,
             @RequestBody ItemPutRequestDTO dto) {
         final var itemUpdated =
-                itemService.updateItem(jwtPayload.getUserId(), dto.getId(), dto.toUpdateRequest());
+                itemService.updateItem(jwtPayload.getUserId(), dto.toUpdateRequest());
         return ItemModel.fromItem(itemUpdated);
     }
 
