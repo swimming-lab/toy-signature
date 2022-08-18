@@ -1,14 +1,15 @@
 package swm.toy.signature.domain.item.brand;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 @Service
-public class ItemBrandService {
+public class ItemBrandService implements ItemBrandFindService {
 
     private final ItemBrandRepository itemBrandRepository;
 
@@ -30,12 +31,19 @@ public class ItemBrandService {
     }
 
     @Transactional(readOnly = true)
+    public Optional<ItemBrand> findByBrandName(String brandName) {
+        return itemBrandRepository.findFirstByBrandName(brandName);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<ItemBrand> findAll() {
         return itemBrandRepository.findAll(Sort.by(Sort.Direction.ASC, "brandName"));
     }
 
+    @Override
     @Transactional(readOnly = true)
-    public Optional<ItemBrand> findByBrandName(String brandName) {
-        return itemBrandRepository.findFirstByBrandName(brandName);
+    public Optional<ItemBrand> findById(long id) {
+        return itemBrandRepository.findById(id);
     }
 }

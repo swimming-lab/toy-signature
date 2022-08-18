@@ -1,13 +1,15 @@
 package swm.toy.signature.domain.item.type;
 
-import java.util.List;
-import java.util.NoSuchElementException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 @Service
-public class ItemTypeService {
+public class ItemTypeService implements ItemTypeFindService {
 
     private final ItemTypeRepository itemTypeRepository;
 
@@ -35,8 +37,15 @@ public class ItemTypeService {
         return itemTypeRepository.save(itemType);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<ItemType> findAll() {
-        return itemTypeRepository.findAll(Sort.by(Sort.Direction.ASC, "type"));
+        return itemTypeRepository.findAll(Sort.by(Sort.Direction.ASC, "type", "heavy"));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<ItemType> findById(long id) {
+        return itemTypeRepository.findById(id);
     }
 }

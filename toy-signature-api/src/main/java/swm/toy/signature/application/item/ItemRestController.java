@@ -6,8 +6,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import swm.toy.signature.domain.item.ItemService;
-import swm.toy.signature.domain.jwt.JWTSerializer;
-import swm.toy.signature.domain.user.UserService;
 import swm.toy.signature.infrastructure.jwt.UserJWTPayload;
 
 import javax.validation.Valid;
@@ -15,14 +13,9 @@ import javax.validation.Valid;
 @RestController
 public class ItemRestController {
 
-    private final JWTSerializer jwtSerializer;
-    private final UserService userService;
     private final ItemService itemService;
 
-    ItemRestController(
-            JWTSerializer jwtSerializer, UserService userService, ItemService itemService) {
-        this.jwtSerializer = jwtSerializer;
-        this.userService = userService;
+    ItemRestController(ItemService itemService) {
         this.itemService = itemService;
     }
 
@@ -54,7 +47,6 @@ public class ItemRestController {
         return MultipleItemModel.fromItems(items);
     }
 
-    // TODO UPDATE AND RESPONSE
     @PutMapping("/items")
     public ItemModel putItem(
             @AuthenticationPrincipal UserJWTPayload jwtPayload,
@@ -63,14 +55,4 @@ public class ItemRestController {
                 itemService.updateItem(jwtPayload.getUserId(), dto.toUpdateRequest());
         return ItemModel.fromItem(itemUpdated);
     }
-
-    //    @GetMapping("/item/type")
-    //    public EquipBrandDto.Multiple getItemType() {
-    //        return new EquipBrandDto.Multiple(itemService.get());
-    //    }
-    //
-    //    @GetMapping("/item/brand")
-    //    public EquipTypeDto.Multiple getEquipType() {
-    //        return new EquipTypeDto.Multiple(itemService.getEquipType());
-    //    }
 }

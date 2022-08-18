@@ -4,8 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import swm.toy.signature.domain.item.brand.ItemBrandRepository;
-import swm.toy.signature.domain.item.type.ItemTypeRepository;
+import swm.toy.signature.domain.item.brand.ItemBrandFindService;
+import swm.toy.signature.domain.item.type.ItemTypeFindService;
 import swm.toy.signature.domain.user.UserFindService;
 import swm.toy.signature.infrastructure.exception.AppException;
 import swm.toy.signature.infrastructure.exception.ErrorCode;
@@ -19,18 +19,18 @@ import static org.springframework.data.util.Optionals.mapIfAllPresent;
 public class ItemService {
 
     private final ItemRepository itemRepository;
-    private final ItemTypeRepository itemTypeRepository;
-    private final ItemBrandRepository itemBrandRepository;
+    private final ItemTypeFindService itemTypeFindService;
+    private final ItemBrandFindService itemBrandFindService;
     private final UserFindService userFindService;
 
     ItemService(
             ItemRepository itemRepository,
-            ItemTypeRepository itemTypeRepository,
-            ItemBrandRepository itemBrandRepository,
+            ItemTypeFindService itemTypeFindService,
+            ItemBrandFindService itemBrandFindService,
             UserFindService userFindService) {
         this.itemRepository = itemRepository;
-        this.itemTypeRepository = itemTypeRepository;
-        this.itemBrandRepository = itemBrandRepository;
+        this.itemTypeFindService = itemTypeFindService;
+        this.itemBrandFindService = itemBrandFindService;
         this.userFindService = userFindService;
     }
 
@@ -45,12 +45,12 @@ public class ItemService {
                         });
 
         final var itemType =
-                itemTypeRepository
+                itemTypeFindService
                         .findById(request.getItemTypeId())
                         .orElseThrow(NoSuchElementException::new);
 
         final var itemBrand =
-                itemBrandRepository
+                itemBrandFindService
                         .findById(request.getItemBrandId())
                         .orElseThrow(NoSuchElementException::new);
 
@@ -66,12 +66,12 @@ public class ItemService {
         request.getItemTypeIdToUpdate()
                 .ifPresent(
                         id -> {
-                            itemTypeRepository.findById(id).ifPresent(request::setItemTypeToUpdate);
+                            itemTypeFindService.findById(id).ifPresent(request::setItemTypeToUpdate);
                         });
         request.getItemBrandIdToUpdate()
                 .ifPresent(
                         id -> {
-                            itemBrandRepository
+                            itemBrandFindService
                                     .findById(id)
                                     .ifPresent(request::setItemBrandToUpdate);
                         });
@@ -94,17 +94,17 @@ public class ItemService {
         //        return itemRepository.findAllByAuthorIdOrderBySequenceAsc(authorId, pageable);
     }
 
-    //    @Transactional(readOnly = true)
-    //    public List<EquipDto> getEquips(EquipQueryParam equipQueryParam, UserDto.Auth authUser) {
-    //        Pageable pageable = null;
-    //        if (equipQueryParam.getOffset() != null) {
-    //            pageable = PageRequest.of(equipQueryParam.getOffset(),
-    // equipQueryParam.getLimit());
-    //        }
-    //
-    //        return itemRepository.findByAuthorIdOrderBySequenceAsc(authUser.getId(),
-    // pageable).stream().map(entity -> {
-    //            return convertEntityToDto(entity);
-    //        }).collect(Collectors.toList());
-    //    }
+//        @Transactional(readOnly = true)
+//        public List<EquipDto> getEquips(EquipQueryParam equipQueryParam, UserDto.Auth authUser) {
+//            Pageable pageable = null;
+//            if (equipQueryParam.getOffset() != null) {
+//                pageable = PageRequest.of(equipQueryParam.getOffset(),
+//     equipQueryParam.getLimit());
+//            }
+//
+//            return itemRepository.findByAuthorIdOrderBySequenceAsc(authUser.getId(),
+//     pageable).stream().map(entity -> {
+//                return convertEntityToDto(entity);
+//            }).collect(Collectors.toList());
+//        }
 }
