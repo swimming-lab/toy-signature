@@ -8,19 +8,17 @@ public class ItemBrandModel {
 
     ItemBrandModelNested itemBrand;
 
-    static ItemBrandModel fromItemBrand(ItemBrand itemBrand) {
+    public static ItemBrandModel fromItemBrand(ItemBrand itemBrand) {
         return new ItemBrandModel(ItemBrandModelNested.fromItemBrand(itemBrand));
     }
 
     @Value
-    static class ItemBrandModelNested {
+    public static class ItemBrandModelNested {
         Long id;
         String brandName;
 
-        static ItemBrandModelNested fromItemBrand(ItemBrand itemBrand) {
-            return new ItemBrandModelNested(
-                    itemBrand.getId(),
-                    itemBrand.getBrandName());
+        public static ItemBrandModelNested fromItemBrand(ItemBrand itemBrand) {
+            return new ItemBrandModelNested(itemBrand.getId(), itemBrand.getBrandName());
         }
     }
 }

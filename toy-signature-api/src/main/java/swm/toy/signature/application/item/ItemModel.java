@@ -3,10 +3,10 @@ package swm.toy.signature.application.item;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import lombok.Value;
+import swm.toy.signature.application.item.itemBrand.ItemBrandModel.ItemBrandModelNested;
+import swm.toy.signature.application.item.itemType.ItemTypeModel.ItemTypeModelNested;
 import swm.toy.signature.application.user.ProfileModel.ProfileModelNested;
 import swm.toy.signature.domain.item.Item;
-import swm.toy.signature.domain.item.brand.ItemBrand;
-import swm.toy.signature.domain.item.type.ItemType;
 
 @Value
 class ItemModel {
@@ -23,8 +23,10 @@ class ItemModel {
         Integer sequence;
         String insuranceYn;
         String routineYn;
-        ItemType itemType;
-        ItemBrand itemBrand;
+        String etc;
+        String status;
+        ItemTypeModelNested itemType;
+        ItemBrandModelNested itemBrand;
         ZonedDateTime createdAt;
         ZonedDateTime updatedAt;
         ProfileModelNested author;
@@ -36,8 +38,10 @@ class ItemModel {
                     contents.getSequence(),
                     contents.getInsuranceYn(),
                     contents.getRoutineYn(),
-                    item.getItemType(),
-                    item.getItemBrand(),
+                    contents.getEtc(),
+                    item.getStatus().getValue(),
+                    ItemTypeModelNested.fromItemType(item.getItemType()),
+                    ItemBrandModelNested.fromItemBrand(item.getItemBrand()),
                     item.getCreatedAt().atZone(ZoneId.of("Asia/Seoul")),
                     item.getUpdatedAt().atZone(ZoneId.of("Asia/Seoul")),
                     ProfileModelNested.fromProfile(item.getAuthor().getProfile()));

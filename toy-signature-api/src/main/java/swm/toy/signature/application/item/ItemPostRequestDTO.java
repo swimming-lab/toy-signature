@@ -25,10 +25,11 @@ class ItemPostRequestDTO {
     @NotNull private String routineYn;
     @NotNull private Long itemTypeId;
     @NotNull private Long itemBrandId;
+    private String etc;
 
     ItemCreateRequest toItemCreateRequest() {
         return new ItemCreateRequest(
-                new ItemContents(licensePlate, sequence, insuranceYn, routineYn),
+                new ItemContents(licensePlate, sequence, insuranceYn, routineYn, etc),
                 itemTypeId,
                 itemBrandId);
     }

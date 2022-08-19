@@ -1,6 +1,5 @@
 package swm.toy.signature.application.item.itemType;
 
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import swm.toy.signature.domain.item.type.ItemTypeFindService;

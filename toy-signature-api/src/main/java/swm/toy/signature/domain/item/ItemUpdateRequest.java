@@ -17,6 +17,8 @@ public class ItemUpdateRequest {
     private final String routineYnToUpdate;
     private final Long itemTypeIdToUpdate;
     private final Long itemBrandIdToUpdate;
+    private final String etcToUpdate;
+    private final String statusToUpdate;
 
     private ItemType itemTypeToUpdate;
     private ItemBrand itemBrandToUpdate;
@@ -55,6 +57,14 @@ public class ItemUpdateRequest {
 
     Optional<ItemBrand> getItemBrandToUpdate() {
         return ofNullable(itemBrandToUpdate);
+    }
+
+    Optional<String> getEtcToUpdate() {
+        return ofNullable(etcToUpdate);
+    }
+
+    Optional<String> getStatusToUpdate() {
+        return ofNullable(statusToUpdate);
     }
 
     void setItemTypeToUpdate(ItemType itemTypeToUpdate) {

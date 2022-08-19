@@ -21,6 +21,9 @@ public class Item extends BaseEntity {
 
     @Embedded private ItemContents contents;
 
+    @Convert(converter = StatusConverter.class)
+    private Status status = Status.HIDE;
+
     @JoinColumn(name = "author_id", referencedColumnName = "id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private User author;
@@ -62,8 +65,12 @@ public class Item extends BaseEntity {
         return itemBrand;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     public void updateItem(ItemUpdateRequest updateRequest) {
-        this.updateItemIfPresent(updateRequest);
+        updateItemIfPresent(updateRequest);
         contents.updateItemContentsIfPresent(updateRequest);
     }
 
@@ -74,5 +81,8 @@ public class Item extends BaseEntity {
         updateRequest
                 .getItemBrandToUpdate()
                 .ifPresent(itemBrandToUpdate -> itemBrand = itemBrandToUpdate);
+        updateRequest
+                .getStatusToUpdate()
+                .ifPresent(statusToUpdate -> status = Status.valueOf(statusToUpdate));
     }
 }

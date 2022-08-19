@@ -8,21 +8,19 @@ public class ItemTypeModel {
 
     ItemTypeModelNested itemType;
 
-    static ItemTypeModel fromItemType(ItemType itemType) {
+    public static ItemTypeModel fromItemType(ItemType itemType) {
         return new ItemTypeModel(ItemTypeModelNested.fromItemType(itemType));
     }
 
     @Value
-    static class ItemTypeModelNested {
+    public static class ItemTypeModelNested {
         Long id;
         String type;
         String heavy;
 
-        static ItemTypeModelNested fromItemType(ItemType itemType) {
+        public static ItemTypeModelNested fromItemType(ItemType itemType) {
             return new ItemTypeModelNested(
-                    itemType.getId(),
-                    itemType.getType(),
-                    itemType.getHeavy());
+                    itemType.getId(), itemType.getType(), itemType.getHeavy());
         }
     }
 }

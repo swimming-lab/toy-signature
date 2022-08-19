@@ -1,10 +1,9 @@
 package swm.toy.signature.domain.user;
 
-import lombok.Builder;
+import static java.util.Optional.ofNullable;
 
 import java.util.Optional;
-
-import static java.util.Optional.ofNullable;
+import lombok.Builder;
 
 @Builder
 public class UserUpdateRequest {

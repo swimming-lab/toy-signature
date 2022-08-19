@@ -18,20 +18,20 @@ public class ItemContents {
     @Column(nullable = false)
     private String routineYn;
 
-    //    @JoinColumn(name = "type_id", referencedColumnName = "id", nullable = false)
-    //    @ManyToOne(fetch = FetchType.LAZY)
-    //    private ItemType itemType;
-    //
-    //    @JoinColumn(name = "brand_id", referencedColumnName = "id", nullable = false)
-    //    @ManyToOne(fetch = FetchType.LAZY)
-    //    private ItemBrand itemBrand;
+    @Column(length = 500)
+    private String etc;
 
     public ItemContents(
-            String licensePlate, Integer sequence, String insuranceYn, String routineYn) {
+            String licensePlate,
+            Integer sequence,
+            String insuranceYn,
+            String routineYn,
+            String etc) {
         this.licensePlate = licensePlate;
         this.sequence = sequence;
         this.insuranceYn = insuranceYn;
         this.routineYn = routineYn;
+        this.etc = etc;
     }
 
     protected ItemContents() {}
@@ -52,13 +52,9 @@ public class ItemContents {
         return routineYn;
     }
 
-    //    public ItemType getItemType() {
-    //        return itemType;
-    //    }
-    //
-    //    public ItemBrand getItemBrand() {
-    //        return itemBrand;
-    //    }
+    public String getEtc() {
+        return etc;
+    }
 
     void updateItemContentsIfPresent(ItemUpdateRequest updateRequest) {
         updateRequest
@@ -73,19 +69,6 @@ public class ItemContents {
         updateRequest
                 .getRoutineYnToUpdate()
                 .ifPresent(routineYnToUpdate -> routineYn = routineYnToUpdate);
-        //        updateRequest
-        //                .getItemTypeToUpdate()
-        //                .ifPresent(itemTypeToUpdate -> itemType = itemTypeToUpdate);
-        //        updateRequest
-        //                .getItemBrandToUpdate()
-        //                .ifPresent(itemBrandToUpdate -> itemBrand = itemBrandToUpdate);
+        updateRequest.getEtcToUpdate().ifPresent(etcToUpdate -> etc = etcToUpdate);
     }
-
-    //    public void setItemType(ItemType itemType) {
-    //        this.itemType = itemType;
-    //    }
-    //
-    //    public void setItemBrand(ItemBrand itemBrand) {
-    //        this.itemBrand = itemBrand;
-    //    }
 }
