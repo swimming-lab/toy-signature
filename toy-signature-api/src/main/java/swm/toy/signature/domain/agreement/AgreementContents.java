@@ -1,0 +1,69 @@
+package swm.toy.signature.domain.agreement;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
+import java.time.LocalDateTime;
+
+@Embeddable
+public class AgreementContents {
+
+    @Embedded
+    private Lessor lessor;
+
+    @Embedded
+    private Lessee lessee;
+
+    @Column(nullable = false)
+    private LocalDateTime startDate;
+
+    @Column(nullable = false)
+    private LocalDateTime endDate;
+
+    @Column(nullable = false)
+    private Long amount;
+
+    @Column(nullable = false)
+    private Long overAmount;
+
+    @Column(length = 500)
+    private String etc;
+
+    public AgreementContents(Lessor lessor, Lessee lessee, LocalDateTime startDate, LocalDateTime endDate, Long amount, Long overAmount, String etc) {
+        this.lessor = lessor;
+        this.lessee = lessee;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.amount = amount;
+        this.overAmount = overAmount;
+        this.etc = etc;
+    }
+
+    public Lessor getLessor() {
+        return lessor;
+    }
+
+    public Lessee getLessee() {
+        return lessee;
+    }
+
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public Long getAmount() {
+        return amount;
+    }
+
+    public Long getOverAmount() {
+        return overAmount;
+    }
+
+    public String getEtc() {
+        return etc;
+    }
+}

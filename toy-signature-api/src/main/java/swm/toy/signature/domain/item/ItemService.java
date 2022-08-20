@@ -1,9 +1,5 @@
 package swm.toy.signature.domain.item;
 
-import static org.springframework.data.util.Optionals.mapIfAllPresent;
-
-import java.util.NoSuchElementException;
-import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,6 +9,11 @@ import swm.toy.signature.domain.item.type.ItemTypeFindService;
 import swm.toy.signature.domain.user.UserFindService;
 import swm.toy.signature.infrastructure.exception.AppException;
 import swm.toy.signature.infrastructure.exception.ErrorCode;
+
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+import static org.springframework.data.util.Optionals.mapIfAllPresent;
 
 @Service
 public class ItemService {
@@ -92,6 +93,5 @@ public class ItemService {
     @Transactional(readOnly = true)
     public Page<Item> getItemsByAuthorId(long authorId, Pageable pageable) {
         return itemRepository.findAllByAuthorIdOrderByContentsSequenceAsc(authorId, pageable);
-        //        return itemRepository.findAllByAuthorIdOrderBySequenceAsc(authorId, pageable);
     }
 }
