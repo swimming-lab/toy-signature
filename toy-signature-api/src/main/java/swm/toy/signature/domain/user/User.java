@@ -5,6 +5,8 @@ import java.util.Objects;
 import java.util.Set;
 import javax.persistence.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import swm.toy.signature.domain.agreement.Agreement;
+import swm.toy.signature.domain.agreement.AgreementContents;
 import swm.toy.signature.domain.common.BaseEntity;
 import swm.toy.signature.domain.item.Item;
 import swm.toy.signature.domain.item.ItemContents;
@@ -25,6 +27,9 @@ public class User extends BaseEntity {
     @Embedded private Profile profile;
 
     @Embedded private Password password;
+
+    @Convert(converter = UserStatusConverter.class)
+    private UserStatus status = UserStatus.USED;
 
     @JoinTable(
             name = "user_followings",
@@ -73,6 +78,10 @@ public class User extends BaseEntity {
         return item;
     }
 
+    public Agreement createAgreement(AgreementContents contents) {
+        return Agreement.of(this, contents);
+    }
+
     User followUser(User followee) {
         followingUsers.add(followee);
         return this;
@@ -111,6 +120,10 @@ public class User extends BaseEntity {
         profile.changeImage(image);
     }
 
+    void changeStatus(UserStatus status) {
+        this.status = status;
+    }
+
     public Long getId() {
         return id;
     }
@@ -129,6 +142,10 @@ public class User extends BaseEntity {
 
     public Set<Authority> getAuthorities() {
         return authorities;
+    }
+
+    public UserStatus getStatus() {
+        return status;
     }
 
     @Override

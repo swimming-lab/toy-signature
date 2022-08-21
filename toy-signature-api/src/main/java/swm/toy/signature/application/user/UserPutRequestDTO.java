@@ -6,6 +6,7 @@ import static java.util.Optional.ofNullable;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,9 @@ class UserPutRequestDTO {
     private String username;
     private String password;
     private String image;
+    private String status;
+    private List<Long> idList;
+    private Long[] ids;
 
     UserUpdateRequest toUpdateRequest() {
         return UserUpdateRequest.builder()
@@ -32,6 +36,7 @@ class UserPutRequestDTO {
                 .userNameToUpdate(ofNullable(username).map(UserName::new).orElse(null))
                 .imageToUpdate(ofNullable(image).map(Image::new).orElse(null))
                 .passwordToUpdate(password)
+                .statusToUpdate(status)
                 .build();
     }
 }

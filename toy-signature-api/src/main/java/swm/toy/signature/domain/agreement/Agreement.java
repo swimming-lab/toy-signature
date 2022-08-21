@@ -1,19 +1,17 @@
 package swm.toy.signature.domain.agreement;
 
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import swm.toy.signature.domain.agreement.item.AgreementItem;
 import swm.toy.signature.domain.common.BaseEntity;
 import swm.toy.signature.domain.user.User;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
-
-
 @Table(name = "agreements")
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-//@NamedEntityGraph(
+// @NamedEntityGraph(
 //        name = "fetch-author-agreementType-agreedEquip",
 //        attributeNodes = {
 //            @NamedAttributeNode("author"),
@@ -26,8 +24,7 @@ public class Agreement extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Embedded
-    private AgreementContents contents;
+    @Embedded private AgreementContents contents;
 
     @Convert(converter = AgreementStatusConverter.class)
     private AgreementStatus status = AgreementStatus.PENDING;
@@ -42,16 +39,20 @@ public class Agreement extends BaseEntity {
     @OneToMany(mappedBy = "agreement", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<AgreementItem> agreementItems = new HashSet<>();
 
-    public Agreement(User author, AgreementContents contents) {
+    public static Agreement of(User author, AgreementContents contents) {
+        return new Agreement(author, contents);
+    }
+
+    private Agreement(User author, AgreementContents contents) {
         this.author = author;
         this.contents = contents;
     }
 
-    protected Agreement() {
-    }
+    protected Agreement() {}
 
-    public void addAgreedEquips(AgreementItem agreementItem) {
+    public void addAgreementItems(AgreementItem agreementItem) {
         this.agreementItems.add(agreementItem);
+        agreementItem.setAgreement(this);
     }
 
     public Long getId() {

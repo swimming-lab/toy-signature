@@ -1,5 +1,9 @@
 package swm.toy.signature.domain.item;
 
+import static org.springframework.data.util.Optionals.mapIfAllPresent;
+
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -10,13 +14,8 @@ import swm.toy.signature.domain.user.UserFindService;
 import swm.toy.signature.infrastructure.exception.AppException;
 import swm.toy.signature.infrastructure.exception.ErrorCode;
 
-import java.util.NoSuchElementException;
-import java.util.Optional;
-
-import static org.springframework.data.util.Optionals.mapIfAllPresent;
-
 @Service
-public class ItemService {
+public class ItemService implements ItemFindService {
 
     private final ItemRepository itemRepository;
     private final ItemTypeFindService itemTypeFindService;
@@ -88,6 +87,12 @@ public class ItemService {
     @Transactional(readOnly = true)
     public Optional<Item> getItemById(long itemId) {
         return itemRepository.findById(itemId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Item> getItemByIdAndStatus(long itemId) {
+        return itemRepository.findByIdAndStatus(itemId, Status.PUBLISH);
     }
 
     @Transactional(readOnly = true)

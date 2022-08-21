@@ -1,18 +1,16 @@
 package swm.toy.signature.domain.agreement;
 
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
-import java.time.LocalDateTime;
 
 @Embeddable
 public class AgreementContents {
 
-    @Embedded
-    private Lessor lessor;
+    @Embedded private Lessor lessor;
 
-    @Embedded
-    private Lessee lessee;
+    @Embedded private Lessee lessee;
 
     @Column(nullable = false)
     private LocalDateTime startDate;
@@ -29,7 +27,14 @@ public class AgreementContents {
     @Column(length = 500)
     private String etc;
 
-    public AgreementContents(Lessor lessor, Lessee lessee, LocalDateTime startDate, LocalDateTime endDate, Long amount, Long overAmount, String etc) {
+    public AgreementContents(
+            Lessor lessor,
+            Lessee lessee,
+            LocalDateTime startDate,
+            LocalDateTime endDate,
+            Long amount,
+            Long overAmount,
+            String etc) {
         this.lessor = lessor;
         this.lessee = lessee;
         this.startDate = startDate;

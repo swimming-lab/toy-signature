@@ -64,6 +64,9 @@ public class UserService implements UserFindService {
                 .map(rawPassword -> Password.of(rawPassword, passwordEncoder))
                 .ifPresent(user::changePassword);
         request.getImageToUpdate().ifPresent(user::changeImage);
+        request.getStatusToUpdate()
+                .map(statusToUpdate -> UserStatus.valueOf(statusToUpdate))
+                .ifPresent(user::changeStatus);
         return userRepository.save(user);
     }
 }

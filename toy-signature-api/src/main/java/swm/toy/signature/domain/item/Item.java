@@ -1,12 +1,11 @@
 package swm.toy.signature.domain.item;
 
+import javax.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import swm.toy.signature.domain.common.BaseEntity;
 import swm.toy.signature.domain.item.brand.ItemBrand;
 import swm.toy.signature.domain.item.type.ItemType;
 import swm.toy.signature.domain.user.User;
-
-import javax.persistence.*;
 
 @Table(name = "items")
 @EntityListeners(AuditingEntityListener.class)

@@ -4,4 +4,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AgreementItemService implements AgreementItemFindService {
+
+    //    @Autowired
+    //    private AgreementItemRepository agreementItemRepository;
+
+    //    public List<AgreementItem> findAllByIdIn(List<Long> ids) {
+    //        return agreementItemRepository.findAllByIdIn(ids);
+    //    }
 }
