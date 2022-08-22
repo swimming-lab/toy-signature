@@ -27,7 +27,18 @@ public class AgreementContents {
     @Column(length = 500)
     private String etc;
 
-    public AgreementContents(
+    static AgreementContents of(
+            Lessor lessor,
+            Lessee lessee,
+            LocalDateTime startDate,
+            LocalDateTime endDate,
+            Long amount,
+            Long overAmount,
+            String etc) {
+        return new AgreementContents(lessor, lessee, startDate, endDate, amount, overAmount, etc);
+    }
+
+    private AgreementContents(
             Lessor lessor,
             Lessee lessee,
             LocalDateTime startDate,
@@ -43,6 +54,8 @@ public class AgreementContents {
         this.overAmount = overAmount;
         this.etc = etc;
     }
+
+    protected AgreementContents() {}
 
     public Lessor getLessor() {
         return lessor;

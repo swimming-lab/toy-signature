@@ -55,7 +55,7 @@ public class AgreementItem {
                 item);
     }
 
-    public AgreementItem(
+    private AgreementItem(
             String licensePlate,
             String insuranceYn,
             String routineYn,

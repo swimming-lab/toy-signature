@@ -1,5 +1,9 @@
 package swm.toy.signature.domain.agreement;
 
+import static swm.toy.signature.domain.user.UserTestUtils.databaseUser;
+
+import java.time.LocalDateTime;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -9,6 +13,27 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 class AgreementRepositoryTest {
 
     @Autowired private AgreementRepository agreementRepository;
+
+    @Test
+    void when_save_article_expect_auditing_works() {
+        var contentsToSave =
+                AgreementContents.of(
+                        Lessor.of(101L, "", "", ""),
+                        Lessee.of(102L, "", "", ""),
+                        LocalDateTime.now(),
+                        LocalDateTime.now(),
+                        100000L,
+                        20000L,
+                        null);
+
+        //        var agreementToSave =
+        // userFindService.findById(101L).get().createAgreement(contentsToSave);
+        var agreementToSave = databaseUser().createAgreement(contentsToSave);
+        //        agreementToSave.addAgreementItems(AgreementItem.of());
+        var agreementSaved = agreementRepository.save(agreementToSave);
+
+        //        assertThat(articleSaved).hasNoNullFieldsOrProperties();
+    }
 
     //    @Test
     //    void when_ListOfAuthorId_then_ReturnAgreements_HaveAuthorIdAndOrderByCreatedAtDesc() {

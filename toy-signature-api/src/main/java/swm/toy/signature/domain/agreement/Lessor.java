@@ -18,6 +18,19 @@ public class Lessor {
     @Column(nullable = false)
     private String lessorAddr;
 
+    static Lessor of(Long lessorId, String lessorName, String lessorTelNo, String lessorAddr) {
+        return new Lessor(lessorId, lessorName, lessorTelNo, lessorAddr);
+    }
+
+    private Lessor(Long lessorId, String lessorName, String lessorTelNo, String lessorAddr) {
+        this.lessorId = lessorId;
+        this.lessorName = lessorName;
+        this.lessorTelNo = lessorTelNo;
+        this.lessorAddr = lessorAddr;
+    }
+
+    protected Lessor() {}
+
     public Long getLessorId() {
         return lessorId;
     }
