@@ -34,7 +34,7 @@ infrastructure/         -> technical details layer
   - lombok 등 외부 라이브러리 제외
 
 
-### code coverage
+### code coverage(convention)
 _#todo jacoco coverage_
 
 google code style
