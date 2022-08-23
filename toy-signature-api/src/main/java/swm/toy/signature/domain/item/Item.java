@@ -33,7 +33,12 @@ public class Item extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private ItemBrand itemBrand;
 
-    public Item(User author, ItemContents contents, ItemType itemType, ItemBrand itemBrand) {
+    public static Item of(
+            User author, ItemContents contents, ItemType itemType, ItemBrand itemBrand) {
+        return new Item(author, contents, itemType, itemBrand);
+    }
+
+    private Item(User author, ItemContents contents, ItemType itemType, ItemBrand itemBrand) {
         this.contents = contents;
         this.author = author;
         this.itemType = itemType;

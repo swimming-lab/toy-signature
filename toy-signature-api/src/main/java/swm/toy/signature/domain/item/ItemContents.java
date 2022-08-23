@@ -21,7 +21,16 @@ public class ItemContents {
     @Column(length = 500)
     private String etc;
 
-    public ItemContents(
+    public static ItemContents of(
+            String licensePlate,
+            Integer sequence,
+            String insuranceYn,
+            String routineYn,
+            String etc) {
+        return new ItemContents(licensePlate, sequence, insuranceYn, routineYn, etc);
+    }
+
+    private ItemContents(
             String licensePlate,
             Integer sequence,
             String insuranceYn,

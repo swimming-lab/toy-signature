@@ -29,7 +29,7 @@ class ItemPostRequestDTO {
 
     ItemCreateRequest toItemCreateRequest() {
         return new ItemCreateRequest(
-                new ItemContents(licensePlate, sequence, insuranceYn, routineYn, etc),
+                ItemContents.of(licensePlate, sequence, insuranceYn, routineYn, etc),
                 itemTypeId,
                 itemBrandId);
     }

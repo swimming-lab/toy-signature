@@ -67,7 +67,7 @@ public class User extends BaseEntity {
     protected User() {}
 
     public Item createItem(ItemContents contents, ItemType itemType, ItemBrand itemBrand) {
-        return new Item(this, contents, itemType, itemBrand);
+        return Item.of(this, contents, itemType, itemBrand);
     }
 
     public Item updateItem(Item item, ItemUpdateRequest request) {
