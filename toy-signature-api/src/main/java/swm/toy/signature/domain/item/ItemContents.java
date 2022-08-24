@@ -65,19 +65,14 @@ public class ItemContents {
         return etc;
     }
 
-    void updateItemContentsIfPresent(ItemUpdateRequest updateRequest) {
-        updateRequest
-                .getLicensePlateToUpdate()
+    void updateItemContentsIfPresent(ItemUpdateRequest request) {
+        request.getLicensePlateToUpdate()
                 .ifPresent(licensePlateToUpdate -> licensePlate = licensePlateToUpdate);
-        updateRequest
-                .getSequenceToUpdate()
-                .ifPresent(sequenceToUpdate -> sequence = sequenceToUpdate);
-        updateRequest
-                .getInsuranceYnToUpdate()
+        request.getSequenceToUpdate().ifPresent(sequenceToUpdate -> sequence = sequenceToUpdate);
+        request.getInsuranceYnToUpdate()
                 .ifPresent(insuranceYnToUpdate -> insuranceYn = insuranceYnToUpdate);
-        updateRequest
-                .getRoutineYnToUpdate()
+        request.getRoutineYnToUpdate()
                 .ifPresent(routineYnToUpdate -> routineYn = routineYnToUpdate);
-        updateRequest.getEtcToUpdate().ifPresent(etcToUpdate -> etc = etcToUpdate);
+        request.getEtcToUpdate().ifPresent(etcToUpdate -> etc = etcToUpdate);
     }
 }

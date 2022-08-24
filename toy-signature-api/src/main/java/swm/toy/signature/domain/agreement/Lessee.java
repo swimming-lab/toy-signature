@@ -46,4 +46,27 @@ public class Lessee {
     public String getLesseeAddr() {
         return lesseeAddr;
     }
+
+    protected void updateLessee(AgreementUpdateRequest request) {
+        request.getLesseeIdToUpdate().ifPresent(this::changeLesseeId);
+        request.getLesseeNameToUpdate().ifPresent(this::changeLesseeName);
+        request.getLesseeTelNoToUpdate().ifPresent(this::changeLesseeTelNo);
+        request.getLesseeAddrToUpdate().ifPresent(this::changeLesseeAddr);
+    }
+
+    private void changeLesseeId(Long lesseeIdToUpdate) {
+        this.lesseeId = lesseeIdToUpdate;
+    }
+
+    private void changeLesseeName(String lesseeNameToUpdate) {
+        this.lesseeName = lesseeNameToUpdate;
+    }
+
+    private void changeLesseeTelNo(String lesseeNameToUpdate) {
+        this.lesseeName = lesseeNameToUpdate;
+    }
+
+    private void changeLesseeAddr(String lesseeNameToUpdate) {
+        this.lesseeName = lesseeNameToUpdate;
+    }
 }

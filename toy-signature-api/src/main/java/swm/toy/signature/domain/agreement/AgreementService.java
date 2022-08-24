@@ -1,8 +1,13 @@
 package swm.toy.signature.domain.agreement;
 
+import static org.springframework.data.util.Optionals.mapIfAllPresent;
+
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import swm.toy.signature.domain.agreement.item.AgreementItem;
@@ -52,38 +57,23 @@ public class AgreementService {
                 .map(agreementRepository::save)
                 .orElseThrow(NoSuchElementException::new);
     }
-    //
-    //    @Transactional
-    //    public Item updateItem(long userId, ItemUpdateRequest request) {
-    //        request.getItemTypeIdToUpdate()
-    //                .ifPresent(
-    //                        id -> {
-    //                            itemTypeFindService
-    //                                    .findById(id)
-    //                                    .ifPresent(request::setItemTypeToUpdate);
-    //                        });
-    //        request.getItemBrandIdToUpdate()
-    //                .ifPresent(
-    //                        id -> {
-    //                            itemBrandFindService
-    //                                    .findById(id)
-    //                                    .ifPresent(request::setItemBrandToUpdate);
-    //                        });
-    //
-    //        return mapIfAllPresent(
-    //                        userFindService.findById(userId),
-    //                        getItemById(request.getItemId()),
-    //                        (user, item) -> user.updateItem(item, request))
-    //                .orElseThrow(NoSuchElementException::new);
-    //    }
-    //
-    //    @Transactional(readOnly = true)
-    //    public Optional<Item> getItemById(long itemId) {
-    //        return itemRepository.findById(itemId);
-    //    }
-    //
-    //    @Transactional(readOnly = true)
-    //    public Page<Item> getItemsByAuthorId(long authorId, Pageable pageable) {
-    //        return itemRepository.findAllByAuthorIdOrderByContentsSequenceAsc(authorId, pageable);
-    //    }
+
+    @Transactional
+    public Agreement updateAgreement(long userId, AgreementUpdateRequest request) {
+        return mapIfAllPresent(
+                        userFindService.findById(userId),
+                        getItemById(request.getAgreementId()),
+                        (user, agreement) -> user.updateAgreement(agreement, request))
+                .orElseThrow(NoSuchElementException::new);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Agreement> getItemById(long agreementId) {
+        return agreementRepository.findById(agreementId);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Agreement> getAgreementByAuthorId(long authorId, Pageable pageable) {
+        return agreementRepository.findAllByAuthorId(authorId, pageable);
+    }
 }

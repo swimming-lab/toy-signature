@@ -11,13 +11,6 @@ import swm.toy.signature.domain.user.User;
 @Table(name = "agreements")
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-// @NamedEntityGraph(
-//        name = "fetch-author-agreementType-agreedEquip",
-//        attributeNodes = {
-//            @NamedAttributeNode("author"),
-//            @NamedAttributeNode("agreementType"),
-//            @NamedAttributeNode("agreedEquips")
-//        })
 public class Agreement extends BaseEntity {
 
     @Id
@@ -26,15 +19,15 @@ public class Agreement extends BaseEntity {
 
     @Embedded private AgreementContents contents;
 
-    @Convert(converter = AgreementStatusConverter.class)
+    @Convert(converter = AgreementStatus.AgreementStatusConverter.class)
     private AgreementStatus status = AgreementStatus.PENDING;
+
+    @Convert(converter = AgreementType.AgreementTypeConverter.class)
+    private AgreementType agreementType = AgreementType.RENT;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private User author;
-
-    @Convert(converter = AgreementStatusConverter.class)
-    private AgreementType agreementType = AgreementType.RENT;
 
     @OneToMany(mappedBy = "agreement", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<AgreementItem> agreementItems = new HashSet<>();
@@ -77,5 +70,20 @@ public class Agreement extends BaseEntity {
 
     public Set<AgreementItem> getAgreementItems() {
         return agreementItems;
+    }
+
+    public void updateAgreement(AgreementUpdateRequest request) {
+        request.getTypeToUpdate().ifPresent(this::changeAgreementType);
+        request.getStatusToUpdate().ifPresent(this::changeAgreementStatus);
+
+        contents.updateAgreementContents(request);
+    }
+
+    private void changeAgreementType(String typeToUpdate) {
+        this.agreementType = AgreementType.valueOf(typeToUpdate);
+    }
+
+    private void changeAgreementStatus(String statusToUpdate) {
+        this.status = AgreementStatus.valueOf(statusToUpdate);
     }
 }

@@ -7,6 +7,7 @@ import javax.persistence.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import swm.toy.signature.domain.agreement.Agreement;
 import swm.toy.signature.domain.agreement.AgreementContents;
+import swm.toy.signature.domain.agreement.AgreementUpdateRequest;
 import swm.toy.signature.domain.common.BaseEntity;
 import swm.toy.signature.domain.item.Item;
 import swm.toy.signature.domain.item.ItemContents;
@@ -80,6 +81,14 @@ public class User extends BaseEntity {
 
     public Agreement createAgreement(AgreementContents contents) {
         return Agreement.of(this, contents);
+    }
+
+    public Agreement updateAgreement(Agreement agreement, AgreementUpdateRequest request) {
+        if (agreement.getAuthor() != this) {
+            throw new IllegalAccessError("Not authorized to update this agreement");
+        }
+        agreement.updateAgreement(request);
+        return agreement;
     }
 
     User followUser(User followee) {
