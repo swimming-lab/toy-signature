@@ -11,6 +11,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import swm.toy.signature.domain.agreement.item.AgreementItem;
 import swm.toy.signature.domain.item.Item;
@@ -81,5 +83,13 @@ class AgreementRepositoryTest {
         var agreementSaved = agreementRepository.save(agreementToSave);
 
         assertTrue(agreementSaved.getAgreementItems().size() == 1);
+    }
+
+    @Test
+    void when_find_by_author_expect_saved_agreements_with_items() {
+        Page<Agreement> agreements =
+                agreementRepository.findAllByAuthorId(102L, PageRequest.of(0, 10));
+
+        assertTrue(agreements.getTotalElements() == 3);
     }
 }

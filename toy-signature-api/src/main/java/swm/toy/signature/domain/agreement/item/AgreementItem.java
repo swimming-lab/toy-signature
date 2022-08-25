@@ -70,7 +70,6 @@ public class AgreementItem {
         this.heavy = heavy;
         this.brand = brand;
         this.item = item;
-        //        this.agreement = agreement;
     }
 
     protected AgreementItem() {}

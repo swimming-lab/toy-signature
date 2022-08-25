@@ -19,10 +19,10 @@ public class Agreement extends BaseEntity {
 
     @Embedded private AgreementContents contents;
 
-    @Convert(converter = AgreementStatus.AgreementStatusConverter.class)
+    @Convert(converter = AgreementStatusConverter.class)
     private AgreementStatus status = AgreementStatus.PENDING;
 
-    @Convert(converter = AgreementType.AgreementTypeConverter.class)
+    @Convert(converter = AgreementTypeConverter.class)
     private AgreementType agreementType = AgreementType.RENT;
 
     @ManyToOne(fetch = FetchType.LAZY)
