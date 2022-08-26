@@ -1,12 +1,5 @@
 package swm.toy.signature.domain.agreement;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static swm.toy.signature.domain.item.brand.ItemBrandTestUtils.databaseItemBrand;
-import static swm.toy.signature.domain.item.type.ItemTypeTestUtils.databaseItemType;
-import static swm.toy.signature.domain.user.UserTestUtils.databaseUser;
-
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +16,16 @@ import swm.toy.signature.domain.item.type.ItemType;
 import swm.toy.signature.domain.item.type.ItemTypeRepository;
 import swm.toy.signature.domain.user.User;
 import swm.toy.signature.domain.user.UserRepository;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static swm.toy.signature.domain.item.brand.ItemBrandTestUtils.databaseItemBrand;
+import static swm.toy.signature.domain.item.type.ItemTypeTestUtils.databaseItemType;
+import static swm.toy.signature.domain.user.UserTestUtils.databaseUser;
 
 @EnableJpaAuditing
 @DataJpaTest
@@ -90,6 +93,15 @@ class AgreementRepositoryTest {
         Page<Agreement> agreements =
                 agreementRepository.findAllByAuthorId(102L, PageRequest.of(0, 10));
 
+        agreements.get().forEach(agreement -> System.out.println(agreement.getAuthor().getName()));
         assertTrue(agreements.getTotalElements() == 3);
+    }
+
+    @Test
+    void when_find_by_author_expect_saved_agreements_with_items2() {
+        Optional<User> byId = userRepository.findById(1L);
+        List<Agreement> all = agreementRepository.findAll();
+        all.stream().forEach(agreement -> System.out.println(agreement.getAuthor().getName()));
+        assertTrue(all.size() == 3);
     }
 }

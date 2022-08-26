@@ -47,13 +47,14 @@ INSERT INTO ITEMS (id, created_at, updated_at, author_id, etc, insurance_yn, lic
 -- AGREEMENTS
 INSERT INTO AGREEMENTS (id, created_at, updated_at, agreement_type, author_id, amount, end_date, etc, lessee_addr, lessee_id, lessee_name, lessee_tel_no, lessor_addr, lessor_id, lessor_name, lessor_tel_no, over_amount, start_date, status)
 VALUES (101, NOW(), NOW(), '00', 102, 100000, NOW(), NULL, '경기도 부천시 오정구 원종동', 103, '침착맨', '010-2222-2222', '경기도 김포시 유현로', 102, '유수영', '010-1111-1111', 10000, NOW(), '02');
+-- VALUES (101, NOW(), NOW(), NULL, 102, 100000, NOW(), NULL, '경기도 부천시 오정구 원종동', 103, '침착맨', '010-2222-2222', '경기도 김포시 유현로', 102, '유수영', '010-1111-1111', 10000, NOW(), NULL);
 INSERT INTO AGREEMENT_ITEM (id, agreement_id, brand, heavy, insurance_yn, item_id, license_plate, routine_yn, type) VALUES (101, 101, '토요타', '1톤', 'Y', 101, 'A1234', 'Y', '굴삭기');
 
-INSERT INTO AGREEMENTS (id, created_at, updated_at, agreement_type, author_id, amount, end_date, etc, lessee_addr, lessee_id, lessee_name, lessee_tel_no, lessor_addr, lessor_id, lessor_name, lessor_tel_no, over_amount, start_date, status)
-VALUES (102, NOW(), NOW(), '00', 102, 200000, NOW(), NULL, '경기도 부천시 오정구 원종동', 103, '침착맨', '010-2222-2222', '경기도 김포시 유현로', 102, '유수영', '010-1111-1111', 20000, NOW(), '02');
-INSERT INTO AGREEMENT_ITEM (id, agreement_id, brand, heavy, insurance_yn, item_id, license_plate, routine_yn, type) VALUES (102, 102, '현대', '1.5톤', 'Y', 102, 'A5678', 'Y', '굴삭기');
+-- INSERT INTO AGREEMENTS (id, created_at, updated_at, agreement_type, author_id, amount, end_date, etc, lessee_addr, lessee_id, lessee_name, lessee_tel_no, lessor_addr, lessor_id, lessor_name, lessor_tel_no, over_amount, start_date, status)
+-- VALUES (102, NOW(), NOW(), '00', 102, 200000, NOW(), NULL, '경기도 부천시 오정구 원종동', 103, '침착맨', '010-2222-2222', '경기도 김포시 유현로', 102, '유수영', '010-1111-1111', 20000, NOW(), '02');
+-- INSERT INTO AGREEMENT_ITEM (id, agreement_id, brand, heavy, insurance_yn, item_id, license_plate, routine_yn, type) VALUES (102, 102, '현대', '1.5톤', 'Y', 102, 'A5678', 'Y', '굴삭기');
 
-INSERT INTO AGREEMENTS (id, created_at, updated_at, agreement_type, author_id, amount, end_date, etc, lessee_addr, lessee_id, lessee_name, lessee_tel_no, lessor_addr, lessor_id, lessor_name, lessor_tel_no, over_amount, start_date, status)
-VALUES (103, NOW(), NOW(), '00', 102, 300000, NOW(), NULL, '경기도 부천시 오정구 원종동', 103, '침착맨', '010-2222-2222', '경기도 김포시 유현로', 102, '유수영', '010-1111-1111', 30000, NOW(), '02');
-INSERT INTO AGREEMENT_ITEM (id, agreement_id, brand, heavy, insurance_yn, item_id, license_plate, routine_yn, type) VALUES (103, 103, '벤츠', '1톤', 'Y', 103, 'B1234', 'Y', '굴삭기');
-INSERT INTO AGREEMENT_ITEM (id, agreement_id, brand, heavy, insurance_yn, item_id, license_plate, routine_yn, type) VALUES (104, 103, '볼보', '1.5톤', 'Y', 104, 'B5678', 'Y', '굴삭기');
+-- INSERT INTO AGREEMENTS (id, created_at, updated_at, agreement_type, author_id, amount, end_date, etc, lessee_addr, lessee_id, lessee_name, lessee_tel_no, lessor_addr, lessor_id, lessor_name, lessor_tel_no, over_amount, start_date, status)
+-- VALUES (103, NOW(), NOW(), '00', 102, 300000, NOW(), NULL, '경기도 부천시 오정구 원종동', 103, '침착맨', '010-2222-2222', '경기도 김포시 유현로', 102, '유수영', '010-1111-1111', 30000, NOW(), '02');
+-- INSERT INTO AGREEMENT_ITEM (id, agreement_id, brand, heavy, insurance_yn, item_id, license_plate, routine_yn, type) VALUES (103, 103, '벤츠', '1톤', 'Y', 103, 'B1234', 'Y', '굴삭기');
+-- INSERT INTO AGREEMENT_ITEM (id, agreement_id, brand, heavy, insurance_yn, item_id, license_plate, routine_yn, type) VALUES (104, 103, '볼보', '1.5톤', 'Y', 104, 'B5678', 'Y', '굴삭기');

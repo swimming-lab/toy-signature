@@ -1,12 +1,13 @@
 package swm.toy.signature.domain.agreement;
 
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import swm.toy.signature.domain.agreement.item.AgreementItem;
 import swm.toy.signature.domain.common.BaseEntity;
 import swm.toy.signature.domain.user.User;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Table(name = "agreements")
 @EntityListeners(AuditingEntityListener.class)
@@ -19,9 +20,13 @@ public class Agreement extends BaseEntity {
 
     @Embedded private AgreementContents contents;
 
+    @Column(nullable = false, length = 20)
+//    @Enumerated(value = EnumType.STRING)
     @Convert(converter = AgreementStatusConverter.class)
     private AgreementStatus status = AgreementStatus.PENDING;
 
+    @Column(nullable = false, length = 20)
+//    @Enumerated(value = EnumType.STRING)
     @Convert(converter = AgreementTypeConverter.class)
     private AgreementType agreementType = AgreementType.RENT;
 
