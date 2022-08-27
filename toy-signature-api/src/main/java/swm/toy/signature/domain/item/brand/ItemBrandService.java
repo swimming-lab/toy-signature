@@ -18,13 +18,12 @@ public class ItemBrandService implements ItemBrandFindService {
 
     @Transactional
     public ItemBrand createItemBrand(String brandName) {
-        return itemBrandRepository.save(ItemBrand.of(brandName));
+        return itemBrandRepository.save(ItemBrand.from(brandName));
     }
 
     @Transactional
     public ItemBrand updateItemBrand(Long itemBrandId, String brandName) {
-        final var itemBrand =
-                itemBrandRepository.findById(itemBrandId).orElseThrow(NoSuchElementException::new);
+        final var itemBrand = itemBrandRepository.findById(itemBrandId).orElseThrow(NoSuchElementException::new);
         itemBrand.changeBrandName(brandName);
         return itemBrandRepository.save(itemBrand);
     }

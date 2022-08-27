@@ -19,18 +19,28 @@ import swm.toy.signature.domain.item.ItemCreateRequest;
 @JsonTypeInfo(include = WRAPPER_OBJECT, use = NAME)
 class ItemPostRequestDTO {
 
-    @NotNull private String licensePlate;
-    @NotNull private Integer sequence;
-    @NotNull private String insuranceYn;
-    @NotNull private String routineYn;
-    @NotNull private Long itemTypeId;
-    @NotNull private Long itemBrandId;
+    @NotNull
+    private String licensePlate;
+
+    @NotNull
+    private Integer sequence;
+
+    @NotNull
+    private String insuranceYn;
+
+    @NotNull
+    private String routineYn;
+
+    @NotNull
+    private Long itemTypeId;
+
+    @NotNull
+    private Long itemBrandId;
+
     private String etc;
 
     ItemCreateRequest toItemCreateRequest() {
         return new ItemCreateRequest(
-                ItemContents.of(licensePlate, sequence, insuranceYn, routineYn, etc),
-                itemTypeId,
-                itemBrandId);
+                ItemContents.of(licensePlate, sequence, insuranceYn, routineYn, etc), itemTypeId, itemBrandId);
     }
 }

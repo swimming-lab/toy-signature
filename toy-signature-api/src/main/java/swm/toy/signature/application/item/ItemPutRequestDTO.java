@@ -19,7 +19,9 @@ import swm.toy.signature.domain.item.ItemUpdateRequest;
 @JsonTypeInfo(include = WRAPPER_OBJECT, use = NAME)
 class ItemPutRequestDTO {
 
-    @NotNull private Long id;
+    @NotNull
+    private Long id;
+
     private String licensePlate;
     private Integer sequence;
     private String insuranceYn;

@@ -2,9 +2,10 @@ package swm.toy.signature.infrastructure.exception;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Getter;
 
 @Getter
 @JsonTypeName("errors")
@@ -12,7 +13,8 @@ import lombok.Getter;
 public class ErrorMessages {
 
     private final int status;
-    private final List<String> body = new ArrayList<>();;
+    private final List<String> body = new ArrayList<>();
+    ;
 
     ErrorMessages(int status) {
         this.status = status;

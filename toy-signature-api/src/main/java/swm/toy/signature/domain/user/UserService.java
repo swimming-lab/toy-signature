@@ -1,12 +1,13 @@
 package swm.toy.signature.domain.user;
 
-import java.util.NoSuchElementException;
-import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import swm.toy.signature.infrastructure.exception.AppException;
 import swm.toy.signature.infrastructure.exception.ErrorCode;
+
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class UserService implements UserFindService {
@@ -22,19 +23,12 @@ public class UserService implements UserFindService {
     @Transactional
     public User signUp(UserSignUpRequest request) {
         final var encodedPassword = Password.of(request.getRawPassword(), passwordEncoder);
-        userRepository.findFirstByEmail(request.getEmail()).stream()
-                .findAny()
-                .ifPresent(
-                        entity -> {
-                            throw new AppException(ErrorCode.DUPLICATED_USER);
-                        });
+        userRepository.findFirstByEmail(request.getEmail()).stream().findAny().ifPresent(entity -> {
+            throw new AppException(ErrorCode.DUPLICATED_USER);
+        });
 
         return userRepository.save(
-                User.of(
-                        request.getEmail(),
-                        request.getUserName(),
-                        encodedPassword,
-                        Authority.of("ROLE_USER")));
+                User.of(request.getEmail(), request.getUserName(), encodedPassword, Authority.of("ROLE_USER")));
     }
 
     @Transactional(readOnly = true)

@@ -1,6 +1,5 @@
 package swm.toy.signature.application.item;
 
-import javax.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -8,6 +7,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import swm.toy.signature.domain.item.ItemService;
 import swm.toy.signature.infrastructure.jwt.UserJWTPayload;
+
+import javax.validation.Valid;
 
 @RestController
 public class ItemRestController {
@@ -20,8 +21,7 @@ public class ItemRestController {
 
     @PostMapping("/items")
     public ItemModel postItem(
-            @AuthenticationPrincipal UserJWTPayload jwtPayload,
-            @Valid @RequestBody ItemPostRequestDTO dto) {
+            @AuthenticationPrincipal UserJWTPayload jwtPayload, @Valid @RequestBody ItemPostRequestDTO dto) {
         var itemCreated = itemService.createItem(jwtPayload.getUserId(), dto.toItemCreateRequest());
         return ItemModel.fromItem(itemCreated);
     }
@@ -47,11 +47,8 @@ public class ItemRestController {
     }
 
     @PutMapping("/items")
-    public ItemModel putItem(
-            @AuthenticationPrincipal UserJWTPayload jwtPayload,
-            @RequestBody ItemPutRequestDTO dto) {
-        final var itemUpdated =
-                itemService.updateItem(jwtPayload.getUserId(), dto.toUpdateRequest());
+    public ItemModel putItem(@AuthenticationPrincipal UserJWTPayload jwtPayload, @RequestBody ItemPutRequestDTO dto) {
+        final var itemUpdated = itemService.updateItem(jwtPayload.getUserId(), dto.toUpdateRequest());
         return ItemModel.fromItem(itemUpdated);
     }
 }

@@ -1,8 +1,5 @@
 package swm.toy.signature.application.security;
 
-import static org.springframework.http.HttpMethod.POST;
-
-import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -17,6 +14,10 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import swm.toy.signature.domain.jwt.JWTDeserializer;
+
+import java.util.List;
+
+import static org.springframework.http.HttpMethod.POST;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -41,25 +42,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.cors()
-                .configurationSource(
-                        request -> {
-                            var cors = new CorsConfiguration();
-                            cors.setAllowedOrigins(
-                                    List.of("http://localhost:8080", "https://editor.swagger.io"));
-                            cors.setAllowedMethods(
-                                    List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-                            cors.setAllowedHeaders(List.of("*"));
-                            return cors;
-                        });
+        http.cors().configurationSource(request -> {
+            var cors = new CorsConfiguration();
+            cors.setAllowedOrigins(List.of("http://localhost:8080", "https://editor.swagger.io"));
+            cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+            cors.setAllowedHeaders(List.of("*"));
+            return cors;
+        });
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.exceptionHandling()
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 .and();
         http = http.formLogin().disable().headers().frameOptions().sameOrigin().and();
         http.logout().disable();
-        http.addFilterBefore(
-                new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         http.authorizeRequests()
                 //                .antMatchers(GET, "/admin/**").hasRole("ADMIN")
                 .antMatchers(POST, "/users", "/users/login")

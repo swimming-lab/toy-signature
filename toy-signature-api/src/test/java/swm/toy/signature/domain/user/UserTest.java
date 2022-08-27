@@ -13,11 +13,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @ExtendWith(MockitoExtension.class)
 class UserTest {
 
-    @Mock private PasswordEncoder passwordEncoder;
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
-    @Mock private Email emailMock;
-    @Mock private UserName userNameMock;
-    @Mock private Password passwordMock;
+    @Mock
+    private Email emailMock;
+
+    @Mock
+    private UserName userNameMock;
+
+    @Mock
+    private Password passwordMock;
 
     @Test
     void when_create_user_getImage_return_null() {
@@ -39,8 +45,7 @@ class UserTest {
     }
 
     @Test
-    void when_user_have_same_email_expect_equal_and_hashCode(
-            @Mock UserName otherName, @Mock Password otherPassword) {
+    void when_user_have_same_email_expect_equal_and_hashCode(@Mock UserName otherName, @Mock Password otherPassword) {
         final var user = User.of(emailMock, userNameMock, passwordMock);
         final var userWithSameEmail = User.of(emailMock, otherName, otherPassword);
 
@@ -74,8 +79,7 @@ class UserTest {
     }
 
     @Test
-    void when_changePassword_expect_matchesPassword_matches_new_password(
-            @Mock Password passwordToChange) {
+    void when_changePassword_expect_matchesPassword_matches_new_password(@Mock Password passwordToChange) {
         final var user = User.of(emailMock, userNameMock, passwordMock);
 
         user.changePassword(passwordToChange);

@@ -1,11 +1,12 @@
 package swm.toy.signature.domain.item;
 
-import javax.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import swm.toy.signature.domain.common.BaseEntity;
 import swm.toy.signature.domain.item.brand.ItemBrand;
 import swm.toy.signature.domain.item.type.ItemType;
 import swm.toy.signature.domain.user.User;
+
+import javax.persistence.*;
 
 @Table(name = "items")
 @EntityListeners(AuditingEntityListener.class)
@@ -16,7 +17,8 @@ public class Item extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Embedded private ItemContents contents;
+    @Embedded
+    private ItemContents contents;
 
     @Convert(converter = StatusConverter.class)
     private Status status = Status.HIDE;
@@ -33,8 +35,7 @@ public class Item extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private ItemBrand itemBrand;
 
-    public static Item of(
-            User author, ItemContents contents, ItemType itemType, ItemBrand itemBrand) {
+    public static Item of(User author, ItemContents contents, ItemType itemType, ItemBrand itemBrand) {
         return new Item(author, contents, itemType, itemBrand);
     }
 
@@ -77,14 +78,8 @@ public class Item extends BaseEntity {
     }
 
     private void updateItemIfPresent(ItemUpdateRequest updateRequest) {
-        updateRequest
-                .getItemTypeToUpdate()
-                .ifPresent(itemTypeToUpdate -> itemType = itemTypeToUpdate);
-        updateRequest
-                .getItemBrandToUpdate()
-                .ifPresent(itemBrandToUpdate -> itemBrand = itemBrandToUpdate);
-        updateRequest
-                .getStatusToUpdate()
-                .ifPresent(statusToUpdate -> status = Status.valueOf(statusToUpdate));
+        updateRequest.getItemTypeToUpdate().ifPresent(itemTypeToUpdate -> itemType = itemTypeToUpdate);
+        updateRequest.getItemBrandToUpdate().ifPresent(itemBrandToUpdate -> itemBrand = itemBrandToUpdate);
+        updateRequest.getStatusToUpdate().ifPresent(statusToUpdate -> status = Status.valueOf(statusToUpdate));
     }
 }

@@ -1,11 +1,10 @@
 package swm.toy.signature.infrastructure.converter;
 
+import javax.persistence.AttributeConverter;
 import java.util.EnumSet;
 import java.util.NoSuchElementException;
-import javax.persistence.AttributeConverter;
 
-public class CodeValueConverter<E extends Enum<E> & CodeValue>
-        implements AttributeConverter<E, String> {
+public class CodeValueConverter<E extends Enum<E> & CodeValue> implements AttributeConverter<E, String> {
 
     private Class<E> clz;
 

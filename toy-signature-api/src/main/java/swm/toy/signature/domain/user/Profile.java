@@ -7,11 +7,14 @@ import javax.persistence.Transient;
 @Embeddable
 public class Profile {
 
-    @Embedded private UserName userName;
+    @Embedded
+    private UserName userName;
 
-    @Embedded private Image image;
+    @Embedded
+    private Image image;
 
-    @Transient private boolean following;
+    @Transient
+    private boolean following;
 
     public Profile(UserName userName) {
         this(userName, null, false);

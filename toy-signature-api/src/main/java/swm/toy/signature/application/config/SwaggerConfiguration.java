@@ -20,16 +20,17 @@ public class SwaggerConfiguration {
                         org.springframework.data.domain.Pageable.class,
                         org.springdoc.core.converters.models.Pageable.class);
 
-        Info info =
-                new Info().title("TOY-SIGNATURE API").description("toy-signature").version("v1");
+        Info info = new Info()
+                .title("TOY-SIGNATURE API")
+                .description("toy-signature")
+                .version("v1");
 
-        SecurityScheme securityScheme =
-                new SecurityScheme()
-                        .type(SecurityScheme.Type.HTTP)
-                        .scheme("bearer")
-                        .bearerFormat("JWT")
-                        .in(SecurityScheme.In.HEADER)
-                        .name("Authorization");
+        SecurityScheme securityScheme = new SecurityScheme()
+                .type(SecurityScheme.Type.HTTP)
+                .scheme("bearer")
+                .bearerFormat("JWT")
+                .in(SecurityScheme.In.HEADER)
+                .name("Authorization");
         SecurityRequirement securityRequirement = new SecurityRequirement().addList("bearerAuth");
 
         return new OpenAPI()

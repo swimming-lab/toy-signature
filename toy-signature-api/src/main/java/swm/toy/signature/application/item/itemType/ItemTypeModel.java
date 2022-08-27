@@ -19,8 +19,7 @@ public class ItemTypeModel {
         String heavy;
 
         public static ItemTypeModelNested fromItemType(ItemType itemType) {
-            return new ItemTypeModelNested(
-                    itemType.getId(), itemType.getType(), itemType.getHeavy());
+            return new ItemTypeModelNested(itemType.getId(), itemType.getType(), itemType.getHeavy());
         }
     }
 }

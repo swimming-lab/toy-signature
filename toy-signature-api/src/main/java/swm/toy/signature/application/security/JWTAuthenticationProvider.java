@@ -1,9 +1,5 @@
 package swm.toy.signature.application.security;
 
-import static java.util.Optional.of;
-
-import java.util.Arrays;
-import java.util.stream.Collectors;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
@@ -11,6 +7,11 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import swm.toy.signature.domain.jwt.JWTDeserializer;
 import swm.toy.signature.domain.jwt.JWTPayload;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static java.util.Optional.of;
 
 class JWTAuthenticationProvider implements AuthenticationProvider {
 
@@ -21,16 +22,12 @@ class JWTAuthenticationProvider implements AuthenticationProvider {
     }
 
     @Override
-    public Authentication authenticate(Authentication authentication)
-            throws AuthenticationException {
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         return of(authentication)
                 .map(JWTAuthenticationFilter.JWT.class::cast)
                 .map(JWTAuthenticationFilter.JWT::getPrincipal)
                 .map(Object::toString)
-                .map(
-                        token ->
-                                new JWTAuthentication(
-                                        token, jwtDeserializer.jwtPayloadFromJWT(token)))
+                .map(token -> new JWTAuthentication(token, jwtDeserializer.jwtPayloadFromJWT(token)))
                 .orElseThrow(IllegalStateException::new);
     }
 
@@ -46,10 +43,9 @@ class JWTAuthenticationProvider implements AuthenticationProvider {
         private final String token;
 
         private JWTAuthentication(String token, JWTPayload jwtPayload) {
-            super(
-                    Arrays.stream(jwtPayload.getAuth().split(","))
-                            .map(SimpleGrantedAuthority::new)
-                            .collect(Collectors.toList()));
+            super(Arrays.stream(jwtPayload.getAuth().split(","))
+                    .map(SimpleGrantedAuthority::new)
+                    .collect(Collectors.toList()));
             super.setAuthenticated(true);
             this.jwtPayload = jwtPayload;
             this.token = token;

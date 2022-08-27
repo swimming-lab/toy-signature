@@ -1,8 +1,9 @@
 package swm.toy.signature.application.agreement;
 
-import java.util.List;
-import javax.validation.constraints.NotNull;
 import lombok.*;
+
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @Setter
@@ -35,7 +36,9 @@ public class AgreementTypeDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Update {
-        @NotNull private Long id;
+        @NotNull
+        private Long id;
+
         private String type;
     }
 }

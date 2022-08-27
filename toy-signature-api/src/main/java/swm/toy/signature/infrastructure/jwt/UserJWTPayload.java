@@ -1,14 +1,15 @@
 package swm.toy.signature.infrastructure.jwt;
 
-import static java.lang.String.format;
-import static java.lang.String.valueOf;
-import static java.time.Instant.now;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.stream.Collectors;
 import swm.toy.signature.domain.jwt.JWTPayload;
 import swm.toy.signature.domain.user.Authority;
 import swm.toy.signature.domain.user.User;
+
+import java.util.stream.Collectors;
+
+import static java.lang.String.format;
+import static java.lang.String.valueOf;
+import static java.time.Instant.now;
 
 public class UserJWTPayload implements JWTPayload {
 
@@ -19,9 +20,7 @@ public class UserJWTPayload implements JWTPayload {
 
     static UserJWTPayload of(User user, long epochSecondExpired) {
         String auth =
-                user.getAuthorities().stream()
-                        .map(Authority::getAuthorityName)
-                        .collect(Collectors.joining(","));
+                user.getAuthorities().stream().map(Authority::getAuthorityName).collect(Collectors.joining(","));
 
         return new UserJWTPayload(user.getId(), valueOf(user.getEmail()), auth, epochSecondExpired);
     }
@@ -54,7 +53,6 @@ public class UserJWTPayload implements JWTPayload {
 
     @Override
     public String toString() {
-        return format(
-                "{\"sub\":%d,\"name\":\"%s\",\"auth\":\"%s\",\"iat\":%d}", sub, name, auth, iat);
+        return format("{\"sub\":%d,\"name\":\"%s\",\"auth\":\"%s\",\"iat\":%d}", sub, name, auth, iat);
     }
 }

@@ -1,9 +1,9 @@
 package swm.toy.signature.application.user;
 
-import static java.lang.String.valueOf;
-
 import lombok.Value;
 import swm.toy.signature.domain.user.Profile;
+
+import static java.lang.String.valueOf;
 
 @Value
 public class ProfileModel {
@@ -22,9 +22,7 @@ public class ProfileModel {
 
         public static ProfileModelNested fromProfile(Profile profile) {
             return new ProfileModelNested(
-                    valueOf(profile.getUserName()),
-                    valueOf(profile.getImage()),
-                    profile.isFollowing());
+                    valueOf(profile.getUserName()), valueOf(profile.getImage()), profile.isFollowing());
         }
     }
 }

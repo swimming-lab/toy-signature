@@ -22,20 +22,11 @@ public class ItemContents {
     private String etc;
 
     public static ItemContents of(
-            String licensePlate,
-            Integer sequence,
-            String insuranceYn,
-            String routineYn,
-            String etc) {
+            String licensePlate, Integer sequence, String insuranceYn, String routineYn, String etc) {
         return new ItemContents(licensePlate, sequence, insuranceYn, routineYn, etc);
     }
 
-    private ItemContents(
-            String licensePlate,
-            Integer sequence,
-            String insuranceYn,
-            String routineYn,
-            String etc) {
+    private ItemContents(String licensePlate, Integer sequence, String insuranceYn, String routineYn, String etc) {
         this.licensePlate = licensePlate;
         this.sequence = sequence;
         this.insuranceYn = insuranceYn;
@@ -66,13 +57,10 @@ public class ItemContents {
     }
 
     void updateItemContentsIfPresent(ItemUpdateRequest request) {
-        request.getLicensePlateToUpdate()
-                .ifPresent(licensePlateToUpdate -> licensePlate = licensePlateToUpdate);
+        request.getLicensePlateToUpdate().ifPresent(licensePlateToUpdate -> licensePlate = licensePlateToUpdate);
         request.getSequenceToUpdate().ifPresent(sequenceToUpdate -> sequence = sequenceToUpdate);
-        request.getInsuranceYnToUpdate()
-                .ifPresent(insuranceYnToUpdate -> insuranceYn = insuranceYnToUpdate);
-        request.getRoutineYnToUpdate()
-                .ifPresent(routineYnToUpdate -> routineYn = routineYnToUpdate);
+        request.getInsuranceYnToUpdate().ifPresent(insuranceYnToUpdate -> insuranceYn = insuranceYnToUpdate);
+        request.getRoutineYnToUpdate().ifPresent(routineYnToUpdate -> routineYn = routineYnToUpdate);
         request.getEtcToUpdate().ifPresent(etcToUpdate -> etc = etcToUpdate);
     }
 }

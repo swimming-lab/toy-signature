@@ -14,7 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @ExtendWith(MockitoExtension.class)
 class PasswordTest {
 
-    @Mock private PasswordEncoder passwordEncoder;
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     @Test
     void when_create_password_expect_passwordEncoder_encode() {

@@ -23,8 +23,7 @@ public class ItemTypeService implements ItemTypeFindService {
 
     @Transactional
     public ItemType updateItemType(Long itemTypeId, String type, String heavy) {
-        final var itemType =
-                itemTypeRepository.findById(itemTypeId).orElseThrow(NoSuchElementException::new);
+        final var itemType = itemTypeRepository.findById(itemTypeId).orElseThrow(NoSuchElementException::new);
         if (itemType != null) {
             itemType.changeType(type);
         }

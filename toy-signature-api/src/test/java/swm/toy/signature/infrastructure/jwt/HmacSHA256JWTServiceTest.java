@@ -1,5 +1,16 @@
 package swm.toy.signature.infrastructure.jwt;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.json.JsonTest;
+
+import java.nio.charset.StandardCharsets;
+
 import static com.fasterxml.jackson.annotation.JsonCreator.Mode.PROPERTIES;
 import static java.lang.String.format;
 import static java.lang.String.valueOf;
@@ -9,27 +20,17 @@ import static swm.toy.signature.domain.user.UserTestUtils.userWithIdAndEmail;
 import static swm.toy.signature.infrastructure.jwt.Base64URL.base64URLFromBytes;
 import static swm.toy.signature.infrastructure.jwt.Base64URL.base64URLFromString;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
-import java.nio.charset.StandardCharsets;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.json.JsonTest;
-
 @ExtendWith(MockitoExtension.class)
 @JsonTest
 class HmacSHA256JWTServiceTest {
 
-    private static final String JWT_HEADER_EXPECTED =
-            base64URLFromString("{\"alg\":\"HS256\",\"type\":\"JWT\"}");
+    private static final String JWT_HEADER_EXPECTED = base64URLFromString("{\"alg\":\"HS256\",\"type\":\"JWT\"}");
     private static final byte[] SECRET = "SOME_SECRET".getBytes(StandardCharsets.UTF_8);
 
     private HmacSHA256JWTService jwtService;
 
-    @Autowired private ObjectMapper objectMapper;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @BeforeEach
     void initializeService() {
@@ -62,10 +63,7 @@ class HmacSHA256JWTServiceTest {
 
     @Test
     void when_JWTPayloadFromString_with_invalid_sign_expect_IllegalArgumentException() {
-        assertThatThrownBy(
-                        () ->
-                                jwtService.jwtPayloadFromJWT(
-                                        JWT_HEADER_EXPECTED + "._base64-payload.INVALID_1_SIGN"))
+        assertThatThrownBy(() -> jwtService.jwtPayloadFromJWT(JWT_HEADER_EXPECTED + "._base64-payload.INVALID_1_SIGN"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageStartingWith("Token has invalid signature");
     }
@@ -98,13 +96,8 @@ class HmacSHA256JWTServiceTest {
         assertThat(payloadFromToken)
                 .matches(payload -> !payload.isExpired())
                 .matches(payload -> payload.getUserId() == 1L)
-                .matches(
-                        payload ->
-                                valueOf(payload)
-                                        .startsWith(
-                                                format(
-                                                        "{\"sub\":%d,\"name\":\"%s\",",
-                                                        1L, user.getEmail())));
+                .matches(payload ->
+                        valueOf(payload).startsWith(format("{\"sub\":%d,\"name\":\"%s\",", 1L, user.getEmail())));
     }
 
     private String invalidPayloadToken() {

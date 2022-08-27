@@ -24,9 +24,11 @@ class UserServiceTest {
 
     private UserService userService;
 
-    @Mock private PasswordEncoder passwordEncoder;
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
-    @Mock private UserRepository userRepository;
+    @Mock
+    private UserRepository userRepository;
 
     @BeforeEach
     void initializeUserService() {
@@ -43,8 +45,7 @@ class UserServiceTest {
     }
 
     @Test
-    void when_duplicate_signUp_expect_throw_exception(
-            @Mock UserSignUpRequest request, @Mock User user) {
+    void when_duplicate_signUp_expect_throw_exception(@Mock UserSignUpRequest request, @Mock User user) {
         when(userRepository.findFirstByEmail(request.getEmail())).thenReturn(of(user));
 
         try {
@@ -81,17 +82,14 @@ class UserServiceTest {
     }
 
     @Test
-    void when_updateUser_with_invalid_id_expect_NoSuchElementException(
-            @Mock UserUpdateRequest request) {
+    void when_updateUser_with_invalid_id_expect_NoSuchElementException(@Mock UserUpdateRequest request) {
         when(userRepository.findById(1L)).thenReturn(empty());
 
-        assertThatThrownBy(() -> userService.updateUser(1L, request))
-                .isInstanceOf(NoSuchElementException.class);
+        assertThatThrownBy(() -> userService.updateUser(1L, request)).isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
-    void when_updateUser_expect_userRepository_save(
-            @Mock User user, @Mock UserUpdateRequest request) {
+    void when_updateUser_expect_userRepository_save(@Mock User user, @Mock UserUpdateRequest request) {
         given(userRepository.findById(1L)).willReturn(of(user));
 
         userService.updateUser(1L, request);
@@ -141,9 +139,7 @@ class UserServiceTest {
         given(request.getPasswordToUpdate()).willReturn(of("new-password"));
 
         try (var mockStatic = mockStatic(Password.class)) {
-            mockStatic
-                    .when(() -> Password.of("new-password", passwordEncoder))
-                    .thenReturn(password);
+            mockStatic.when(() -> Password.of("new-password", passwordEncoder)).thenReturn(password);
             userService.updateUser(1L, request);
         }
 

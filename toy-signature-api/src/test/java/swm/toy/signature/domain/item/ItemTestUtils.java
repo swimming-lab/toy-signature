@@ -1,17 +1,20 @@
 package swm.toy.signature.domain.item;
 
+import org.springframework.test.util.ReflectionTestUtils;
+
+import static swm.toy.signature.domain.item.brand.ItemBrandTestUtils.databaseItemBrand;
+import static swm.toy.signature.domain.item.type.ItemTypeTestUtils.databaseItemType;
+import static swm.toy.signature.domain.user.UserTestUtils.databaseUser;
+
 public class ItemTestUtils {
 
-    //    public static Item databaseItem() {
-    //        final var password = new Password();
-    //        ReflectionTestUtils.setField(password, "encodedPassword",
-    // "$2y$10$Uw0vceuCbx3bVOsXZuP");
-    //        final var databaseUser =
-    //                User.of(
-    //                        new Email("databaseUser@email.com"),
-    //                        new UserName("databaseUser"),
-    //                        password);
-    //        ReflectionTestUtils.setField(databaseUser, "id", 1L);
-    //        return databaseUser;
-    //    }
+    public static Item databaseItem() {
+        return databaseItem(1L);
+    }
+
+    public static Item databaseItem(Long id) {
+        Item item = Item.of(databaseUser(), ItemContents.of("test_" + id, 1, "Y", "Y", null), databaseItemType(), databaseItemBrand());
+        ReflectionTestUtils.setField(item, "id", id);
+        return item;
+    }
 }

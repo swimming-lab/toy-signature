@@ -1,8 +1,9 @@
 package swm.toy.signature.domain.user;
 
-import java.util.NoSuchElementException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.NoSuchElementException;
 
 @Service
 public class ProfileService {
@@ -15,8 +16,7 @@ public class ProfileService {
 
     @Transactional(readOnly = true)
     public Profile viewProfile(long viewerId, UserName usernameToView) {
-        final var viewer =
-                userFindService.findById(viewerId).orElseThrow(NoSuchElementException::new);
+        final var viewer = userFindService.findById(viewerId).orElseThrow(NoSuchElementException::new);
         return userFindService
                 .findByUsername(usernameToView)
                 .map(viewer::viewProfile)
@@ -25,18 +25,12 @@ public class ProfileService {
 
     @Transactional(readOnly = true)
     public Profile viewProfile(UserName userName) {
-        return userFindService
-                .findByUsername(userName)
-                .map(User::getProfile)
-                .orElseThrow(NoSuchElementException::new);
+        return userFindService.findByUsername(userName).map(User::getProfile).orElseThrow(NoSuchElementException::new);
     }
 
     @Transactional
     public Profile followAndViewProfile(long followerId, UserName followeeUserName) {
-        final var followee =
-                userFindService
-                        .findByUsername(followeeUserName)
-                        .orElseThrow(NoSuchElementException::new);
+        final var followee = userFindService.findByUsername(followeeUserName).orElseThrow(NoSuchElementException::new);
         return userFindService
                 .findById(followerId)
                 .map(follower -> follower.followUser(followee))
@@ -46,10 +40,7 @@ public class ProfileService {
 
     @Transactional
     public Profile unfollowAndViewProfile(long followerId, UserName followeeUserName) {
-        final var followee =
-                userFindService
-                        .findByUsername(followeeUserName)
-                        .orElseThrow(NoSuchElementException::new);
+        final var followee = userFindService.findByUsername(followeeUserName).orElseThrow(NoSuchElementException::new);
         return userFindService
                 .findById(followerId)
                 .map(follower -> follower.unfollowUser(followee))

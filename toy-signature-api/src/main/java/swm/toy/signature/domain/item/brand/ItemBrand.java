@@ -16,7 +16,7 @@ public class ItemBrand extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String brandName;
 
-    static ItemBrand of(String brandName) {
+    static ItemBrand from(String brandName) {
         return new ItemBrand(brandName);
     }
 

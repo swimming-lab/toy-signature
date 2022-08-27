@@ -1,15 +1,18 @@
 package swm.toy.signature.domain.agreement;
 
-import static java.util.Optional.ofNullable;
-
-import java.util.Optional;
 import lombok.Builder;
 import lombok.NonNull;
+
+import java.util.Optional;
+
+import static java.util.Optional.ofNullable;
 
 @Builder
 public class AgreementUpdateRequest {
 
-    @NonNull private final Long agreementId;
+    @NonNull
+    private final Long agreementId;
+
     private final Long lesseeIdToUpdate;
     private final String lesseeNameToUpdate;
     private final String lesseeTelNoToUpdate;
