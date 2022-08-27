@@ -1,5 +1,9 @@
 package swm.toy.signature.application.user;
 
+import static org.springframework.http.ResponseEntity.of;
+import static swm.toy.signature.application.user.UserModel.fromUserAndToken;
+
+import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,11 +12,6 @@ import swm.toy.signature.domain.jwt.JWTSerializer;
 import swm.toy.signature.domain.user.Email;
 import swm.toy.signature.domain.user.UserService;
 import swm.toy.signature.infrastructure.jwt.UserJWTPayload;
-
-import javax.validation.Valid;
-
-import static org.springframework.http.ResponseEntity.of;
-import static swm.toy.signature.application.user.UserModel.fromUserAndToken;
 
 @RestController
 class UserRestController {

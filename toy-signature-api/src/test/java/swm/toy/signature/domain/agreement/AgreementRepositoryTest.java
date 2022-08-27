@@ -102,12 +102,15 @@ class AgreementRepositoryTest {
         Page<Agreement> agreements = agreementRepository.findAllByAuthorId(user.getId(), PageRequest.of(0, 10));
 
         assertTrue(agreements.getTotalElements() == 10);
-        assertTrue(agreements.get().map(agreement -> agreement.getAgreementItems()).anyMatch(agreementItems -> agreementItems.size() == 1));
+        assertTrue(agreements
+                .get()
+                .map(agreement -> agreement.getAgreementItems())
+                .anyMatch(agreementItems -> agreementItems.size() == 1));
     }
 
     void saveAgreements(int size) {
         List<Agreement> list = new ArrayList<>();
-        for(int i=0; i<size; i++) {
+        for (int i = 0; i < size; i++) {
             var contentsToSave = AgreementContents.of(
                     Lessor.of(101L, "", "", ""),
                     Lessee.of(102L, "", "", ""),

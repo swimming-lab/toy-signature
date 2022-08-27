@@ -1,9 +1,8 @@
 package swm.toy.signature.application.agreement;
 
-import lombok.*;
-
-import javax.validation.constraints.NotNull;
 import java.util.List;
+import javax.validation.constraints.NotNull;
+import lombok.*;
 
 @Getter
 @Setter

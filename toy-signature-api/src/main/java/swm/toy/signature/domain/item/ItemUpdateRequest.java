@@ -1,13 +1,12 @@
 package swm.toy.signature.domain.item;
 
+import static java.util.Optional.ofNullable;
+
+import java.util.Optional;
 import lombok.Builder;
 import lombok.NonNull;
 import swm.toy.signature.domain.item.brand.ItemBrand;
 import swm.toy.signature.domain.item.type.ItemType;
-
-import java.util.Optional;
-
-import static java.util.Optional.ofNullable;
 
 @Builder
 public class ItemUpdateRequest {

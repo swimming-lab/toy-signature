@@ -1,9 +1,9 @@
 package swm.toy.signature.application.user;
 
+import static java.lang.String.valueOf;
+
 import lombok.Value;
 import swm.toy.signature.domain.user.Profile;
-
-import static java.lang.String.valueOf;
 
 @Value
 public class ProfileModel {

@@ -1,5 +1,9 @@
 package swm.toy.signature.application.security;
 
+import static java.util.Optional.of;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
@@ -7,11 +11,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import swm.toy.signature.domain.jwt.JWTDeserializer;
 import swm.toy.signature.domain.jwt.JWTPayload;
-
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
-import static java.util.Optional.of;
 
 class JWTAuthenticationProvider implements AuthenticationProvider {
 

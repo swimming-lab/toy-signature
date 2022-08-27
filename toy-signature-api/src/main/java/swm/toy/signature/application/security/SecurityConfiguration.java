@@ -1,5 +1,8 @@
 package swm.toy.signature.application.security;
 
+import static org.springframework.http.HttpMethod.POST;
+
+import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -14,10 +17,6 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import swm.toy.signature.domain.jwt.JWTDeserializer;
-
-import java.util.List;
-
-import static org.springframework.http.HttpMethod.POST;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)

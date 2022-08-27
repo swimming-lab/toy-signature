@@ -1,17 +1,16 @@
 package swm.toy.signature.infrastructure.jwt;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import swm.toy.signature.domain.jwt.JWTDeserializer;
-import swm.toy.signature.domain.jwt.JWTPayload;
-import swm.toy.signature.domain.jwt.JWTSerializer;
-import swm.toy.signature.domain.user.User;
-
-import java.util.regex.Pattern;
-
 import static java.lang.String.format;
 import static java.time.Instant.now;
 import static java.util.regex.Pattern.compile;
 import static swm.toy.signature.infrastructure.jwt.Base64URL.*;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.regex.Pattern;
+import swm.toy.signature.domain.jwt.JWTDeserializer;
+import swm.toy.signature.domain.jwt.JWTPayload;
+import swm.toy.signature.domain.jwt.JWTSerializer;
+import swm.toy.signature.domain.user.User;
 
 class HmacSHA256JWTService implements JWTSerializer, JWTDeserializer {
 

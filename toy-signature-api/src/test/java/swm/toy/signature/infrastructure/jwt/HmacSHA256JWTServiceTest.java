@@ -1,16 +1,5 @@
 package swm.toy.signature.infrastructure.jwt;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.json.JsonTest;
-
-import java.nio.charset.StandardCharsets;
-
 import static com.fasterxml.jackson.annotation.JsonCreator.Mode.PROPERTIES;
 import static java.lang.String.format;
 import static java.lang.String.valueOf;
@@ -19,6 +8,16 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static swm.toy.signature.domain.user.UserTestUtils.userWithIdAndEmail;
 import static swm.toy.signature.infrastructure.jwt.Base64URL.base64URLFromBytes;
 import static swm.toy.signature.infrastructure.jwt.Base64URL.base64URLFromString;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import java.nio.charset.StandardCharsets;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.json.JsonTest;
 
 @ExtendWith(MockitoExtension.class)
 @JsonTest

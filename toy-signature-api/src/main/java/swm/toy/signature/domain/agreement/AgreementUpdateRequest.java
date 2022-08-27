@@ -1,11 +1,10 @@
 package swm.toy.signature.domain.agreement;
 
-import lombok.Builder;
-import lombok.NonNull;
+import static java.util.Optional.ofNullable;
 
 import java.util.Optional;
-
-import static java.util.Optional.ofNullable;
+import lombok.Builder;
+import lombok.NonNull;
 
 @Builder
 public class AgreementUpdateRequest {
