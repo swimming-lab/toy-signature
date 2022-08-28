@@ -18,7 +18,7 @@ public class Lessee {
     @Column(nullable = true)
     private String lesseeAddr;
 
-    static Lessee of(Long lesseeId, String lesseeName, String lesseeTelNo, String lesseeAddr) {
+    public static Lessee of(Long lesseeId, String lesseeName, String lesseeTelNo, String lesseeAddr) {
         return new Lessee(lesseeId, lesseeName, lesseeTelNo, lesseeAddr);
     }
 

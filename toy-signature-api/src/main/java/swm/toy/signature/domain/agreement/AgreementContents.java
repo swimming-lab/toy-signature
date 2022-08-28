@@ -1,10 +1,10 @@
 package swm.toy.signature.domain.agreement;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Embeddable
 public class AgreementContents {
@@ -30,7 +30,7 @@ public class AgreementContents {
     @Column(length = 500)
     private String etc;
 
-    static AgreementContents of(
+    public static AgreementContents of(
             Lessor lessor,
             Lessee lessee,
             LocalDateTime startDate,

@@ -18,7 +18,7 @@ public class Lessor {
     @Column(nullable = false)
     private String lessorAddr;
 
-    static Lessor of(Long lessorId, String lessorName, String lessorTelNo, String lessorAddr) {
+    public static Lessor of(Long lessorId, String lessorName, String lessorTelNo, String lessorAddr) {
         return new Lessor(lessorId, lessorName, lessorTelNo, lessorAddr);
     }
 
