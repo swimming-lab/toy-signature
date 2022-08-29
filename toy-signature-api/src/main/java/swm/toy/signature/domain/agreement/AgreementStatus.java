@@ -2,7 +2,7 @@ package swm.toy.signature.domain.agreement;
 
 import swm.toy.signature.infrastructure.converter.CodeValue;
 
-enum AgreementStatus implements CodeValue {
+public enum AgreementStatus implements CodeValue {
     EXPIRED("00", "EXPIRED"),
     ING("01", "ING"),
     PENDING("02", "PENDING"),

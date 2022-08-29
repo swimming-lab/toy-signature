@@ -1,14 +1,10 @@
 package swm.toy.signature.application.agreement;
 
 import lombok.Value;
-import swm.toy.signature.application.item.itemBrand.ItemBrandModel.ItemBrandModelNested;
-import swm.toy.signature.application.item.itemType.ItemTypeModel.ItemTypeModelNested;
 import swm.toy.signature.application.user.ProfileModel.ProfileModelNested;
 import swm.toy.signature.domain.agreement.Agreement;
-import swm.toy.signature.domain.item.Item;
+import swm.toy.signature.domain.agreement.item.AgreementItem;
 
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Set;
@@ -32,17 +28,13 @@ class AgreementModel {
         String lesseeName;
         String lesseeAddr;
         String lesseeTelNo;
-        LocalDateTime startDate;
-        LocalDateTime endDate;
+        ZonedDateTime startDate;
+        ZonedDateTime endDate;
         Long amount;
         Long overAmount;
         String etc;
         String status;
-        Set<Long> itemIds;
-
-
-        ItemTypeModelNested itemType;
-        ItemBrandModelNested itemBrand;
+        Set<AgreementItem> items;
         ZonedDateTime createdAt;
         ZonedDateTime updatedAt;
         ProfileModelNested author;
@@ -58,15 +50,16 @@ class AgreementModel {
                     contents.getLessee().getLesseeName(),
                     contents.getLessee().getLesseeTelNo(),
                     contents.getLessee().getLesseeAddr(),
-                    agreement.getCreatedAt().atZone(ZoneId.of("Asia/Seoul")),
-                    agreement.getUpdatedAt().atZone(ZoneId.of("Asia/Seoul")),
+                    agreement.getContents().getStartDate().atZone(ZoneId.of("Asia/Seoul")),
+                    agreement.getContents().getEndDate().atZone(ZoneId.of("Asia/Seoul")),
                     contents.getAmount(),
                     contents.getOverAmount(),
                     contents.getEtc(),
-                    agreement.getStatus(),
-                    ItemTypeModelNested.fromItemType(item.getItemType()),
-                    ItemBrandModelNested.fromItemBrand(item.getItemBrand()),
-                    ProfileModelNested.fromProfile(item.getAuthor().getProfile()));
+                    agreement.getStatus().getValue(),
+                    agreement.getAgreementItems(),
+                    agreement.getCreatedAt().atZone(ZoneId.of("Asia/Seoul")),
+                    agreement.getUpdatedAt().atZone(ZoneId.of("Asia/Seoul")),
+                    ProfileModelNested.fromProfile(agreement.getAuthor().getProfile()));
         }
     }
 }

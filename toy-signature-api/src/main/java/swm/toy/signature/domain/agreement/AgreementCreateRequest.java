@@ -8,7 +8,21 @@ public class AgreementCreateRequest {
     private final AgreementContents agreementContents;
     private final Set<Long> itemIds;
 
-    public static AgreementCreateRequest of(Long lessorId, String lessorName, String lessorAddr, String lessorTelNo, Long lesseeId, String lesseeName, String lesseeAddr, String lesseeTelNo, LocalDateTime startDate, LocalDateTime endDate, Long amount, Long overAmount, String etc, Set<Long> itemIds) {
+    public static AgreementCreateRequest of(
+            Long lessorId,
+            String lessorName,
+            String lessorAddr,
+            String lessorTelNo,
+            Long lesseeId,
+            String lesseeName,
+            String lesseeAddr,
+            String lesseeTelNo,
+            LocalDateTime startDate,
+            LocalDateTime endDate,
+            Long amount,
+            Long overAmount,
+            String etc,
+            Set<Long> itemIds) {
         return new AgreementCreateRequest(
                 lessorId,
                 lessorName,
@@ -26,7 +40,21 @@ public class AgreementCreateRequest {
                 itemIds);
     }
 
-    private AgreementCreateRequest(Long lessorId, String lessorName, String lessorAddr, String lessorTelNo, Long lesseeId, String lesseeName, String lesseeAddr, String lesseeTelNo, LocalDateTime startDate, LocalDateTime endDate, Long amount, Long overAmount, String etc, Set<Long> itemIds) {
+    private AgreementCreateRequest(
+            Long lessorId,
+            String lessorName,
+            String lessorAddr,
+            String lessorTelNo,
+            Long lesseeId,
+            String lesseeName,
+            String lesseeAddr,
+            String lesseeTelNo,
+            LocalDateTime startDate,
+            LocalDateTime endDate,
+            Long amount,
+            Long overAmount,
+            String etc,
+            Set<Long> itemIds) {
         this.agreementContents = AgreementContents.of(
                 Lessor.of(lessorId, lessorName, lessorTelNo, lessorAddr),
                 Lessee.of(lesseeId, lesseeName, lesseeTelNo, lesseeAddr),

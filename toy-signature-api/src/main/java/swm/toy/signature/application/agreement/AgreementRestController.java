@@ -5,11 +5,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import swm.toy.signature.application.item.ItemModel;
-import swm.toy.signature.application.item.ItemPutRequestDTO;
-import swm.toy.signature.application.item.MultipleItemModel;
 import swm.toy.signature.domain.agreement.AgreementService;
-import swm.toy.signature.domain.item.ItemService;
 import swm.toy.signature.infrastructure.jwt.UserJWTPayload;
 
 import javax.validation.Valid;
@@ -24,35 +20,34 @@ public class AgreementRestController {
     }
 
     @PostMapping("/agreements")
-    public AgreementModel postItem(
+    public AgreementModel postAgreement(
             @AuthenticationPrincipal UserJWTPayload jwtPayload, @Valid @RequestBody AgreementPostRequestDTO dto) {
         var agreementCreated = agreementService.createAgreement(jwtPayload.getUserId(), dto.toAgreementCreateRequest());
         return AgreementModel.from(agreementCreated);
     }
 
-    @GetMapping(value = "/items")
-    public MultipleItemModel getItems(
+    @GetMapping(value = "/agreements")
+    public MultipleAgreementModel getAgreemetns(
             @AuthenticationPrincipal UserJWTPayload jwtPayload,
-            @PageableDefault(size = 20, sort = "contents.sequence", direction = Sort.Direction.DESC)
-                    Pageable pageable) {
-        final var items = itemService.getItemsByAuthorId(jwtPayload.getUserId(), pageable);
-        return MultipleItemModel.fromItems(items);
+            @PageableDefault(size = 20, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+        final var agreements = agreementService.getAgreementByAuthorId(jwtPayload.getUserId(), pageable);
+        return MultipleAgreementModel.from(agreements);
     }
 
     @GetMapping(
-            value = "/items",
+            value = "/agreements",
             params = {"author"})
-    public MultipleItemModel getItemsByAuthor(
+    public MultipleAgreementModel getItemsByAuthor(
             @RequestParam String authorId,
-            @PageableDefault(size = 20, sort = "contents.sequence", direction = Sort.Direction.DESC)
-                    Pageable pageable) {
-        final var items = itemService.getItemsByAuthorId(Long.valueOf(authorId), pageable);
-        return MultipleItemModel.fromItems(items);
+            @PageableDefault(size = 20, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+        final var agreements = agreementService.getAgreementByAuthorId(Long.valueOf(authorId), pageable);
+        return MultipleAgreementModel.from(agreements);
     }
 
-    @PutMapping("/items")
-    public ItemModel putItem(@AuthenticationPrincipal UserJWTPayload jwtPayload, @RequestBody ItemPutRequestDTO dto) {
-        final var itemUpdated = itemService.updateItem(jwtPayload.getUserId(), dto.toUpdateRequest());
-        return ItemModel.fromItem(itemUpdated);
+    @PutMapping("/agreements")
+    public AgreementModel putItem(
+            @AuthenticationPrincipal UserJWTPayload jwtPayload, @RequestBody AgreementPutRequestDTO dto) {
+        final var agreementUpdated = agreementService.updateAgreement(jwtPayload.getUserId(), dto.toUpdateRequest());
+        return AgreementModel.from(agreementUpdated);
     }
 }
