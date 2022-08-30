@@ -108,6 +108,26 @@ class AgreementRepositoryTest {
                 .anyMatch(agreementItems -> agreementItems.size() == 1));
     }
 
+    @Test
+    void test() {
+        String status = "PENDING";
+        AgreementStatus agreementStatus = AgreementStatus.valueOf(status);
+        System.out.println(agreementStatus);
+    }
+
+    @Test
+    void when_find_by_author_and_status_expect_saved_agreements_with_items() {
+        saveAgreements(10);
+
+        Page<Agreement> agreements = agreementRepository.findAllByAuthorIdAndStatus(user.getId(), AgreementStatus.PENDING, PageRequest.of(0, 10));
+
+        assertTrue(agreements.getTotalElements() == 10);
+        assertTrue(agreements
+                .get()
+                .map(agreement -> agreement.getAgreementItems())
+                .anyMatch(agreementItems -> agreementItems.size() == 1));
+    }
+
     void saveAgreements(int size) {
         List<Agreement> list = new ArrayList<>();
         for (int i = 0; i < size; i++) {
