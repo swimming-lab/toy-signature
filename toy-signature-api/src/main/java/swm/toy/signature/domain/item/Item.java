@@ -80,6 +80,10 @@ public class Item extends BaseEntity {
     private void updateItemIfPresent(ItemUpdateRequest updateRequest) {
         updateRequest.getItemTypeToUpdate().ifPresent(itemTypeToUpdate -> itemType = itemTypeToUpdate);
         updateRequest.getItemBrandToUpdate().ifPresent(itemBrandToUpdate -> itemBrand = itemBrandToUpdate);
-        updateRequest.getStatusToUpdate().ifPresent(statusToUpdate -> status = Status.valueOf(statusToUpdate));
+        updateRequest.getStatusToUpdate().ifPresent(this::setStatus);
+    }
+
+    public void setStatus(String statusToUpdate) {
+        this.status = Status.valueOf(statusToUpdate);
     }
 }
