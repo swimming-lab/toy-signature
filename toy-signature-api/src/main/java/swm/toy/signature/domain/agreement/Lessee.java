@@ -1,8 +1,12 @@
 package swm.toy.signature.domain.agreement;
 
+import lombok.Getter;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.util.Optional;
 
+@Getter
 @Embeddable
 public class Lessee {
 
@@ -31,42 +35,10 @@ public class Lessee {
 
     protected Lessee() {}
 
-    public Long getLesseeId() {
-        return lesseeId;
-    }
-
-    public String getLesseeName() {
-        return lesseeName;
-    }
-
-    public String getLesseeTelNo() {
-        return lesseeTelNo;
-    }
-
-    public String getLesseeAddr() {
-        return lesseeAddr;
-    }
-
     protected void updateLessee(AgreementUpdateRequest request) {
-        request.getLesseeIdToUpdate().ifPresent(this::changeLesseeId);
-        request.getLesseeNameToUpdate().ifPresent(this::changeLesseeName);
-        request.getLesseeTelNoToUpdate().ifPresent(this::changeLesseeTelNo);
-        request.getLesseeAddrToUpdate().ifPresent(this::changeLesseeAddr);
-    }
-
-    private void changeLesseeId(Long lesseeIdToUpdate) {
-        this.lesseeId = lesseeIdToUpdate;
-    }
-
-    private void changeLesseeName(String lesseeNameToUpdate) {
-        this.lesseeName = lesseeNameToUpdate;
-    }
-
-    private void changeLesseeTelNo(String lesseeNameToUpdate) {
-        this.lesseeName = lesseeNameToUpdate;
-    }
-
-    private void changeLesseeAddr(String lesseeNameToUpdate) {
-        this.lesseeName = lesseeNameToUpdate;
+        Optional.ofNullable(request.getLesseeIdToUpdate()).ifPresent(toUpdate -> this.lesseeId = toUpdate);
+        Optional.ofNullable(request.getLesseeNameToUpdate()).ifPresent(toUpdate -> this.lesseeName = toUpdate);
+        Optional.ofNullable(request.getLesseeTelNoToUpdate()).ifPresent(toUpdate -> this.lesseeTelNo = toUpdate);
+        Optional.ofNullable(request.getLesseeAddrToUpdate()).ifPresent(toUpdate -> this.lesseeAddr = toUpdate);
     }
 }

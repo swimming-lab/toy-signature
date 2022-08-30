@@ -1,8 +1,11 @@
 package swm.toy.signature.domain.agreement;
 
+import lombok.Getter;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+@Getter
 @Embeddable
 public class Lessor {
 
@@ -30,20 +33,4 @@ public class Lessor {
     }
 
     protected Lessor() {}
-
-    public Long getLessorId() {
-        return lessorId;
-    }
-
-    public String getLessorName() {
-        return lessorName;
-    }
-
-    public String getLessorTelNo() {
-        return lessorTelNo;
-    }
-
-    public String getLessorAddr() {
-        return lessorAddr;
-    }
 }

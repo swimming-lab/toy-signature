@@ -1,5 +1,6 @@
 package swm.toy.signature.domain.item;
 
+import lombok.Getter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import swm.toy.signature.domain.common.BaseEntity;
 import swm.toy.signature.domain.item.brand.ItemBrand;
@@ -7,7 +8,9 @@ import swm.toy.signature.domain.item.type.ItemType;
 import swm.toy.signature.domain.user.User;
 
 import javax.persistence.*;
+import java.util.Optional;
 
+@Getter
 @Table(name = "items")
 @EntityListeners(AuditingEntityListener.class)
 @Entity
@@ -48,42 +51,14 @@ public class Item extends BaseEntity {
 
     protected Item() {}
 
-    public Long getId() {
-        return id;
-    }
-
-    public ItemContents getContents() {
-        return contents;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public ItemType getItemType() {
-        return itemType;
-    }
-
-    public ItemBrand getItemBrand() {
-        return itemBrand;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
     public void updateItem(ItemUpdateRequest updateRequest) {
         updateItemIfPresent(updateRequest);
         contents.updateItemContentsIfPresent(updateRequest);
     }
 
     private void updateItemIfPresent(ItemUpdateRequest updateRequest) {
-        updateRequest.getItemTypeToUpdate().ifPresent(itemTypeToUpdate -> itemType = itemTypeToUpdate);
-        updateRequest.getItemBrandToUpdate().ifPresent(itemBrandToUpdate -> itemBrand = itemBrandToUpdate);
-        updateRequest.getStatusToUpdate().ifPresent(this::setStatus);
-    }
-
-    public void setStatus(String statusToUpdate) {
-        this.status = Status.valueOf(statusToUpdate);
+        Optional.ofNullable(updateRequest.getItemTypeToUpdate()).ifPresent(toUpdate -> this.itemType = toUpdate);
+        Optional.ofNullable(updateRequest.getItemBrandToUpdate()).ifPresent(toUpdate -> this.itemBrand = toUpdate);
+        Optional.ofNullable(updateRequest.getStatusToUpdate()).ifPresent(toUpdate -> this.status = Status.valueOf(toUpdate));
     }
 }

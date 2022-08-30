@@ -1,8 +1,12 @@
 package swm.toy.signature.domain.item;
 
+import lombok.Getter;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.util.Optional;
 
+@Getter
 @Embeddable
 public class ItemContents {
 
@@ -36,31 +40,11 @@ public class ItemContents {
 
     protected ItemContents() {}
 
-    public String getLicensePlate() {
-        return licensePlate;
-    }
-
-    public Integer getSequence() {
-        return sequence;
-    }
-
-    public String getInsuranceYn() {
-        return insuranceYn;
-    }
-
-    public String getRoutineYn() {
-        return routineYn;
-    }
-
-    public String getEtc() {
-        return etc;
-    }
-
     void updateItemContentsIfPresent(ItemUpdateRequest request) {
-        request.getLicensePlateToUpdate().ifPresent(licensePlateToUpdate -> licensePlate = licensePlateToUpdate);
-        request.getSequenceToUpdate().ifPresent(sequenceToUpdate -> sequence = sequenceToUpdate);
-        request.getInsuranceYnToUpdate().ifPresent(insuranceYnToUpdate -> insuranceYn = insuranceYnToUpdate);
-        request.getRoutineYnToUpdate().ifPresent(routineYnToUpdate -> routineYn = routineYnToUpdate);
-        request.getEtcToUpdate().ifPresent(etcToUpdate -> etc = etcToUpdate);
+        Optional.ofNullable(request.getLicensePlateToUpdate()).ifPresent(toUpdate -> this.licensePlate = toUpdate);
+        Optional.ofNullable(request.getSequenceToUpdate()).ifPresent(toUpdate -> this.sequence = toUpdate);
+        Optional.ofNullable(request.getInsuranceYnToUpdate()).ifPresent(toUpdate -> this.insuranceYn = toUpdate);
+        Optional.ofNullable(request.getRoutineYnToUpdate()).ifPresent(toUpdate -> this.routineYn = toUpdate);
+        Optional.ofNullable(request.getEtcToUpdate()).ifPresent(toUpdate -> this.etc = toUpdate);
     }
 }

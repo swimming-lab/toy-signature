@@ -1,9 +1,12 @@
 package swm.toy.signature.domain.item.type;
 
-import javax.persistence.*;
+import lombok.Getter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import swm.toy.signature.domain.common.BaseEntity;
 
+import javax.persistence.*;
+
+@Getter
 @Table(name = "item_type")
 @EntityListeners(AuditingEntityListener.class)
 @Entity
@@ -36,17 +39,5 @@ public class ItemType extends BaseEntity {
 
     void changeHeavy(String heavy) {
         this.heavy = heavy;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getHeavy() {
-        return heavy;
     }
 }

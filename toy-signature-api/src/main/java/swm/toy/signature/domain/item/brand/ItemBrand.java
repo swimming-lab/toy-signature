@@ -1,9 +1,12 @@
 package swm.toy.signature.domain.item.brand;
 
-import javax.persistence.*;
+import lombok.Getter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import swm.toy.signature.domain.common.BaseEntity;
 
+import javax.persistence.*;
+
+@Getter
 @Table(name = "item_brand")
 @EntityListeners(AuditingEntityListener.class)
 @Entity
@@ -28,13 +31,5 @@ public class ItemBrand extends BaseEntity {
 
     void changeBrandName(String brandName) {
         this.brandName = brandName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getBrandName() {
-        return brandName;
     }
 }

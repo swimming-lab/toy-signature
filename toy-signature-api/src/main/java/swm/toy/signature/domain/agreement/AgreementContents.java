@@ -1,11 +1,15 @@
 package swm.toy.signature.domain.agreement;
 
+import lombok.Getter;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
+@Getter
 @Embeddable
 public class AgreementContents {
 
@@ -60,62 +64,14 @@ public class AgreementContents {
 
     protected AgreementContents() {}
 
-    public Lessor getLessor() {
-        return lessor;
-    }
-
-    public Lessee getLessee() {
-        return lessee;
-    }
-
-    public LocalDateTime getStartDate() {
-        return startDate;
-    }
-
-    public LocalDateTime getEndDate() {
-        return endDate;
-    }
-
-    public Long getAmount() {
-        return amount;
-    }
-
-    public Long getOverAmount() {
-        return overAmount;
-    }
-
-    public String getEtc() {
-        return etc;
-    }
-
     protected void updateAgreementContents(AgreementUpdateRequest request) {
-        request.getStartDateToUpdate().ifPresent(this::changeStartDate);
-        request.getEndDateIdToUpdate().ifPresent(this::changeEndDate);
-        request.getAmountToUpdate().ifPresent(this::changeAmount);
-        request.getOverAmountToUpdate().ifPresent(this::changeOverAmount);
-        request.getEtcToUpdate().ifPresent(this::changeEtc);
+        Optional.ofNullable(request.getStartDateToUpdate()).ifPresent(toUpdate -> this.startDate = LocalDateTime.parse(toUpdate, getLocalDataTimeFormatter()));
+        Optional.ofNullable(request.getEndDateIdToUpdate()).ifPresent(toUpdate -> this.endDate = LocalDateTime.parse(toUpdate, getLocalDataTimeFormatter()));
+        Optional.ofNullable(request.getAmountToUpdate()).ifPresent(toUpdate -> this.amount = toUpdate);
+        Optional.ofNullable(request.getOverAmountToUpdate()).ifPresent(toUpdate -> this.overAmount = toUpdate);
+        Optional.ofNullable(request.getEtcToUpdate()).ifPresent(toUpdate -> this.etc = toUpdate);
 
         lessee.updateLessee(request);
-    }
-
-    private void changeStartDate(String startDateToUpdate) {
-        this.startDate = LocalDateTime.parse(startDateToUpdate, getLocalDataTimeFormatter());
-    }
-
-    private void changeEndDate(String endDateToUpdate) {
-        this.endDate = LocalDateTime.parse(endDateToUpdate, getLocalDataTimeFormatter());
-    }
-
-    private void changeAmount(Long amountToUpdate) {
-        this.amount = amountToUpdate;
-    }
-
-    private void changeOverAmount(Long overAmountToUpdate) {
-        this.overAmount = overAmountToUpdate;
-    }
-
-    private void changeEtc(String etcToUpdate) {
-        this.etc = etcToUpdate;
     }
 
     private DateTimeFormatter getLocalDataTimeFormatter() {

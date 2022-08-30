@@ -1,12 +1,15 @@
 package swm.toy.signature.domain.agreement.item;
 
-import javax.persistence.*;
+import lombok.Getter;
 import org.hibernate.annotations.Cascade;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import swm.toy.signature.domain.agreement.Agreement;
 import swm.toy.signature.domain.item.Item;
 import swm.toy.signature.domain.item.ItemContents;
 
+import javax.persistence.*;
+
+@Getter
 @Table(name = "agreement_item")
 @EntityListeners(AuditingEntityListener.class)
 @Entity

@@ -1,13 +1,17 @@
 package swm.toy.signature.domain.agreement;
 
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.*;
+import lombok.Getter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import swm.toy.signature.domain.agreement.item.AgreementItem;
 import swm.toy.signature.domain.common.BaseEntity;
 import swm.toy.signature.domain.user.User;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+@Getter
 @Table(name = "agreements")
 @EntityListeners(AuditingEntityListener.class)
 @Entity
@@ -53,42 +57,14 @@ public class Agreement extends BaseEntity {
         agreementItem.setAgreement(this);
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public AgreementContents getContents() {
-        return contents;
-    }
-
-    public AgreementStatus getStatus() {
-        return status;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public AgreementType getAgreementType() {
-        return agreementType;
-    }
-
     public Set<AgreementItem> getAgreementItems() {
         return agreementItems;
     }
 
     public void updateAgreement(AgreementUpdateRequest request) {
-        request.getTypeToUpdate().ifPresent(this::changeAgreementType);
-        request.getStatusToUpdate().ifPresent(this::changeAgreementStatus);
+        Optional.ofNullable(request.getTypeToUpdate()).ifPresent(toUpdate -> this.agreementType = AgreementType.valueOf(toUpdate));
+        Optional.ofNullable(request.getStatusToUpdate()).ifPresent(toUpdate -> this.status = AgreementStatus.valueOf(toUpdate));
 
         contents.updateAgreementContents(request);
-    }
-
-    private void changeAgreementType(String typeToUpdate) {
-        this.agreementType = AgreementType.valueOf(typeToUpdate);
-    }
-
-    private void changeAgreementStatus(String statusToUpdate) {
-        this.status = AgreementStatus.valueOf(statusToUpdate);
     }
 }

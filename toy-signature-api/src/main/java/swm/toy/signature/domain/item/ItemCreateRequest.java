@@ -1,5 +1,8 @@
 package swm.toy.signature.domain.item;
 
+import lombok.Getter;
+
+@Getter
 public class ItemCreateRequest {
 
     private final ItemContents itemContents;
@@ -10,17 +13,5 @@ public class ItemCreateRequest {
         this.itemContents = itemContents;
         this.itemTypeId = itemTypeId;
         this.itemBrandId = itemBrandId;
-    }
-
-    public ItemContents getItemContents() {
-        return itemContents;
-    }
-
-    public Long getItemTypeId() {
-        return itemTypeId;
-    }
-
-    public Long getItemBrandId() {
-        return itemBrandId;
     }
 }
