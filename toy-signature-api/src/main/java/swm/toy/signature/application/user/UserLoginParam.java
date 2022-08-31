@@ -5,10 +5,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import swm.toy.signature.domain.user.Email;
-import swm.toy.signature.domain.user.UserName;
-import swm.toy.signature.domain.user.UserSignUpRequest;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.WRAPPER_OBJECT;
@@ -19,18 +17,11 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
 @NoArgsConstructor
 @JsonTypeName("user")
 @JsonTypeInfo(include = WRAPPER_OBJECT, use = NAME)
-class UserPostRequestDTO {
+class UserLoginParam {
 
-    @javax.validation.constraints.Email
-    private String email;
-
-    @NotBlank
-    private String username;
+    @Email
+    String email;
 
     @NotBlank
-    private String password;
-
-    UserSignUpRequest toSignUpRequest() {
-        return new UserSignUpRequest(new Email(email), new UserName(username), password);
-    }
+    String password;
 }

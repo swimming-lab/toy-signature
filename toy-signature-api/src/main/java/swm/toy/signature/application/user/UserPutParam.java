@@ -20,7 +20,7 @@ import swm.toy.signature.domain.user.UserUpdateRequest;
 @NoArgsConstructor
 @JsonTypeName("user")
 @JsonTypeInfo(include = WRAPPER_OBJECT, use = NAME)
-class UserPutRequestDTO {
+class UserPutParam {
 
     private String email;
     private String username;

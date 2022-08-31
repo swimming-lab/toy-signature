@@ -17,7 +17,7 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
 @NoArgsConstructor
 @JsonTypeName("itemBrand")
 @JsonTypeInfo(include = WRAPPER_OBJECT, use = NAME)
-class ItemBrandRequestDTO {
+class ItemBrandParam {
 
     @NotBlank
     private String brandName;

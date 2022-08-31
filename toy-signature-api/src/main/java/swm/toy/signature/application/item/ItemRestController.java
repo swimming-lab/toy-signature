@@ -4,10 +4,13 @@ import javax.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import swm.toy.signature.domain.item.ItemService;
 import swm.toy.signature.infrastructure.jwt.UserJWTPayload;
+
+import static swm.toy.signature.application.common.ResponseModel.response;
 
 @RestController
 public class ItemRestController {
@@ -19,35 +22,37 @@ public class ItemRestController {
     }
 
     @PostMapping("/items")
-    public ItemModel postItem(
-            @AuthenticationPrincipal UserJWTPayload jwtPayload, @Valid @RequestBody ItemPostRequestDTO dto) {
-        var itemCreated = itemService.createItem(jwtPayload.getUserId(), dto.toItemCreateRequest());
-        return ItemModel.fromItem(itemCreated);
+    public ResponseEntity postItem(
+            @AuthenticationPrincipal UserJWTPayload jwtPayload, @Valid @RequestBody ItemPostParam param) {
+        final var itemCreated = itemService.createItem(jwtPayload.getUserId(), param.toItemCreateRequest());
+        return ResponseEntity.ok(response("item", itemCreated));
     }
 
     @GetMapping(value = "/items")
-    public MultipleItemModel getItems(
+    public ResponseEntity getItems(
             @AuthenticationPrincipal UserJWTPayload jwtPayload,
             @PageableDefault(size = 20, sort = "contents.sequence", direction = Sort.Direction.DESC)
                     Pageable pageable) {
         final var items = itemService.getItemsByAuthorId(jwtPayload.getUserId(), pageable);
-        return MultipleItemModel.fromItems(items);
+        return ResponseEntity.ok(response("items", items));
     }
 
     @GetMapping(
             value = "/items",
             params = {"author"})
-    public MultipleItemModel getItemsByAuthor(
+    public ResponseEntity getItemsByAuthor(
             @RequestParam String authorId,
             @PageableDefault(size = 20, sort = "contents.sequence", direction = Sort.Direction.DESC)
                     Pageable pageable) {
         final var items = itemService.getItemsByAuthorId(Long.valueOf(authorId), pageable);
-        return MultipleItemModel.fromItems(items);
+        return ResponseEntity.ok(response("items", items));
     }
 
     @PutMapping("/items")
-    public ItemModel putItem(@AuthenticationPrincipal UserJWTPayload jwtPayload, @RequestBody ItemPutRequestDTO dto) {
-        final var itemUpdated = itemService.updateItem(jwtPayload.getUserId(), dto.toUpdateRequest());
-        return ItemModel.fromItem(itemUpdated);
+    public ResponseEntity putItem(@AuthenticationPrincipal UserJWTPayload jwtPayload, @RequestBody ItemPutParam param) {
+        final var itemUpdated = itemService.updateItem(jwtPayload.getUserId(), param.toUpdateRequest());
+        return ResponseEntity.ok(response("item", itemUpdated));
     }
+
+
 }

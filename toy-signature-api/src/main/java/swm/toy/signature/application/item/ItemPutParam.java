@@ -17,7 +17,7 @@ import swm.toy.signature.domain.item.ItemUpdateRequest;
 @NoArgsConstructor
 @JsonTypeName("item")
 @JsonTypeInfo(include = WRAPPER_OBJECT, use = NAME)
-class ItemPutRequestDTO {
+class ItemPutParam {
 
     @NotNull
     private Long id;

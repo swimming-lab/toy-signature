@@ -17,7 +17,7 @@ import swm.toy.signature.domain.item.ItemCreateRequest;
 @NoArgsConstructor
 @JsonTypeName("item")
 @JsonTypeInfo(include = WRAPPER_OBJECT, use = NAME)
-class ItemPostRequestDTO {
+class ItemPostParam {
 
     @NotNull
     private String licensePlate;

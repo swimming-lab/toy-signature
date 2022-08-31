@@ -1,6 +1,7 @@
 package swm.toy.signature.application.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,8 @@ import swm.toy.signature.domain.user.UserService;
 import swm.toy.signature.infrastructure.jwt.UserJWTPayload;
 
 import javax.validation.Valid;
+
+import static swm.toy.signature.application.common.ResponseModel.response;
 
 @RequestMapping("/admin")
 @RestController
@@ -43,29 +46,33 @@ public class AdminRestController {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/item/type")
-    public ItemType postItemType(
-            @AuthenticationPrincipal UserJWTPayload jwtPayload, @Valid @RequestBody ItemTypeRequestDTO dto) {
-        return itemTypeService.createItemType(dto.getType(), dto.getHeavy());
+    public ResponseEntity postItemType(
+            @AuthenticationPrincipal UserJWTPayload jwtPayload, @Valid @RequestBody ItemTypeParam param) {
+        final var itemType = itemTypeService.createItemType(param.getType(), param.getHeavy());
+        return ResponseEntity.ok(response("itemType", itemType));
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/item/type")
-    public ItemType putItemType(
-            @AuthenticationPrincipal UserJWTPayload jwtPayload, @Valid @RequestBody ItemTypeRequestDTO.Update dto) {
-        return itemTypeService.updateItemType(dto.getId(), dto.getType(), dto.getHeavy());
+    public ResponseEntity putItemType(
+            @AuthenticationPrincipal UserJWTPayload jwtPayload, @Valid @RequestBody ItemTypeParam.Update param) {
+        final var itemType = itemTypeService.updateItemType(param.getId(), param.getType(), param.getHeavy());
+        return ResponseEntity.ok(response("itemType", itemType));
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/item/brand")
-    public ItemBrand postItemBrand(
-            @AuthenticationPrincipal UserJWTPayload jwtPayload, @Valid @RequestBody ItemBrandRequestDTO dto) {
-        return itemBrandService.createItemBrand(dto.getBrandName());
+    public ResponseEntity postItemBrand(
+            @AuthenticationPrincipal UserJWTPayload jwtPayload, @Valid @RequestBody ItemBrandParam param) {
+        final var itemBrand = itemBrandService.createItemBrand(param.getBrandName());
+        return ResponseEntity.ok(response("itemBrand", itemBrand));
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/item/brand")
-    public ItemBrand putItemBrand(
-            @AuthenticationPrincipal UserJWTPayload jwtPayload, @Valid @RequestBody ItemBrandRequestDTO.Update dto) {
-        return itemBrandService.updateItemBrand(dto.getId(), dto.getBrandName());
+    public ResponseEntity putItemBrand(
+            @AuthenticationPrincipal UserJWTPayload jwtPayload, @Valid @RequestBody ItemBrandParam.Update param) {
+        final var itemBrand = itemBrandService.updateItemBrand(param.getId(), param.getBrandName());
+        return ResponseEntity.ok(response("itemBrand", itemBrand));
     }
 }

@@ -18,7 +18,7 @@ import static java.util.Optional.ofNullable;
 @NoArgsConstructor
 @JsonTypeName("item")
 @JsonTypeInfo(include = WRAPPER_OBJECT, use = NAME)
-class AgreementPutRequestDTO {
+class AgreementPutParam {
 
     @NotNull
     private Long id;

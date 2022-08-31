@@ -17,9 +17,8 @@ class UserModel {
     String email;
     String username;
     String token;
-    String image;
 
     static UserModel fromUserAndToken(User user, String token) {
-        return new UserModel(valueOf(user.getEmail()), valueOf(user.getName()), token, "");
+        return new UserModel(valueOf(user.getEmail()), valueOf(user.getName()), token);
     }
 }

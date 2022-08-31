@@ -1,8 +1,11 @@
 package swm.toy.signature.application.item.itemType;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import swm.toy.signature.domain.item.type.ItemTypeFindService;
+
+import static swm.toy.signature.application.common.ResponseModel.response;
 
 @RestController
 public class ItemTypeRestController {
@@ -14,8 +17,8 @@ public class ItemTypeRestController {
     }
 
     @GetMapping(value = "/item/type")
-    public MultipleItemTypeModel getItemTypes() {
+    public ResponseEntity getItemTypes() {
         final var itemTypes = itemTypeFindService.findAll();
-        return MultipleItemTypeModel.fromItemTypes(itemTypes);
+        return ResponseEntity.ok(response("itemType", itemTypes));
     }
 }

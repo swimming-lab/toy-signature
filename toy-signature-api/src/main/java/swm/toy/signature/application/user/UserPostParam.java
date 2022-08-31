@@ -1,13 +1,15 @@
-package swm.toy.signature.application.admin;
+package swm.toy.signature.application.user;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import swm.toy.signature.domain.user.Email;
+import swm.toy.signature.domain.user.UserName;
+import swm.toy.signature.domain.user.UserSignUpRequest;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.WRAPPER_OBJECT;
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
@@ -15,24 +17,20 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonTypeName("itemType")
+@JsonTypeName("user")
 @JsonTypeInfo(include = WRAPPER_OBJECT, use = NAME)
-class ItemTypeRequestDTO {
+class UserPostParam {
+
+    @javax.validation.constraints.Email
+    private String email;
 
     @NotBlank
-    private String type;
+    private String username;
 
     @NotBlank
-    private String heavy;
+    private String password;
 
-    @Getter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    static class Update {
-        @NotNull
-        private Long id;
-
-        private String type;
-        private String heavy;
+    UserSignUpRequest toSignUpRequest() {
+        return new UserSignUpRequest(new Email(email), new UserName(username), password);
     }
 }

@@ -19,7 +19,7 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
 @NoArgsConstructor
 @JsonTypeName("agreement")
 @JsonTypeInfo(include = WRAPPER_OBJECT, use = NAME)
-class AgreementPostRequestDTO {
+class AgreementPostParam {
 
     @NotNull
     private Long lessorId;
