@@ -6,19 +6,10 @@ import swm.toy.signature.domain.item.brand.ItemBrand;
 @Value
 public class ItemBrandModel {
 
-    ItemBrandModelNested itemBrand;
+    Long id;
+    String brandName;
 
-    public static ItemBrandModel fromItemBrand(ItemBrand itemBrand) {
-        return new ItemBrandModel(ItemBrandModelNested.fromItemBrand(itemBrand));
-    }
-
-    @Value
-    public static class ItemBrandModelNested {
-        Long id;
-        String brandName;
-
-        public static ItemBrandModelNested fromItemBrand(ItemBrand itemBrand) {
-            return new ItemBrandModelNested(itemBrand.getId(), itemBrand.getBrandName());
-        }
+    public static ItemBrandModel from(ItemBrand itemBrand) {
+        return new ItemBrandModel(itemBrand.getId(), itemBrand.getBrandName());
     }
 }

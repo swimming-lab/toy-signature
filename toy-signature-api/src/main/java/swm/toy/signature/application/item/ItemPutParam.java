@@ -1,16 +1,17 @@
 package swm.toy.signature.application.item;
 
-import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.WRAPPER_OBJECT;
-import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
-import static java.util.Optional.ofNullable;
-
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import swm.toy.signature.domain.item.ItemUpdateRequest;
+
+import javax.validation.constraints.NotNull;
+
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.WRAPPER_OBJECT;
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
+import static java.util.Optional.ofNullable;
 
 @Getter
 @AllArgsConstructor
@@ -21,7 +22,6 @@ class ItemPutParam {
 
     @NotNull
     private Long id;
-
     private String licensePlate;
     private Integer sequence;
     private String insuranceYn;

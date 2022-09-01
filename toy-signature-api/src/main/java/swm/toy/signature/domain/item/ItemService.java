@@ -1,6 +1,5 @@
 package swm.toy.signature.domain.item;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +9,7 @@ import swm.toy.signature.domain.user.UserFindService;
 import swm.toy.signature.infrastructure.exception.AppException;
 import swm.toy.signature.infrastructure.exception.ErrorCode;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -84,7 +84,7 @@ public class ItemService implements ItemFindService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Item> getItemsByAuthorId(long authorId, Pageable pageable) {
+    public List<Item> getItemsByAuthorId(long authorId, Pageable pageable) {
         return itemRepository.findAllByAuthorIdOrderByContentsSequenceAsc(authorId, pageable);
     }
 }

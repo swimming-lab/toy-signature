@@ -1,10 +1,11 @@
 package swm.toy.signature.domain.item;
 
-import java.util.Optional;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
@@ -16,8 +17,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     Optional<Item> findFirstByContentsLicensePlate(String licensePlate);
 
-    @EntityGraph(attributePaths = {"itemType", "itemBrand"})
-    Page<Item> findAllByAuthorIdOrderByContentsSequenceAsc(long authorId, Pageable pageable);
+    @EntityGraph(attributePaths = {"author", "itemType", "itemBrand"})
+    List<Item> findAllByAuthorIdOrderByContentsSequenceAsc(long authorId, Pageable pageable);
 
     //    @EntityGraph("fetch-author-equipType-equipBrand")
     //    @Query("SELECT e FROM Item e WHERE e.author.id = :id ORDER BY e.sequence ASC")

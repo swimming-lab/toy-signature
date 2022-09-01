@@ -1,21 +1,20 @@
 package swm.toy.signature.application.item;
 
-import static java.util.stream.Collectors.toList;
-
-import java.util.List;
 import lombok.Value;
-import org.springframework.data.domain.Page;
-import swm.toy.signature.application.item.ItemModel.ItemModelNested;
 import swm.toy.signature.domain.item.Item;
 
-@Value
-class MultipleItemModel {
+import java.util.List;
 
-    List<ItemModelNested> items;
+import static java.util.stream.Collectors.toList;
+
+@Value
+public class MultipleItemModel {
+
+    List<ItemModel> items;
     int itemsCount;
 
-    static MultipleItemModel fromItems(Page<Item> items) {
-        final var itemsCollected = items.map(ItemModelNested::fromItem).stream().collect(toList());
+    static MultipleItemModel from(List<Item> items) {
+        final var itemsCollected = items.stream().map(ItemModel::from).collect(toList());
         return new MultipleItemModel(itemsCollected, itemsCollected.size());
     }
 }

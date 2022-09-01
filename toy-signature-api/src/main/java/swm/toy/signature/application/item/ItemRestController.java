@@ -1,6 +1,5 @@
 package swm.toy.signature.application.item;
 
-import javax.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -9,6 +8,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import swm.toy.signature.domain.item.ItemService;
 import swm.toy.signature.infrastructure.jwt.UserJWTPayload;
+
+import javax.validation.Valid;
 
 import static swm.toy.signature.application.common.ResponseModel.response;
 
@@ -25,16 +26,18 @@ public class ItemRestController {
     public ResponseEntity postItem(
             @AuthenticationPrincipal UserJWTPayload jwtPayload, @Valid @RequestBody ItemPostParam param) {
         final var itemCreated = itemService.createItem(jwtPayload.getUserId(), param.toItemCreateRequest());
-        return ResponseEntity.ok(response("item", itemCreated));
+//        return ResponseEntity.ok(response("item", itemCreated));
+        return ResponseEntity.ok(response("item", ItemModel.from(itemCreated)));
     }
 
     @GetMapping(value = "/items")
-    public ResponseEntity getItems(
+    public MultipleItemModel getItems(
             @AuthenticationPrincipal UserJWTPayload jwtPayload,
             @PageableDefault(size = 20, sort = "contents.sequence", direction = Sort.Direction.DESC)
                     Pageable pageable) {
         final var items = itemService.getItemsByAuthorId(jwtPayload.getUserId(), pageable);
-        return ResponseEntity.ok(response("items", items));
+//        return ResponseEntity.ok(response("items", items));
+        return MultipleItemModel.from(items);
     }
 
     @GetMapping(
@@ -53,6 +56,4 @@ public class ItemRestController {
         final var itemUpdated = itemService.updateItem(jwtPayload.getUserId(), param.toUpdateRequest());
         return ResponseEntity.ok(response("item", itemUpdated));
     }
-
-
 }

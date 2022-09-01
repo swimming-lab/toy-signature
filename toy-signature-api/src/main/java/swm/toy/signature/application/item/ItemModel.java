@@ -1,50 +1,48 @@
 package swm.toy.signature.application.item;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import lombok.Value;
-import swm.toy.signature.application.item.itemBrand.ItemBrandModel.ItemBrandModelNested;
-import swm.toy.signature.application.item.itemType.ItemTypeModel.ItemTypeModelNested;
-import swm.toy.signature.application.user.ProfileModel.ProfileModelNested;
+import swm.toy.signature.application.item.itemBrand.ItemBrandModel;
+import swm.toy.signature.application.item.itemType.ItemTypeModel;
+import swm.toy.signature.application.user.ProfileModel;
 import swm.toy.signature.domain.item.Item;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Value
-class ItemModel {
+public class ItemModel {
 
-    ItemModelNested item;
+    String licensePlate;
+    Integer sequence;
+    String insuranceYn;
+    String routineYn;
+    String etc;
+    String status;
+    ItemTypeModel itemType;
+    ItemBrandModel itemBrand;
+    ZonedDateTime createdAt;
+    ZonedDateTime updatedAt;
+    ProfileModel author;
 
-    static ItemModel fromItem(Item item) {
-        return new ItemModel(ItemModelNested.fromItem(item));
+    public static ItemModel from(Item item) {
+        final var contents = item.getContents();
+        return new ItemModel(
+                contents.getLicensePlate(),
+                contents.getSequence(),
+                contents.getInsuranceYn(),
+                contents.getRoutineYn(),
+                contents.getEtc(),
+                item.getStatus().getValue(),
+                ItemTypeModel.from(item.getItemType()),
+                ItemBrandModel.from(item.getItemBrand()),
+                item.getCreatedAt().atZone(ZoneId.of("Asia/Seoul")),
+                item.getUpdatedAt().atZone(ZoneId.of("Asia/Seoul")),
+                ProfileModel.from(item.getAuthor().getProfile()));
     }
 
-    @Value
-    static class ItemModelNested {
-        String licensePlate;
-        Integer sequence;
-        String insuranceYn;
-        String routineYn;
-        String etc;
-        String status;
-        ItemTypeModelNested itemType;
-        ItemBrandModelNested itemBrand;
-        ZonedDateTime createdAt;
-        ZonedDateTime updatedAt;
-        ProfileModelNested author;
-
-        static ItemModelNested fromItem(Item item) {
-            final var contents = item.getContents();
-            return new ItemModelNested(
-                    contents.getLicensePlate(),
-                    contents.getSequence(),
-                    contents.getInsuranceYn(),
-                    contents.getRoutineYn(),
-                    contents.getEtc(),
-                    item.getStatus().getValue(),
-                    ItemTypeModelNested.fromItemType(item.getItemType()),
-                    ItemBrandModelNested.fromItemBrand(item.getItemBrand()),
-                    item.getCreatedAt().atZone(ZoneId.of("Asia/Seoul")),
-                    item.getUpdatedAt().atZone(ZoneId.of("Asia/Seoul")),
-                    ProfileModelNested.fromProfile(item.getAuthor().getProfile()));
-        }
+    public static List<ItemModel> fromList(List<Item> items) {
+        return items.stream().map(ItemModel::from).collect(Collectors.toList());
     }
 }

@@ -1,21 +1,21 @@
 package swm.toy.signature.application.item.itemType;
 
-import static java.util.stream.Collectors.toList;
+import lombok.Value;
+import swm.toy.signature.domain.item.type.ItemType;
 
 import java.util.List;
-import lombok.Value;
-import swm.toy.signature.application.item.itemType.ItemTypeModel.ItemTypeModelNested;
-import swm.toy.signature.domain.item.type.ItemType;
+
+import static java.util.stream.Collectors.toList;
 
 @Value
 public class MultipleItemTypeModel {
 
-    List<ItemTypeModelNested> itemTypes;
+    List<ItemTypeModel> itemTypes;
     int itemTypeCount;
 
-    static MultipleItemTypeModel fromItemTypes(List<ItemType> itemTypes) {
+    public static MultipleItemTypeModel fromItemTypes(List<ItemType> itemTypes) {
         final var itemTypeCollected =
-                itemTypes.stream().map(ItemTypeModelNested::fromItemType).collect(toList());
+                itemTypes.stream().map(ItemTypeModel::from).collect(toList());
         return new MultipleItemTypeModel(itemTypeCollected, itemTypeCollected.size());
     }
 }
