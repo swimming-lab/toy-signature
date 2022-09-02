@@ -68,7 +68,7 @@ public class AgreementService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Agreement> getAgreementByAuthorId(long authorId, Pageable pageable) {
+    public List<Agreement> getAgreementByAuthorId(long authorId, Pageable pageable) {
         return agreementRepository.findAllByAuthorId(authorId, pageable);
     }
 }

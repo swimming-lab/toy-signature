@@ -17,8 +17,8 @@ public class ItemTypeRestController {
     }
 
     @GetMapping(value = "/item/type")
-    public ResponseEntity getItemTypes() {
+    public MultipleItemTypeModel getItemTypes() {
         final var itemTypes = itemTypeFindService.findAll();
-        return ResponseEntity.ok(response("itemType", itemTypes));
+        return MultipleItemTypeModel.from(itemTypes);
     }
 }

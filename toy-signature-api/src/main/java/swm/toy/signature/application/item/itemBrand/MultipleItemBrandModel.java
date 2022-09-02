@@ -10,12 +10,12 @@ import static java.util.stream.Collectors.toList;
 @Value
 public class MultipleItemBrandModel {
 
-    List<ItemBrandModel> itemBrands;
+    List<ItemBrandModel.ItemBrandModelNested> itemBrands;
     int itemBrandCount;
 
-    public static MultipleItemBrandModel fromItemBrands(List<ItemBrand> itemBrands) {
+    public static MultipleItemBrandModel from(List<ItemBrand> itemBrands) {
         final var itemBrandCollected =
-                itemBrands.stream().map(ItemBrandModel::from).collect(toList());
+                itemBrands.stream().map(ItemBrandModel.ItemBrandModelNested::from).collect(toList());
         return new MultipleItemBrandModel(itemBrandCollected, itemBrandCollected.size());
     }
 }

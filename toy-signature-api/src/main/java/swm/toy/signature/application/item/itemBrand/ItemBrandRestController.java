@@ -17,8 +17,8 @@ public class ItemBrandRestController {
     }
 
     @GetMapping(value = "/item/brand")
-    public ResponseEntity getItemBrands() {
+    public MultipleItemBrandModel getItemBrands() {
         final var itemBrands = itemBrandFindService.findAll();
-        return ResponseEntity.ok(response("itemBrands", itemBrands));
+        return MultipleItemBrandModel.from(itemBrands);
     }
 }

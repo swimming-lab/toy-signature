@@ -13,7 +13,7 @@ public interface AgreementRepository extends JpaRepository<Agreement, Long> {
 
     //    @EntityGraph(attributePaths = {"author", "agreementItems"})
     //    @EntityGraph(attributePaths = {"author"})
-    Page<Agreement> findAllByAuthorId(long authorId, Pageable pageable);
+    List<Agreement> findAllByAuthorId(long authorId, Pageable pageable);
 
-    Page<Agreement> findAllByAuthorIdAndStatus(long authorId, AgreementStatus status, Pageable pageable);
+    List<Agreement> findAllByAuthorIdAndStatus(long authorId, AgreementStatus status, Pageable pageable);
 }

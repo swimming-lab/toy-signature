@@ -8,12 +8,21 @@ import static java.lang.String.valueOf;
 @Value
 public class ProfileModel {
 
-    String username;
-    String image;
-    boolean following;
+    ProfileModelNested profile;
 
     public static ProfileModel from(Profile profile) {
-        return new ProfileModel(
-                valueOf(profile.getUserName()), valueOf(profile.getImage()), profile.isFollowing());
+        return new ProfileModel(ProfileModelNested.from(profile));
+    }
+
+    @Value
+    public static class ProfileModelNested {
+        String username;
+        String image;
+        boolean following;
+
+        public static ProfileModelNested from(Profile profile) {
+            return new ProfileModelNested(
+                    valueOf(profile.getUserName()), valueOf(profile.getImage()), profile.isFollowing());
+        }
     }
 }

@@ -23,11 +23,10 @@ public class ItemRestController {
     }
 
     @PostMapping("/items")
-    public ResponseEntity postItem(
+    public ItemModel postItem(
             @AuthenticationPrincipal UserJWTPayload jwtPayload, @Valid @RequestBody ItemPostParam param) {
         final var itemCreated = itemService.createItem(jwtPayload.getUserId(), param.toItemCreateRequest());
-//        return ResponseEntity.ok(response("item", itemCreated));
-        return ResponseEntity.ok(response("item", ItemModel.from(itemCreated)));
+        return ItemModel.from(itemCreated);
     }
 
     @GetMapping(value = "/items")
@@ -36,24 +35,23 @@ public class ItemRestController {
             @PageableDefault(size = 20, sort = "contents.sequence", direction = Sort.Direction.DESC)
                     Pageable pageable) {
         final var items = itemService.getItemsByAuthorId(jwtPayload.getUserId(), pageable);
-//        return ResponseEntity.ok(response("items", items));
         return MultipleItemModel.from(items);
     }
 
     @GetMapping(
             value = "/items",
             params = {"author"})
-    public ResponseEntity getItemsByAuthor(
+    public MultipleItemModel getItemsByAuthor(
             @RequestParam String authorId,
             @PageableDefault(size = 20, sort = "contents.sequence", direction = Sort.Direction.DESC)
                     Pageable pageable) {
         final var items = itemService.getItemsByAuthorId(Long.valueOf(authorId), pageable);
-        return ResponseEntity.ok(response("items", items));
+        return MultipleItemModel.from(items);
     }
 
     @PutMapping("/items")
-    public ResponseEntity putItem(@AuthenticationPrincipal UserJWTPayload jwtPayload, @RequestBody ItemPutParam param) {
+    public ItemModel putItem(@AuthenticationPrincipal UserJWTPayload jwtPayload, @RequestBody ItemPutParam param) {
         final var itemUpdated = itemService.updateItem(jwtPayload.getUserId(), param.toUpdateRequest());
-        return ResponseEntity.ok(response("item", itemUpdated));
+        return ItemModel.from(itemUpdated);
     }
 }

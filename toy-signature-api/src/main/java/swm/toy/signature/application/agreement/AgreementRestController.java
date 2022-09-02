@@ -23,34 +23,34 @@ public class AgreementRestController {
     }
 
     @PostMapping("/agreements")
-    public ResponseEntity postAgreement(
+    public AgreementModel postAgreement(
             @AuthenticationPrincipal UserJWTPayload jwtPayload, @Valid @RequestBody AgreementPostParam param) {
         var agreementCreated = agreementService.createAgreement(jwtPayload.getUserId(), param.toAgreementCreateRequest());
-        return ResponseEntity.ok(response("agreement", agreementCreated));
+        return AgreementModel.from(agreementCreated);
     }
 
     @GetMapping(value = "/agreements")
-    public ResponseEntity getAgreemetns(
+    public MultipleAgreementModel getAgreemetns(
             @AuthenticationPrincipal UserJWTPayload jwtPayload,
             @PageableDefault(size = 20, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
         final var agreements = agreementService.getAgreementByAuthorId(jwtPayload.getUserId(), pageable);
-        return ResponseEntity.ok(response("agreements", agreements));
+        return MultipleAgreementModel.from(agreements);
     }
 
     @GetMapping(
             value = "/agreements",
             params = {"author"})
-    public ResponseEntity getAgreementsByAuthor(
+    public MultipleAgreementModel getAgreementsByAuthor(
             @RequestParam String authorId,
             @PageableDefault(size = 20, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
         final var agreements = agreementService.getAgreementByAuthorId(Long.valueOf(authorId), pageable);
-        return ResponseEntity.ok(response("agreements", agreements));
+        return MultipleAgreementModel.from(agreements);
     }
 
     @PutMapping("/agreements")
-    public ResponseEntity putAgreement(
+    public AgreementModel putAgreement(
             @AuthenticationPrincipal UserJWTPayload jwtPayload, @RequestBody AgreementPutParam param) {
         final var agreementUpdated = agreementService.updateAgreement(jwtPayload.getUserId(), param.toUpdateRequest());
-        return ResponseEntity.ok(response("agreement", agreementUpdated));
+        return AgreementModel.from(agreementUpdated);
     }
 }

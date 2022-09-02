@@ -10,11 +10,11 @@ import static java.util.stream.Collectors.toList;
 @Value
 public class MultipleItemModel {
 
-    List<ItemModel> items;
+    List<ItemModel.ItemModelNested> items;
     int itemsCount;
 
-    static MultipleItemModel from(List<Item> items) {
-        final var itemsCollected = items.stream().map(ItemModel::from).collect(toList());
+    public static MultipleItemModel from(List<Item> items) {
+        final var itemsCollected = items.stream().map(ItemModel.ItemModelNested::from).collect(toList());
         return new MultipleItemModel(itemsCollected, itemsCollected.size());
     }
 }
