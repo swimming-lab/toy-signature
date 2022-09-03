@@ -46,6 +46,12 @@ class AgreementPutParam {
                 .amountToUpdate(ofNullable(amount).orElse(null))
                 .overAmountToUpdate(ofNullable(overAmount).orElse(null))
                 .etcToUpdate(ofNullable(etc).orElse(null))
+                .build();
+    }
+
+    AgreementUpdateRequest toUpdateStatusRequest() {
+        return AgreementUpdateRequest.builder()
+                .agreementId(id)
                 .statusToUpdate(ofNullable(status).orElse(null))
                 .build();
     }

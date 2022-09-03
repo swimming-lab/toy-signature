@@ -19,6 +19,8 @@ public enum ErrorCode {
     EQUIP_NOT_FOUND("equip not found", HttpStatus.NOT_FOUND),
     EQUIP_TYPE_NOT_FOUND("equip type not found", HttpStatus.NOT_FOUND),
     EQUIP_BRAND_NOT_FOUND("equip brand not found", HttpStatus.NOT_FOUND),
+
+    AGREEMENT_CAN_NOT_CHANGE_STATUS("agreement can not change status", HttpStatus.NOT_ACCEPTABLE)
     ;
 
     private final String message;

@@ -5,6 +5,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import swm.toy.signature.domain.agreement.item.AgreementItem;
 import swm.toy.signature.domain.common.BaseEntity;
 import swm.toy.signature.domain.user.User;
+import swm.toy.signature.infrastructure.exception.AppException;
+import swm.toy.signature.infrastructure.exception.ErrorCode;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -62,9 +64,22 @@ public class Agreement extends BaseEntity {
     }
 
     public void updateAgreement(AgreementUpdateRequest request) {
+        checkUpdateStatus();
+
         Optional.ofNullable(request.getTypeToUpdate()).ifPresent(toUpdate -> this.agreementType = AgreementType.valueOf(toUpdate));
-        Optional.ofNullable(request.getStatusToUpdate()).ifPresent(toUpdate -> this.status = AgreementStatus.valueOf(toUpdate));
 
         contents.updateAgreementContents(request);
+    }
+
+    public Agreement updateStatus(User author, AgreementUpdateRequest request) {
+        Optional.ofNullable(request.getStatusToUpdate()).ifPresent(toUpdate -> this.status = AgreementStatus.valueOf(toUpdate));
+
+        return this;
+    }
+
+    private void checkUpdateStatus() {
+        if (this.status != AgreementStatus.PENDING) {
+            throw new AppException(ErrorCode.AGREEMENT_CAN_NOT_CHANGE_STATUS);
+        }
     }
 }

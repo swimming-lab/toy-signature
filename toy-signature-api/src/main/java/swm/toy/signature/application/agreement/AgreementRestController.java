@@ -3,15 +3,12 @@ package swm.toy.signature.application.agreement;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import swm.toy.signature.domain.agreement.AgreementService;
 import swm.toy.signature.infrastructure.jwt.UserJWTPayload;
 
 import javax.validation.Valid;
-
-import static swm.toy.signature.application.common.ResponseModel.response;
 
 @RestController
 public class AgreementRestController {
@@ -51,6 +48,13 @@ public class AgreementRestController {
     public AgreementModel putAgreement(
             @AuthenticationPrincipal UserJWTPayload jwtPayload, @RequestBody AgreementPutParam param) {
         final var agreementUpdated = agreementService.updateAgreement(jwtPayload.getUserId(), param.toUpdateRequest());
+        return AgreementModel.from(agreementUpdated);
+    }
+
+    @PutMapping("/agreements/status")
+    public AgreementModel putAgreementStatus(
+            @AuthenticationPrincipal UserJWTPayload jwtPayload, @RequestBody AgreementPutParam param) {
+        final var agreementUpdated = agreementService.updateAgreementStatus(jwtPayload.getUserId(), param.toUpdateStatusRequest());
         return AgreementModel.from(agreementUpdated);
     }
 }

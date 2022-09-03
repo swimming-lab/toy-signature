@@ -1,6 +1,5 @@
 package swm.toy.signature.domain.agreement;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,6 +58,15 @@ public class AgreementService {
                         userFindService.findById(userId),
                         getItemById(request.getAgreementId()),
                         (user, agreement) -> user.updateAgreement(agreement, request))
+                .orElseThrow(NoSuchElementException::new);
+    }
+
+    @Transactional
+    public Agreement updateAgreementStatus(long userId, AgreementUpdateRequest request) {
+        return mapIfAllPresent(
+                userFindService.findById(userId),
+                getItemById(request.getAgreementId()),
+                (user, agreement) -> agreement.updateStatus(user, request))
                 .orElseThrow(NoSuchElementException::new);
     }
 
