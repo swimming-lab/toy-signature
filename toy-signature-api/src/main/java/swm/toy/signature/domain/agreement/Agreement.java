@@ -71,7 +71,7 @@ public class Agreement extends BaseEntity {
         contents.updateAgreementContents(request);
     }
 
-    public Agreement updateStatus(User author, AgreementUpdateRequest request) {
+    public Agreement updateStatus(AgreementUpdateRequest request) {
         Optional.ofNullable(request.getStatusToUpdate()).ifPresent(toUpdate -> this.status = AgreementStatus.valueOf(toUpdate));
 
         return this;

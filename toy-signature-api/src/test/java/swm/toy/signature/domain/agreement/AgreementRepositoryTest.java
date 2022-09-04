@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import swm.toy.signature.domain.agreement.item.AgreementItem;
@@ -99,11 +98,11 @@ class AgreementRepositoryTest {
     void when_find_by_author_expect_saved_agreements_with_items() {
         saveAgreements(10);
 
-        Page<Agreement> agreements = agreementRepository.findAllByAuthorId(user.getId(), PageRequest.of(0, 10));
+        List<Agreement> agreements = agreementRepository.findAllByAuthorId(user.getId(), PageRequest.of(0, 10));
 
-        assertTrue(agreements.getTotalElements() == 10);
+        assertTrue(agreements.size() == 10);
         assertTrue(agreements
-                .get()
+                .stream()
                 .map(agreement -> agreement.getAgreementItems())
                 .anyMatch(agreementItems -> agreementItems.size() == 1));
     }
@@ -119,11 +118,11 @@ class AgreementRepositoryTest {
     void when_find_by_author_and_status_expect_saved_agreements_with_items() {
         saveAgreements(10);
 
-        Page<Agreement> agreements = agreementRepository.findAllByAuthorIdAndStatus(user.getId(), AgreementStatus.PENDING, PageRequest.of(0, 10));
+        List<Agreement> agreements = agreementRepository.findAllByAuthorIdAndStatus(user.getId(), AgreementStatus.PENDING, PageRequest.of(0, 10));
 
-        assertTrue(agreements.getTotalElements() == 10);
+        assertTrue(agreements.size() == 10);
         assertTrue(agreements
-                .get()
+                .stream()
                 .map(agreement -> agreement.getAgreementItems())
                 .anyMatch(agreementItems -> agreementItems.size() == 1));
     }

@@ -66,7 +66,7 @@ public class AgreementService {
         return mapIfAllPresent(
                 userFindService.findById(userId),
                 getItemById(request.getAgreementId()),
-                (user, agreement) -> agreement.updateStatus(user, request))
+                (user, agreement) -> agreement.updateStatus(request))
                 .orElseThrow(NoSuchElementException::new);
     }
 
