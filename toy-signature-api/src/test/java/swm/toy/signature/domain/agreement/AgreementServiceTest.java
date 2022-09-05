@@ -10,17 +10,21 @@ import swm.toy.signature.domain.agreement.item.AgreementItemService;
 import swm.toy.signature.domain.item.ItemFindService;
 import swm.toy.signature.domain.user.User;
 import swm.toy.signature.domain.user.UserFindService;
+import swm.toy.signature.domain.user.UserRepository;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Set;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
+import static swm.toy.signature.domain.user.UserTestUtils.databaseUser;
 
 @ExtendWith(MockitoExtension.class)
 class AgreementServiceTest {
@@ -41,6 +45,9 @@ class AgreementServiceTest {
 
     @Spy
     private User author;
+
+    @Spy
+    private Agreement agreement;
 
     @BeforeEach
     void initializeUserService() {
@@ -78,17 +85,15 @@ class AgreementServiceTest {
     }
 
     @Test
-    void when_update_status_expect_agreement_change_status(
-            @Mock AgreementUpdateRequest request, @Mock Agreement agreement) {
+    void given_agreement_updateAgreementStatus_then_agreementRepository_save(
+            @Mock AgreementUpdateRequest request) {
         given(request.getStatusToUpdate()).willReturn(AgreementStatus.ING.getValue());
+        given(request.getAgreementId()).willReturn(1L);
         given(userFindService.findById(1L)).willReturn(of(author));
-        given(agreementRepository.findById(anyLong())).willReturn(of(agreement));
-        given(agreement.updateStatus(request)).willReturn(agreement);
-//        given(AgreementStatus.valueOf(anyString())).willReturn(AgreementStatus.ING);
-        agreementService.updateAgreementStatus(1L, request);
+        given(agreementRepository.findById(1L)).willReturn(of(agreement));
 
-        then(agreement).should(times(1)).updateStatus(request);
-        verifyNoMoreInteractions(agreement);
-//        assertTrue(updated.getStatus() == AgreementStatus.ING);
+        Agreement updated = agreementService.updateAgreementStatus(1L, request);
+
+        assertTrue(updated.getStatus() == AgreementStatus.ING);
     }
 }
