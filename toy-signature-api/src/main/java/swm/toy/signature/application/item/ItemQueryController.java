@@ -11,19 +11,12 @@ import swm.toy.signature.infrastructure.jwt.UserJWTPayload;
 import javax.validation.Valid;
 
 @RestController
-public class ItemRestController {
+public class ItemQueryController {
 
     private final ItemService itemService;
 
-    ItemRestController(ItemService itemService) {
+    ItemQueryController(ItemService itemService) {
         this.itemService = itemService;
-    }
-
-    @PostMapping("/items")
-    public ItemModel postItem(
-            @AuthenticationPrincipal UserJWTPayload jwtPayload, @Valid @RequestBody ItemPostParam param) {
-        final var itemCreated = itemService.createItem(jwtPayload.getUserId(), param.toItemCreateRequest());
-        return ItemModel.from(itemCreated);
     }
 
     @GetMapping(value = "/items")
@@ -44,11 +37,5 @@ public class ItemRestController {
                     Pageable pageable) {
         final var items = itemService.getItemsByAuthorId(Long.valueOf(authorId), pageable);
         return MultipleItemModel.from(items);
-    }
-
-    @PutMapping("/items")
-    public ItemModel putItem(@AuthenticationPrincipal UserJWTPayload jwtPayload, @RequestBody ItemPutParam param) {
-        final var itemUpdated = itemService.updateItem(jwtPayload.getUserId(), param.toUpdateRequest());
-        return ItemModel.from(itemUpdated);
     }
 }

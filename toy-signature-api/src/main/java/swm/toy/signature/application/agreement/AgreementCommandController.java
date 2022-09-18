@@ -11,11 +11,11 @@ import swm.toy.signature.infrastructure.jwt.UserJWTPayload;
 import javax.validation.Valid;
 
 @RestController
-public class AgreementRestController {
+public class AgreementCommandController {
 
     private final AgreementService agreementService;
 
-    AgreementRestController(AgreementService agreementService) {
+    AgreementCommandController(AgreementService agreementService) {
         this.agreementService = agreementService;
     }
 
@@ -24,24 +24,6 @@ public class AgreementRestController {
             @AuthenticationPrincipal UserJWTPayload jwtPayload, @Valid @RequestBody AgreementPostParam param) {
         var agreementCreated = agreementService.createAgreement(jwtPayload.getUserId(), param.toAgreementCreateRequest());
         return AgreementModel.from(agreementCreated);
-    }
-
-    @GetMapping(value = "/agreements")
-    public MultipleAgreementModel getAgreemetns(
-            @AuthenticationPrincipal UserJWTPayload jwtPayload,
-            @PageableDefault(size = 20, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
-        final var agreements = agreementService.getAgreementByAuthorId(jwtPayload.getUserId(), pageable);
-        return MultipleAgreementModel.from(agreements);
-    }
-
-    @GetMapping(
-            value = "/agreements",
-            params = {"author"})
-    public MultipleAgreementModel getAgreementsByAuthor(
-            @RequestParam String authorId,
-            @PageableDefault(size = 20, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
-        final var agreements = agreementService.getAgreementByAuthorId(Long.valueOf(authorId), pageable);
-        return MultipleAgreementModel.from(agreements);
     }
 
     @PutMapping("/agreements")
