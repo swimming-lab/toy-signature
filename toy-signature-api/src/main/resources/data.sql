@@ -5,13 +5,13 @@ INSERT INTO AUTHORITY (authority_name)
 VALUES ('ROLE_ADMIN');
 
 -- USERS
-INSERT INTO USERS (id, email, password, image, name, created_at, updated_at)
-VALUES (101, 'admin@admin.admin', '$2a$10$FwTyB4dy9JFalDTsOBMxV.gtUE3FikM0MRm3aQbPJqYd9JY3gcWtG', NULL, 'admin', NOW(), NOW());
+INSERT INTO USERS (id, email, password, image, name, phone, created_at, updated_at)
+VALUES (101, 'admin@admin.admin', '$2a$10$FwTyB4dy9JFalDTsOBMxV.gtUE3FikM0MRm3aQbPJqYd9JY3gcWtG', NULL, 'admin', '01011111111', NOW(), NOW());
 -- password=admin
-INSERT INTO USERS (id, email, password, image, name, created_at, updated_at)
-VALUES (102, 'test1@naver.com', '$2a$10$eEom3YDJu1illn94/rtYY.JHwk193hQ6QPHsMNXeMqWjj/Xvgfbaq', NULL, 'test1', NOW(), NOW());
-INSERT INTO USERS (id, email, password, image, name, created_at, updated_at)
-VALUES (103, 'test2@daum.net', '$2a$10$eEom3YDJu1illn94/rtYY.JHwk193hQ6QPHsMNXeMqWjj/Xvgfbaq', NULL, 'test2', NOW(), NOW());
+INSERT INTO USERS (id, email, password, image, name, phone, created_at, updated_at)
+VALUES (102, 'test1@naver.com', '$2a$10$eEom3YDJu1illn94/rtYY.JHwk193hQ6QPHsMNXeMqWjj/Xvgfbaq', NULL, 'test1', '01022222222', NOW(), NOW());
+INSERT INTO USERS (id, email, password, image, name, phone, created_at, updated_at)
+VALUES (103, 'test2@daum.net', '$2a$10$eEom3YDJu1illn94/rtYY.JHwk193hQ6QPHsMNXeMqWjj/Xvgfbaq', NULL, 'test2', '01033333333', NOW(), NOW());
 -- password=test
 
 

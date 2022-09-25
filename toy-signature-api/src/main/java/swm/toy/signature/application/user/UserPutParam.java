@@ -10,10 +10,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import swm.toy.signature.domain.user.Email;
-import swm.toy.signature.domain.user.Image;
-import swm.toy.signature.domain.user.UserName;
-import swm.toy.signature.domain.user.UserUpdateRequest;
+import swm.toy.signature.domain.user.*;
 
 @Getter
 @AllArgsConstructor
@@ -27,6 +24,7 @@ class UserPutParam {
     private String password;
     private String image;
     private String status;
+    private String phone;
     private List<Long> idList;
     private Long[] ids;
 
@@ -37,6 +35,7 @@ class UserPutParam {
                 .imageToUpdate(ofNullable(image).map(Image::new).orElse(null))
                 .passwordToUpdate(password)
                 .statusToUpdate(status)
+                .phoneToUpdate(ofNullable(phone).map(Phone::new).orElse(null))
                 .build();
     }
 }

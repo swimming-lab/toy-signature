@@ -18,11 +18,12 @@ public class ProfileModel {
     public static class ProfileModelNested {
         String username;
         String image;
+        String phone;
         boolean following;
 
         public static ProfileModelNested from(Profile profile) {
             return new ProfileModelNested(
-                    valueOf(profile.getUserName()), valueOf(profile.getImage()), profile.isFollowing());
+                    valueOf(profile.getUserName()), valueOf(profile.getImage()), valueOf(profile.getPhone()), profile.isFollowing());
         }
     }
 }

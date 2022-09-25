@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import swm.toy.signature.domain.user.Email;
+import swm.toy.signature.domain.user.Phone;
 import swm.toy.signature.domain.user.UserName;
 import swm.toy.signature.domain.user.UserSignUpRequest;
 
@@ -30,7 +31,10 @@ class UserPostParam {
     @NotBlank
     private String password;
 
+    @NotBlank
+    private String phone;
+
     UserSignUpRequest toSignUpRequest() {
-        return new UserSignUpRequest(new Email(email), new UserName(username), password);
+        return new UserSignUpRequest(new Email(email), new UserName(username), password, new Phone(phone));
     }
 }

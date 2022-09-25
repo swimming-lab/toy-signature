@@ -13,6 +13,7 @@ public class UserUpdateRequest {
     private final String passwordToUpdate;
     private final Image imageToUpdate;
     private final String statusToUpdate;
+    private final Phone phoneToUpdate;
 
     Optional<Email> getEmailToUpdate() {
         return ofNullable(emailToUpdate);
@@ -32,5 +33,9 @@ public class UserUpdateRequest {
 
     Optional<String> getStatusToUpdate() {
         return ofNullable(statusToUpdate);
+    }
+
+    Optional<Phone> getPhoneToUpdate() {
+        return ofNullable(phoneToUpdate);
     }
 }

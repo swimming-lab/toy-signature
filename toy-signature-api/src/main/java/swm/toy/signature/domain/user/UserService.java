@@ -28,7 +28,7 @@ public class UserService implements UserFindService {
         });
 
         return userRepository.save(
-                User.of(request.getEmail(), request.getUserName(), encodedPassword, Authority.of("ROLE_USER")));
+                User.of(request.getEmail(), request.getUserName(), encodedPassword, Authority.of("ROLE_USER"), request.getPhone()));
     }
 
     @Transactional(readOnly = true)
@@ -58,6 +58,7 @@ public class UserService implements UserFindService {
                 .map(rawPassword -> Password.of(rawPassword, passwordEncoder))
                 .ifPresent(user::changePassword);
         request.getImageToUpdate().ifPresent(user::changeImage);
+        request.getPhoneToUpdate().ifPresent(user::changePhone);
         request.getStatusToUpdate()
                 .map(statusToUpdate -> UserStatus.valueOf(statusToUpdate))
                 .ifPresent(user::changeStatus);

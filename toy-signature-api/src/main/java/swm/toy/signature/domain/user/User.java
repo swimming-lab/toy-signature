@@ -53,8 +53,8 @@ public class User extends BaseEntity {
         return new User(email, new Profile(name), password, null);
     }
 
-    static User of(Email email, UserName name, Password password, Authority authority) {
-        return new User(email, new Profile(name), password, authority);
+    static User of(Email email, UserName name, Password password, Authority authority, Phone phone) {
+        return new User(email, new Profile(name, phone), password, authority);
     }
 
     private User(Email email, Profile profile, Password password, Authority authority) {
@@ -128,6 +128,10 @@ public class User extends BaseEntity {
 
     void changeImage(Image image) {
         profile.changeImage(image);
+    }
+
+    void changePhone(Phone phone) {
+        profile.changePhone(phone);
     }
 
     void changeStatus(UserStatus status) {
