@@ -44,4 +44,12 @@ public class AgreementQueryController {
         final var agreements = agreementService.getAgreementItems(jwtPayload.getUserId(), pageable);
         return MultipleAgreementModel.from(agreements);
     }
+
+    @GetMapping(value = "/agreements/count")
+    public MultipleAgreementModel getAgreementsCountByAuthor(
+            @AuthenticationPrincipal UserJWTPayload jwtPayload) {
+        // TODO 아이템 카운트 추가
+        final var agreements = agreementService.getAgreementItems(jwtPayload.getUserId(), pageable);
+        return MultipleAgreementModel.from(agreements);
+    }
 }

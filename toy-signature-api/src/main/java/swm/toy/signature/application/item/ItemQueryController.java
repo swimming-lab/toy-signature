@@ -38,4 +38,12 @@ public class ItemQueryController {
         final var items = itemService.getItemsByAuthorId(Long.valueOf(authorId), pageable);
         return MultipleItemModel.from(items);
     }
+
+    @GetMapping(value = "/items/count")
+    public MultipleItemModel getItemsCount(
+            @AuthenticationPrincipal UserJWTPayload jwtPayload) {
+        // TODO 아이템 카운트 추가
+        final var items = itemService.getItemsCountByAuthorId(jwtPayload.getUserId());
+        return MultipleItemModel.from(items);
+    }
 }

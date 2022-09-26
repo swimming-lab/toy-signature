@@ -150,7 +150,7 @@ public class User extends BaseEntity {
         return profile.getUserName();
     }
 
-    Image getImage() {
+    public Image getImage() {
         return profile.getImage();
     }
 

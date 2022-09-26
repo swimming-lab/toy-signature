@@ -1,6 +1,7 @@
 package swm.toy.signature.application.user;
 
 import static swm.toy.signature.application.user.UserModel.fromUserAndToken;
+import static org.springframework.http.ResponseEntity.of;
 
 import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -24,30 +25,30 @@ class UserRestController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity postUser(@Valid @RequestBody UserPostParam param) {
+    public UserModel postUser(@Valid @RequestBody UserPostParam param) {
         final var userSaved = userService.signUp(param.toSignUpRequest());
-        return ResponseEntity.ok(fromUserAndToken(userSaved, jwtSerializer.jwtFromUser(userSaved)));
+        return fromUserAndToken(userSaved, jwtSerializer.jwtFromUser(userSaved));
     }
 
     @PostMapping("/users/login")
-    public ResponseEntity loginUser(@Valid @RequestBody UserLoginParam param) {
-        return ResponseEntity.ok(userService
+    public ResponseEntity<UserModel> loginUser(@Valid @RequestBody UserLoginParam param) {
+        return of(userService
                 .login(new Email(param.getEmail()), param.getPassword())
                 .map(user -> fromUserAndToken(user, jwtSerializer.jwtFromUser(user))));
     }
 
     @GetMapping("/user")
-    public ResponseEntity getUser(@AuthenticationPrincipal UserJWTPayload jwtPayload) {
-        return ResponseEntity.ok(userService
+    public ResponseEntity<UserModel> getUser(@AuthenticationPrincipal UserJWTPayload jwtPayload) {
+        return of(userService
                 .findById(jwtPayload.getUserId())
                 .map(user -> fromUserAndToken(user, getCurrentCredential())));
     }
 
     @PutMapping("/user")
-    public ResponseEntity putUser(
+    public UserModel putUser(
             @AuthenticationPrincipal UserJWTPayload jwtPayload, @Valid @RequestBody UserPutParam param) {
         final var userUpdated = userService.updateUser(jwtPayload.getUserId(), param.toUpdateRequest());
-        return ResponseEntity.ok(fromUserAndToken(userUpdated, getCurrentCredential()));
+        return fromUserAndToken(userUpdated, getCurrentCredential());
     }
 
     private static String getCurrentCredential() {
