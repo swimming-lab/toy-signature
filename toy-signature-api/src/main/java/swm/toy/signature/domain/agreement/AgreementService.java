@@ -84,4 +84,9 @@ public class AgreementService {
     public List<Agreement> getAgreementItems(long authorId, Pageable pageable) {
         return agreementRepository.findAllByAuthorId(authorId, pageable);
     }
+
+    @Transactional(readOnly = true)
+    public Long getAgreementCountByAuthorId(long userId) {
+        return agreementRepository.countByAuthorId(userId);
+    }
 }

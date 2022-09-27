@@ -87,4 +87,9 @@ public class ItemService implements ItemFindService {
     public List<Item> getItemsByAuthorId(long authorId, Pageable pageable) {
         return itemRepository.findAllByAuthorIdOrderByContentsSequenceAsc(authorId, pageable);
     }
+
+    @Transactional(readOnly = true)
+    public Long getItemsCountByAuthorId(long userId) {
+        return itemRepository.countByAuthorId(userId);
+    }
 }

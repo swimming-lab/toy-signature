@@ -20,6 +20,10 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     @EntityGraph(attributePaths = {"author", "itemType", "itemBrand"})
     List<Item> findAllByAuthorIdOrderByContentsSequenceAsc(long authorId, Pageable pageable);
 
+    Long countByAuthorId(long authorId);
+
+    Long countByAuthorIdAndStatus(long authorId, Status status);
+
     //    @EntityGraph("fetch-author-equipType-equipBrand")
     //    @Query("SELECT e FROM Item e WHERE e.author.id = :id ORDER BY e.sequence ASC")
     //    List<Item> findByAuthorIdOrderBySequenceAsc(@Param("id") Long id, Pageable pageable);

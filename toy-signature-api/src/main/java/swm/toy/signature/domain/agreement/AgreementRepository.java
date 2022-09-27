@@ -1,10 +1,10 @@
 package swm.toy.signature.domain.agreement;
 
-import java.util.List;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 public interface AgreementRepository extends JpaRepository<Agreement, Long> {
     // Pagination 문제 발생함 > OneToMany 관계 때문
@@ -16,4 +16,6 @@ public interface AgreementRepository extends JpaRepository<Agreement, Long> {
     List<Agreement> findAllByAuthorId(long authorId, Pageable pageable);
 
     List<Agreement> findAllByAuthorIdAndStatus(long authorId, AgreementStatus status, Pageable pageable);
+
+    Long countByAuthorId(long authorId);
 }
